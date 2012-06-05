@@ -1,24 +1,17 @@
-#Application Specific Imports
-#from ardrone_mudd.srv import *  #Might not need this.
-#from ardrone_mudd.msg import *  #Might not need this.
-import roslib; roslib.load_manifest('ardrone_mudd')
-
-USE_DRONE = True
-IMAGE_SOURCE = "camera/image"
-
 #Generic Imports
+import roslib; roslib.load_manifest('imagePub')
 from std_msgs.msg import String
 from sensor_msgs.msg import *
 import rospy
 import time,sys,random,cv,cv_bridge,math,os
 import threading
 
+#Application Specific Imports
+IMAGE_SOURCE = "camera/image"
+
 class ImageProcessor:
 
-  def __init__(self,use_drone = USE_DRONE):
-    #Start the open CV window thread (may not be necessary)
-    #cv.StartWindowThread()
-    self.use_drone = use_drone
+  def __init__(self):
     #Setting up the publisher to broadcast the data.
     self.publisher = rospy.Publisher('imageData', String)
 
@@ -33,14 +26,17 @@ class ImageProcessor:
     cv.NamedWindow('image')
     cv.MoveWindow('image', 0, 0)
     cv.NamedWindow('threshold')
-    cv.MoveWindow('threshold',0,400)
+    cv.MoveWindow('threshold',0,480)
     self.make_control_window()
     self.bridge = cv_bridge.CvBridge()
-    self.color_image = None             # the image from the drone
+    self.image = None             # the image from the drone
     self.new_image = False              # did we just receive a new image?
     self.threshed_image = None          # thresholded image
-    self.font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN, 1, 1, 0, 1)
     self.contours_found = False
+    
+    #If you want to use text on the image, uncomment the line below.
+    # it sets the font to something readable. 
+    #self.font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN, 1, 1, 0, 1)
 
   def load_thresholds(self):
     """ loads the thresholds from data.txt into self.thresholds """
@@ -49,7 +45,7 @@ class ImageProcessor:
       data = f.read()
       f.close()
       self.thresholds = eval(data)
-      print "thresholds loaded from data.txt"
+      print "Thresholds loaded from data.txt"
       self.make_control_window()
     except:
       print "An error occurred in loading data.txt"
@@ -107,11 +103,11 @@ class ImageProcessor:
     """ a one-time method that creates all of the images needed
         for the image processing...
         
-        This should be called only if self.color_image is NOT None
+        This should be called only if self.image is NOT None
         but self.threshed_image IS None
     """
     #Find the size of the images
-    self.size = cv.GetSize(self.color_image)
+    self.size = cv.GetSize(self.image)
 
     self.red = cv.CreateImage(self.size, 8, 1)     # color components
     self.green = cv.CreateImage(self.size, 8, 1)
@@ -136,39 +132,25 @@ class ImageProcessor:
 
   def videoUpdate(self, data):
     """Displays the image, calls find_info"""
-    # get the image from the Kinect, if self.use_drone == True
     # kinect images: self.image = self.bridge.imgmsg_to_cv(data, "32FC1")
-    # drone images:
-    if self.use_drone:
-      self.color_image = self.bridge.imgmsg_to_cv(data, "bgr8")
-      self.new_image = True
-    # otherwise, get an image from file every so often
-    else:
-      cur_time = time.time()
-      if cur_time - self.last_image_time > 0.25: # number of seconds per update
-        self.last_image_time = cur_time # reset the last image time
-        folder = self.folder_names[self.location]
-        fn = folder + "/" + str(self.image_hour) + ".png"
-        #print "filename", fn
-        self.color_image=cv.LoadImageM(fn)
-        self.new_image = True
-      # otherwise, we don't get a new image
-      
-      # in case we want randomness:
-      #image_hour_number = random.randint(0,23)
-      #self.image_hour = random.randint(3,3)
+    # drone images: self.image = self.bridge.imgmsg_to_cv(data, "bgr8")
+    self.image = self.bridge.imgmsg_to_cv(data, "bgr8")
+
+    # Here we set a boolean so that the opencv calls don't happen in the callback thread.
+    # We read and react to the boolean in the main thread, in keyboardLoop
+    self.new_image = True
 
   # do all of the image processing
   def process_Image(self):
     """ here is where the image should be processed to get the bounding box """
     # check if we've created the supporting images yet
     if self.threshed_image == None:
-      if self.color_image != None:
+      if self.image != None:
         self.create_all_images()
 
     # from the old method call def threshold_image(self):
-    cv.Split(self.color_image, self.blue, self.green, self.red, None)
-    cv.CvtColor(self.color_image, self.hsv, cv.CV_RGB2HSV)
+    cv.Split(self.image, self.blue, self.green, self.red, None)
+    cv.CvtColor(self.image, self.hsv, cv.CV_RGB2HSV)
     cv.Split(self.hsv, self.hue, self.sat, self.val, None)
 
     # replace each channel with its thresholded version
@@ -195,6 +177,8 @@ class ImageProcessor:
     # erode and dilate shave off and add edge pixels respectively
     cv.Erode(self.copy, self.copy, iterations = 1)
     cv.Dilate(self.copy, self.copy, iterations = 1)
+
+    # Make self.threshed_image be self.copy
     cv.Copy(self.copy,self.threshed_image)
 
     self.find_biggest_region()
@@ -231,29 +215,24 @@ class ImageProcessor:
       yb=yt + br[3]
 
       #Draw a contour around the bounding box.
-      cv.PolyLine(self.color_image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
+      cv.PolyLine(self.image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
 
-      #Publish the bounding box.
-      self.publisher.publish(str(br))
+      #Publish the bounding box, in clockwise order.
+      self.publisher.publish("%i %i %i %i" % (xl, yt, xr, yb))
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):
     """ the main keypress-handling thread to control the drone """
 
-    # this is the main loop for the keyboard thread
-    #
-    # don't use 'Q', 'R', 'S', or 'T'  (they're the arrow keys)
-    #
-    count = 0
     while True:
-      count += 1
       # handle the image processing if we have a new Kinect image
-      if (self.new_image):# and (count % 50 == 0)):
+      if (self.new_image):
         self.new_image = False # until we get a new one...
-        # now, do the image processing
-        # Process the image
+        #Do the image processing
         self.process_Image()
-        cv.ShowImage('image', self.color_image)
+        
+        #And show the images.
+        cv.ShowImage('image', self.image)
         cv.ShowImage('threshold', self.threshed_image)
 
       # get the next keypress
@@ -275,17 +254,20 @@ class ImageProcessor:
         self.load_thresholds()
 
 def main():
+  # Initializing the node
   rospy.init_node("image_processing")
+  
+  # Creating the image processor
   iP = ImageProcessor()
 
-  #Subscribing to the video source
-  print "\r Connecting to video service"
+  # Subscribing to the video source
+  print "Connecting to video service"
   rospy.Subscriber(IMAGE_SOURCE, Image, iP.videoUpdate, queue_size = 1)
-  print "\r Connected\n"
+  print "Connected"
   
   rospy.sleep(1)
 
-  #the main loop
+  # The main loop
   iP.keyboardLoop()
 
   print "Exiting Program"
