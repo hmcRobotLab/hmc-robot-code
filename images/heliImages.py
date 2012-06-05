@@ -18,13 +18,9 @@ class ImageProcessor:
   def __init__(self,use_drone = USE_DRONE):
     #Start the open CV window thread (may not be necessary)
     #cv.StartWindowThread()
-
+    self.use_drone = use_drone
     #Setting up the publisher to broadcast the data.
     self.publisher = rospy.Publisher('imageData', String)
-
-    #This is for when you might want to use static image sources, but it's
-    # not implemented yet. 
-    self.use_drone = use_drone
 
     self.thresholds = {'low_red': 0, 'high_red': 256,\
                        'low_green': 0, 'high_green': 256, \
