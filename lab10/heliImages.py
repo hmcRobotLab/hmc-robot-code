@@ -4,7 +4,7 @@
 import roslib; roslib.load_manifest('ardrone_mudd')
 
 USE_DRONE = True
-IMAGE_SOURCE = "camera/image"
+IMAGE_SOURCE = "droneImage"
 
 #Generic Imports
 from std_msgs.msg import String
@@ -238,7 +238,7 @@ class ImageProcessor:
       cv.PolyLine(self.color_image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
 
       #Publish the bounding box.
-      self.publisher.publish(str(br))
+      self.publisher.publish("%i %i %i %i" % (xl,xr,yt,yb))
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):

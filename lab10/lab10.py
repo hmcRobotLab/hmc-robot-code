@@ -22,15 +22,15 @@ DRONE_CONTROL_SOURCE = "droneControl"
 #  psi = 3064
 #  state = 789
 
-def makeHeliStr(flag, phi, stheta,sgaz,syaw):
+def makeHeliStr(flag, phi, theta,gaz,yaw):
     return "heli %i %.3f %.3f %.3f %.3f" \
-        % (sflag,sphi,stheta,sgaz,syaw)
+        % (flag,phi,theta,gaz,yaw)
 
-def prettyWrite(data):
+def prettyWrite(data,lastsent,boxHeight):
     sys.stdout.write("\r\t [alt: %i] \t [phi: %i psi: %i theta: %i] \t [vx: %i vy: %i vz: %i] \t [bat: %i  state: %i]              \n" \
       %
       (data.altitude,data.phi,data.psi,data.theta,data.vx,data.vy,data.vz,data.batLevel,data.ctrlState))
-    sys.stdout.write("\rLast sent: %s                  \n" % (lastsent))
+    sys.stdout.write("\rLast sent: %s      box: %s            \n" % (lastsent, boxHeight))
     sys.stdout.write("\033[A")
     sys.stdout.write("\033[A")
     sys.stdout.flush()
@@ -161,16 +161,19 @@ class DroneController:
         print "location and image_hour are now", self.location, self.image_hour
 
     def navDataUpdate(self, data):
-        prettyWrite(data)
+        prettyWrite(data,self.lastsent,self.boxHeight)
 
     def bBoxUpdate(self, data):
         br = data.data.split()
         xl = int(br[0])
-        xr = xl+int(br[2])
-        yt = int(br[1])
-        yb = yt+int(br[3])
-        self.boxX = (xl + xr)/2
-        self.boxHeight = yt - yb
+        xr = int(br[1])
+        yt = int(br[2])
+        yb = int(br[3])
+        if (xr-xl)*(yb-yt) < 200:
+            self.boxX = float("inf")
+        else:
+            self.boxX = (xl + xr)/2
+            self.boxHeight = yb - yt #the y axis points down.
 
     # put text on the image...
     def text_to_image(self):
@@ -196,7 +199,7 @@ class DroneController:
             print "State machine has been stopped!"
             print "Sending hover command"
             if self.airborne == True: # only hover if airborne!
-        	    send(makeHeliStr(0,0,0,0,0))
+        	    self.send(makeHeliStr(0,0,0,0,0))
             return # officially ends the state machine
 
         elif self.state == "start":
@@ -205,28 +208,25 @@ class DroneController:
 
         elif self.state == "takeoff":
             print "taking off in the FSM"
-            send( "takeoff" )
+            self.send( "takeoff" )
             rospy.sleep(5.0)  # wait for takeoff...
             self.state = "hover"
             # reschedule the next state-machine callback
 
         elif self.state == "approaching":
-            if (time.time() - self.lastHover) > .6:
-                self.state = "hover2"
-            elif abs(self.boxX - self.tarX) > 40:
+            if abs(self.boxX - self.tarX) > 40:
                 self.state = "searching"
-            elif self.tarHeight - self.boxHeight > 5:
-	            send(makeHeliStr(0,0,-.15,0,0))
-                rospy.sleep(.025)
-            elif self.boxHeight - self.tarHeight > 5:
-	            send(makeHeliStr(0,0,.15,0,0))
+            elif self.tarHeight - self.boxHeight > 10:
+                self.send(makeHeliStr(1,0,-.07,0,0))
                 rospy.sleep(.025)
             else:
+                self.send(makeHeliStr(0,0,0,0,0))
+                rospy.sleep(.25)
                 self.state = "landing"
 
         elif self.state == "landing":
             print "landing"
-            self.control_drone( "land" )
+            self.send( "land" )
             rospy.sleep(5.0)
             self.state = "Keyboard"
 
@@ -239,13 +239,13 @@ class DroneController:
             if abs(self.boxX - self.tarX) < 40:
                 self.state = "approaching"
             elif self.boxX < self.tarX:
-                send(makeHeliStr(0,-.15,0,0,0))
+                self.send(makeHeliStr(0,0,0,0,-.15))
             else:
-                send(makeHeliStr(0,.15,0,0,0))
+                self.send(makeHeliStr(0,0,0,0,.15))
 
         elif self.state == "hover2":
             self.lastHover = time.time()
-            self.control_drone( "hover" )
+            self.send( "heli 0 0 0 0 0 " )
             rospy.sleep(0.1)
             self.state = "searching"
             self.saw_capital_c = False
@@ -276,23 +276,22 @@ class DroneController:
         #
         while True:
 
-            if self.use_drone == False: # if no drone, we get our own images
-                #Add in non drone control.
-            
+            #if self.use_drone == False: # if no drone, we get our own images
+            #    #Add in non drone control.
             # get the next keypress
             c = chr(cv.WaitKey())
 
             # handle the keypress to quit...
             if c == 'q' or c == chr(27): # the Esc key is 27
                 self.state = "Keyboard" # stop the FSM
-                self.control_drone( "halt" ) # lands and halts
+                self.send( "land" ) # lands and halts
                 rospy.sleep(1.42) # wait a bit for everything to finish...
                 # it's important that the FSM not re-schedule itself further than
                 # 1 second in the future, so that a thread won't be left running
                 # after this Python program quits right here:
                 return
-            
-            if c == 'F':  # capital-F starts and stops the finite-state machine
+
+            if c == 'f':  # capital-F starts and stops the finite-state machine
                 # only run it when it's not already running!
                 if self.state == "Keyboard":  # it's not yet running, so
                     print "Starting state machine..."
@@ -303,7 +302,7 @@ class DroneController:
                     self.state = "Keyboard" # should stop the state machine
                     print "Stopping state machine..."
 
-            if c == 'C':
+            if c == ',':
                 self.saw_capital_c = True
 
 
@@ -313,7 +312,9 @@ class DroneController:
             #
             # that is, the space bar hovers; it no longer automatically hovers...
 
+            helistr= ""
             if c == '\n':
+                self.state = "keyboard"
                 helistr = "land"
             elif c == 't': 
                 helistr = "takeoff"
@@ -349,15 +350,16 @@ class DroneController:
                     stheta = math.sqrt(maxpower/2)
                     sphi = math.sqrt(maxpower/2)  
                 elif char == ord('s'):
-                    send("heli 1 0 0 0 0")
+                    self.send("heli 1 0 0 0 0")
                     rospy.sleep(.05)
                     sflag = 0
                 else:
-                    send(self.lastsent)
+                    self.send(self.lastsent)
                 
                 helistr = makeHeliStr(sflag,sphi,stheta,sgaz,syaw)
+            if not (helistr == ""):
+                self.send(helistr)
 
-            send(heliStr)
 
             # if self.use_drone == False (simulated mode)
             # the arrow keys allow you to change the images you see...
