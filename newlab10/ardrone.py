@@ -102,6 +102,7 @@ class Ardrone():
     if not self.airborne:
       self.airborne = True
       self.send("takeoff")
+      rospy.sleep(3)
 
   def land(self):
     self.airborne = False

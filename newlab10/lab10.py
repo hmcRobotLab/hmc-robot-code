@@ -24,7 +24,6 @@ class myArdrone(ardrone.Ardrone):
             return
         elif self.state == "start":
             self.takeoff()
-            rospy.sleep(5)
             self.state = "searching"
         elif self.state == "searching":
             if abs(self.boxX - self.tarX) < 40:
