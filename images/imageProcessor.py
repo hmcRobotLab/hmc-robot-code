@@ -25,8 +25,10 @@ class ImageProcessor:
 
     cv.NamedWindow('image')
     cv.MoveWindow('image', 0, 0)
+    cv.SetMouseCallback('image', self.onMouse, None)
     cv.NamedWindow('threshold')
     cv.MoveWindow('threshold',0,480)
+    cv.SetMouseCallback('threshold', self.onMouse, None)
     self.make_control_window()
     self.bridge = cv_bridge.CvBridge()
     self.image = None             # the image from the drone
@@ -129,6 +131,39 @@ class ImageProcessor:
     print >> f, self.thresholds
     f.close()
     print "thresholds saved to data.txt"
+
+  def onMouse(self,event,x,y,flags,param):
+    """ the method called when the mouse is clicked """
+    width = 40
+    if flags == cv.CV_EVENT_FLAG_CTRLKEY:
+      width -= 20
+    elif flags == cv.CV_EVENT_FLAG_SHIFTKEY:
+      width += 20
+    # if the left button was clicked
+    if event == cv.CV_EVENT_RBUTTONDOWN:
+      bgrTuple = tuple(map(lambda(v) :(max(int(v)-width,0),min(int(v)+width,256)),self.image[y,x]))
+      hsvTuple = tuple(map(lambda(v) :(max(int(v)-width,0),min(int(v)+width,256)),self.hsv[y,x]))
+      print "Setting Filters to:"
+      print "b: %s, g: %s,  r: %s" % bgrTuple
+      print "h: %s, s: %s, v: %s" % hsvTuple
+      self.change_low_blue(bgrTuple[0][0])
+      self.change_high_blue(bgrTuple[0][1])
+      self.change_low_green(bgrTuple[1][0])
+      self.change_high_green(bgrTuple[1][1])
+      self.change_low_red(bgrTuple[2][0])
+      self.change_high_red(bgrTuple[2][1])
+      self.change_low_hue(hsvTuple[0][0])
+      self.change_high_hue(hsvTuple[0][1])
+      self.change_low_sat(hsvTuple[1][0])
+      self.change_high_sat(hsvTuple[1][1])
+      self.change_low_val(hsvTuple[2][0])
+      self.change_high_val(hsvTuple[2][1])
+      self.make_control_window()
+      print "Type '$' to save."
+    elif event == cv.CV_EVENT_LBUTTONDOWN:
+      print "r: %s, g: %s, b: %s" % self.image[y,x]
+      print "h: %s, s: %s, v: %s" % self.hsv[y,x]
+      print "Right click to set filters"
 
   def videoUpdate(self, data):
     """Displays the image, calls find_info"""

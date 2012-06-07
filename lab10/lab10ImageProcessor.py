@@ -3,7 +3,6 @@
 #from ardrone_mudd.msg import *  #Might not need this.
 import roslib; roslib.load_manifest('ardrone_mudd')
 
-USE_DRONE = True
 IMAGE_SOURCE = "droneImage"
 
 #Generic Imports
@@ -15,16 +14,12 @@ import threading
 
 class ImageProcessor:
 
-  def __init__(self,use_drone = USE_DRONE):
+  def __init__(self):
     #Start the open CV window thread (may not be necessary)
     #cv.StartWindowThread()
 
     #Setting up the publisher to broadcast the data.
     self.publisher = rospy.Publisher('imageData', String)
-
-    #This is for when you might want to use static image sources, but it's
-    # not implemented yet. 
-    self.use_drone = use_drone
 
     self.thresholds = {'low_red': 0, 'high_red': 256,\
                        'low_green': 0, 'high_green': 256, \
@@ -140,27 +135,10 @@ class ImageProcessor:
 
   def videoUpdate(self, data):
     """Displays the image, calls find_info"""
-    # get the image from the Kinect, if self.use_drone == True
     # kinect images: self.image = self.bridge.imgmsg_to_cv(data, "32FC1")
     # drone images:
-    if self.use_drone:
-      self.color_image = self.bridge.imgmsg_to_cv(data, "bgr8")
-      self.new_image = True
-    # otherwise, get an image from file every so often
-    else:
-      cur_time = time.time()
-      if cur_time - self.last_image_time > 0.25: # number of seconds per update
-        self.last_image_time = cur_time # reset the last image time
-        folder = self.folder_names[self.location]
-        fn = folder + "/" + str(self.image_hour) + ".png"
-        #print "filename", fn
-        self.color_image=cv.LoadImageM(fn)
-        self.new_image = True
-      # otherwise, we don't get a new image
-      
-      # in case we want randomness:
-      #image_hour_number = random.randint(0,23)
-      #self.image_hour = random.randint(3,3)
+    self.color_image = self.bridge.imgmsg_to_cv(data, "bgr8")
+    self.new_image = True
 
   # do all of the image processing
   def process_Image(self):
@@ -248,11 +226,9 @@ class ImageProcessor:
     #
     # don't use 'Q', 'R', 'S', or 'T'  (they're the arrow keys)
     #
-    count = 0
     while True:
-      count += 1
       # handle the image processing if we have a new Kinect image
-      if (self.new_image):# and (count % 50 == 0)):
+      if (self.new_image):
         self.new_image = False # until we get a new one...
         # now, do the image processing
         # Process the image
