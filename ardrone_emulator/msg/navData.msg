@@ -1,0 +1,12 @@
+uint16 tag
+uint16 size
+uint32 ctrlState
+uint32 batLevel
+float32 theta
+float32 phi
+float32 psi
+int32 altitude
+float32 vx
+float32 vy
+float32 vz
+uint32 numFrames
