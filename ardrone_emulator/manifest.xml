@@ -12,8 +12,8 @@
   <depend package="sensor_msgs"/>
   <depend package="std_msgs"/>
   <depend package="rospy"/>
-  <depend pacakge="opencv2"/>
-  <depend package="cv_brdige"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
 
 </package>
 
