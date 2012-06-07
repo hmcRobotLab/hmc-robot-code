@@ -7,6 +7,7 @@ import time,sys,random,cv,cv_bridge,math,os
 import threading
 
 #Application Specific Imports
+# You'll likely use "droneImage" for the drone.
 IMAGE_SOURCE = "camera/image"
 
 class ImageProcessor:

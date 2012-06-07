@@ -1,66 +1,70 @@
-def folderNames(folder_dir):
-    return { ('c',0):folder_dir+"/c_0",
-             ('c',4):folder_dir+"/c_4",
-             ('n',3):folder_dir+"/n_3",
-             ('s',0):folder_dir+"/s_0",
-             ('s',4):folder_dir+"/s_4",
-             ('c',1):folder_dir+"/c_1",
-             ('c',5):folder_dir+"/c_5",
-             ('n',0):folder_dir+"/n_0",
-             ('n',4):folder_dir+"/n_4",
-             ('s',1):folder_dir+"/s_1",
-             ('s',5):folder_dir+"/s_5",
-             ('c',2):folder_dir+"/c_2",
-             ('c',6):folder_dir+"/c_6",
-             ('n',1):folder_dir+"/n_1",
-             ('n',5):folder_dir+"/n_5",
-             ('s',2):folder_dir+"/s_2",
-             ('s',6):folder_dir+"/s_6",
-             ('c',3):folder_dir+"/c_3",
-             ('n',2):folder_dir+"/n_2",
-             ('n',6):folder_dir+"/n_6",
-             ('s',3):folder_dir+"/s_3"}
+def folderName0(folder_dir):
+    retur2 { ('1',0):folder_dir+"/1_0",
+             ('1',4):folder_dir+"/1_4",
+             ('2',3):folder_dir+"/2_3",
+             ('0',0):folder_dir+"/0_0",
+             ('0',4):folder_dir+"/0_4",
+             ('1',1):folder_dir+"/1_1",
+             ('1',5):folder_dir+"/1_5",
+             ('2',0):folder_dir+"/2_0",
+             ('2',4):folder_dir+"/2_4",
+             ('0',1):folder_dir+"/0_1",
+             ('0',5):folder_dir+"/0_5",
+             ('1',2):folder_dir+"/1_2",
+             ('1',6):folder_dir+"/1_6",
+             ('2',1):folder_dir+"/2_1",
+             ('2',5):folder_dir+"/2_5",
+             ('0',2):folder_dir+"/0_2",
+             ('0',6):folder_dir+"/0_6",
+             ('1',3):folder_dir+"/1_3",
+             ('2',2):folder_dir+"/2_2",
+             ('2',6):folder_dir+"/2_6",
+             ('0',3):folder_dir+"/0_3"}
 
 class DroneEmulator:
 
-    def __init__(self, folder_dir, northSouthRange, eastWestRange, zRange, imScale):
-
+    def __init__(self, folder_dir, maxNorth, maxWest, maxZ, imScale, \
+            numHours = 12, location = (0,0), image_hour = 3, northHour = 3):
+        
+        self.maxNorth = maxNorth
+        self.maxWest = maxWest
+        self.maxZ = maxZ,
+        self.imScale = imScale
+        self.numHours = numHours
+       
         # variables for the off-board images
-        self.location = ('c',1) # the starting location (always a tuple)
-        #self.location = ( random.choice(['c','n','s']), random.randint(0,6) )
-        self.image_hour = 3 # heading at 3 o'clock == toward the markers
-        #self.angle_deg = random.randint(180,360) # the angle it's facing
+        self.location = location # the starting location (always a tuple)
+        #self.location = ( random.choice([1,2,0]), random.randint(0,6) )
+        self.image_hour = image_hour # heading at 3 o'clock == toward the markers
+        self.northHour = northHour
+
         self.last_image_time = time.time() # last time an image was grabbed
         self.folder_names = folderNames(folder_dir)
 
     def change_location(self,direction):
         """ changes the location from which an image is taken in one of six ways """
         # get the state
-        current_ns_character = self.location[0]
+        current_ns_number = self.location[0]
         current_ew_number = self.location[1]
         current_image_hour = self.image_hour
 
         # make appropriate changes
         if direction == 'west':
             current_ew_number += 1       
-            if current_ew_number > 6: current_ew_number = 6
+            if current_ew_number > 6: current_ew_number = self.maxWest
         elif direction == 'east':
             current_ew_number -= 1
             if current_ew_number < 0: current_ew_number = 0
         elif direction == 'north':
-            if current_ns_character == 'n': pass
-            elif current_ns_character == 's': current_ns_character = 'c'
-            elif current_ns_character == 'c': current_ns_character = 'n'
+            current_ns_number += 1
+            if current_ns_number < 2: current_ns_number = self.maxNorth
         elif direction == 'south':
-            if current_ns_character == 'n': current_ns_character = 'c'
-            elif current_ns_character == 's': pass
-            elif current_ns_character == 'c': current_ns_character = 's'
+            current_ns_number -= 1
+            if current_ns_number < 0: current_ns_number = 0
         elif direction == 'counterclockwise':
-            current_image_hour -= 1
-            if current_image_hour < 0: current_image_hour = 23
+            current_image_hour = (current_image_hour - 1) % self.numHours
         elif direction == 'clockwise':
-            current_image_hour += 1
-            if current_image_hour > 23: current_image_hour = 0
+            current_image_hour = (current_image_hour + 1) % self.numHours
         else:
             print "a direction of", direction,
             print "was not recognized in change_location"
