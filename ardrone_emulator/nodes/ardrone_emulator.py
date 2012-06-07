@@ -1,45 +1,28 @@
-def folderName0(folder_dir):
-    retur2 { ('1',0):folder_dir+"/1_0",
-             ('1',4):folder_dir+"/1_4",
-             ('2',3):folder_dir+"/2_3",
-             ('0',0):folder_dir+"/0_0",
-             ('0',4):folder_dir+"/0_4",
-             ('1',1):folder_dir+"/1_1",
-             ('1',5):folder_dir+"/1_5",
-             ('2',0):folder_dir+"/2_0",
-             ('2',4):folder_dir+"/2_4",
-             ('0',1):folder_dir+"/0_1",
-             ('0',5):folder_dir+"/0_5",
-             ('1',2):folder_dir+"/1_2",
-             ('1',6):folder_dir+"/1_6",
-             ('2',1):folder_dir+"/2_1",
-             ('2',5):folder_dir+"/2_5",
-             ('0',2):folder_dir+"/0_2",
-             ('0',6):folder_dir+"/0_6",
-             ('1',3):folder_dir+"/1_3",
-             ('2',2):folder_dir+"/2_2",
-             ('2',6):folder_dir+"/2_6",
-             ('0',3):folder_dir+"/0_3"}
+import roslib; roslib.load_manifest('image_transport')
+
+import rospy
+import sys
+
+
 
 class DroneEmulator:
 
-    def __init__(self, folder_dir, maxNorth, maxWest, maxZ, imScale, \
-            numHours = 12, location = (0,0), image_hour = 3, northHour = 3):
-        
-        self.maxNorth = maxNorth
-        self.maxWest = maxWest
-        self.maxZ = maxZ,
+    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, location = (0,0), image_hour = 3):
+
+        self.xMax = xMax
+        self.yMax = yMax
+        self.zMax = zMax,
         self.imScale = imScale
         self.numHours = numHours
-       
+
         # variables for the off-board images
         self.location = location # the starting location (always a tuple)
         #self.location = ( random.choice([1,2,0]), random.randint(0,6) )
+
         self.image_hour = image_hour # heading at 3 o'clock == toward the markers
-        self.northHour = northHour
 
         self.last_image_time = time.time() # last time an image was grabbed
-        self.folder_names = folderNames(folder_dir)
+        self.baseImageDir = imageDir
 
     def change_location(self,direction):
         """ changes the location from which an image is taken in one of six ways """
@@ -102,3 +85,27 @@ class DroneEmulator:
             self.color_image=cv.LoadImageM(fn)
             self.new_image = True
             #otherwise, we don't get a new image
+
+    def folderName(self):
+        x = self.location[0]
+        y = self.location[1]
+        z = self.location[2]
+        if (x > self.xMax) or (y > self.yMax) or (z > self.zMax):
+            return 'outOfRange.png'
+        else:
+            return '%s/%i-%i-%i/%i.png' %(self.baseImageDir, x, y, z,self.imageHour)
+
+def main(argTuple):
+    rospy.init_node('ardrone_emulator')
+
+    emulator = DroneEmulator(*argTuple)
+
+    service = rospy.Service('droneControl', DroneControl, emulator.updateCommand)
+
+if __name__ == "__main__":
+    if (len(sys.argv) < 6) or (len(sys.argv) > 9):
+        print usage()
+        sys.exit(1)
+    else:
+        argTuple = tuple(sys.argv[1:])
+    main(argTuple)
