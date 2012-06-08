@@ -75,13 +75,10 @@ class DroneEmulator:
         #First just set them equal to copy the z velocity and spin velocity
         self.groundVel = deepcopy(self.internalVel)
         #Now modify x and y appropriately.
-        xyVel = sqrt(self.internalVel[0]**2 + self.internalVel[1]**2)
-        if self.internalVel[1] == 0:
-            xyAng = pi/2
-        else:
-            xyAng = atan(self.internalVel[0]/self.internalVel[1]) + self.location[3]
-        self.groundVel[0] = xyVel*sin(xyAng)
-        self.groundVel[1] = xyVel*cos(xyAng)
+        self.groundVel[0] = self.internalVel[0]*cos(self.location[3])
+        self.groundVel[1] = self.internalVel[1]*cos(self.location[3])
+        self.groundVel[0] += self.internalVel[1]*sin(self.location[3])
+        self.groundVel[1] += self.internalVel[1]*sin(self.location[3])
         print "Ground veolcity set to",self.groundVel
 
     def updateCommand(self, data):
@@ -104,13 +101,17 @@ class DroneEmulator:
         else:
             if command == 'heli':
                 for i in xrange(4):
-                    self.internalVel[i] = -commands[1+i]
+                    # Really, it should be set equal to the negative command.
+                    self.internalVel[i] = commands[1+i]
+                # Then here, instead of 1, it should be 2. With a proper naming
+                # convention, that should work.
+                self.internalVel[1] = self.internalVel[1]*-1
                 print "Internal velocity set to:", self.internalVel
                 self.formGroundVel()
             else:
                 unrecognizedCommand(heliStr)
                 toReturn = False
-
+        print "My current location is",self.location,"\n"
         return ControlResponse(toReturn)
 
     def takeoff(self):
