@@ -21,11 +21,13 @@ def usage():
 coordinates, the distance scale between your images, and, optionally the \
 number of angles at which you took images for each position in your grid, the starting x,y,or z, and the delay time"
     print "Example:"
-    print "python <path>/ardrone_emulator.py ~/summer2012/data/droneImages 2 6 1 1 24 1 3 0 0 1"
+    print "python <path>/ardrone_emulator.py\
+    /home/robotics/summer2012/data/droneImages 2 6 1 1 12 1 3 0 0 1"
 
 class DroneEmulator:
 
-    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
+    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12,\
+            locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
 
         #Some constants: 
         self.takeoffHeight = 1
@@ -37,8 +39,8 @@ class DroneEmulator:
 
         #Setting the initial state:
 
-        # the starting location Format: [x, y, z, 0 rad]
-        self.location = map(float, [locX, locY, locZ])
+        # the starting location Format: [y, x, z, 0 rad]
+        self.location = map(float, [locY, locX, locZ])
         self.location.append(0.0)
         self.initLocation = deepcopy(self.location)
 
@@ -101,11 +103,8 @@ class DroneEmulator:
         else:
             if command == 'heli':
                 for i in xrange(4):
-                    # Really, it should be set equal to the negative command.
                     self.internalVel[i] = commands[1+i]
-                # Then here, instead of 1, it should be 2. With a proper naming
-                # convention, that should work.
-                self.internalVel[1] = self.internalVel[1]*-1
+                self.internalVel[2] = self.internalVel[2]*-1
                 print "Internal velocity set to:", self.internalVel
                 self.formGroundVel()
             else:
