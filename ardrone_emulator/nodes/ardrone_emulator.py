@@ -3,7 +3,7 @@ import roslib; roslib.load_manifest('ardrone_emulator')
 import rospy
 import sys, time
 import cv
-from math import copysign
+from math import *
 
 from ardrone_emulator.msg import navData
 from ardrone_emulator.srv import *
@@ -26,26 +26,24 @@ class DroneEmulator:
 
     def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
 
-        #Right now this is totally implausible as we do everything discretely, so we say that a command to go forward,
-        # regardless of speed, sends the robot forward at a rate of imScale/delayTime
-        self.delayTime = delay_time
-
+        #Some constants: 
+        self.takeoffHeight = 1
         self.xMax = int(xMax)
         self.yMax = int(yMax)
         self.zMax = int(zMax)
         self.imScale = float(imScale)
         self.numHours = int(numHours)
+        self.oldTime = time.time()
 
         #Setting the initial state:
-        location = map(int, [locX, locY, locZ])
-        self.location = location # the starting location Format: [x, y, z]
+        location = map(int, [locX, locY, locZ]).append(0)
+        self.location = location # the starting location Format: [x, y, z, 0 rad]
         self.initLocation = location
-        self.imageHour = int(image_hour)
-        self.initHour = self.imageHour
-        self.vel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
+
+        self.internalVel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
+        self.groundVel = [0,0,0,0] #Format: see above
         self.landed = True
 
-        self.lastUpdateTime = time.time() # last time we updated our image
         self.baseImageDir = imageDir
 
         print "Broadcasting publishers 'navData' and 'droneImage'"
@@ -71,96 +69,114 @@ class DroneEmulator:
         #Now we get the variable ones and publish it. 
         self.publishNavData()
 
+    def formGroundVel():
+        #First just set them equal to copy the z velocity and spin velocity
+        self.groundVel = self.internalVel
+        #Now modify x and y appropriately.
+        xyVel = sqrt(self.internalVel[0]**2 + self.internalVel[1]**2)
+        xyAng = atan(self.internalVel[0]/self.internalVel[1]) + self.location[3]
+        self.groundVel[0] = xyVel*sin(xyAng)
+        self.groundVel[1] = xyVel*cos(xyAng)
+        print "Ground veolcity set to"+self.groundVel
+
     def updateCommand(self, data):
         heliStr = data.command
         commands = heliStr.split()
         command = commands[0]
         commands = map(float,commands[1:])
-        toReturn = False
+        toReturn = True
 
         if command == 'reset':
             self.reset()
-            toReturn = True
         elif command == 'land':
             self.land()
-            toReturn = True
         elif self.landed:
             if command == 'takeoff':
-                self.landed = False
-                toReturn = True
+                self.takeoff()
             else:
                 unrecognizedCommand(heliStr)
+                toReturn = False
         else:
             if command == 'heli':
                 for i in xrange(4):
-                    if commands[1+i] == 0:
-                        self.vel[i] = 0
-                    else:
-                        self.vel[i] = -copysign(1,commands[1+i])
-                print "Setting velocity to:",self.vel
-                toReturn = True
+                    self.internalVel[i] = -commands[1+i]
+                print "Setting internal velocity to:", self.internalVel
+                self.formGroundVel()
             else:
                 unrecognizedCommand(heliStr)
+                toReturn = False
 
         return ControlResponse(toReturn)
 
+    def takeoff(self):
+        self.landed = False
+        self.internalVel = [0,0,0,0]
+        self.groundVel = [0,0,0,0]
+        self.location[2] = self.takeoffHeight
+
     def land(self):
         self.landed = True
-        self.vel = [0,0,0,0]
+        self.internalVel = [0,0,0,0]
+        self.groundVel = [0,0,0,0]
+        self.location[2] = 0
 
     def reset(self):
         self.land()
         self.location = self.initLocation
-        self.imageHour = self.initHour
 
     def createSizedImage(self):
-        baseIm = cv.LoadImageM('%s/0_0_0/0.png'%self.baseImageDir)
-        size = cv.GetSize(baseIm)
+        baseIm           = cv.LoadImageM('%s/0_0_0/0.png'%self.baseImageDir)
+        size             = cv.GetSize(baseIm)
         self.landedImage = cv.CreateImage(size, 8,3)
-        self.rangeImage = self.landedImage
+        self.rangeImage  = self.landedImage
 
     def publishImage(self):
-        x = self.location[1]
-        y = self.location[0]
-        z = self.location[2]
+        #First, here I need to convert x, y, z, and the robots rotation
+        # into the appropriate images. 
+        x      = int(round(self.location[1]/self.imScale))
+        y      = int(round(self.location[0]/self.imScale))
+        z      = int(round(self.location[2]/self.imScale))
+        imHour = int(round(self.location[3]*(self.numHours/(2*pi))))
         if self.landed:
             self.image = self.landedImage
         elif (x > self.xMax) or (x < 0) or (y < 0) or (y > self.yMax) or (z < 0) or (z > self.zMax):
             self.image = self.rangeImage
         else:
-            folder = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, x, y, z,self.imageHour)
+            folder     = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, x, y, z,imHour)
             self.image = cv.LoadImageM(folder)
 
         self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.image,"bgr8"))
 
     def publishNavData(self):
-        z = self.location[2]
-        if self.imageHour > self.numHours/2.0:
-            imHour = self.imageHour - self.numHours
-        else:
-            imHour = self.imageHour
-        self.navData.psi = imHour/(self.numHours) * 360 * 1000 #The real navData reports in degrees times one thousand.
-        self.navData.altitude = z*self.imScale
-        self.navData.vx = self.vel[1]
-        self.navData.vy = self.vel[0]
-        self.navData.vz = self.vel[2]
+        z   = self.location[2]
+        rot = self.location[3]
+        if rot > pi:
+            rot += -2*pi
+
+        #The real navData reports in degrees times one thousand.
+        self.navData.psi      = rot/(2*pi) * 360 * 1000
+        self.navData.altitude = z
+        self.navData.vx       = self.internalVel[1]
+        self.navData.vy       = self.internalVel[0]
+        self.navData.vz       = self.internalVel[2]
         self.navPublisher.publish(self.navData)
 
     def hovering(self):
-        return (self.vel == [0,0,0,0])
+        return (self.internalVel == [0,0,0,0])
 
     def mainLoop(self):
         while True:
-            if (self.hovering()):
-                self.lastUpdateTime = time.time()
-            elif ((time.time() - self.lastUpdateTime) > self.delayTime):
-                for i in xrange(3):
-                    if self.vel[i] != 0:
-                        self.location[i] += copysign(1, self.vel[i])
-                print self.location
-                if self.vel[3] != 0:
-                    self.imageHour = (copysign(1,self.vel[3]) + self.imageHour) % self.numHours
-                self.lastUpdateTime = time.time()
+            dt = time.time() - oldTime
+            for i in xrange(4):
+                self.location[i] += self.groundVel[i]*dt
+
+            #Now we correct for potentially having an angle bigger than 2pi
+            while self.location[3] > 2*pi:
+                self.location[3] -= 2*pi
+
+            #Now re-establish oldTime
+            oldTime = time.time()
+
             #Now to publish the data like real drone.
             self.publishImage()
             self.publishNavData()
