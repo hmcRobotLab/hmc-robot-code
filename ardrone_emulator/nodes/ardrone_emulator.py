@@ -118,10 +118,6 @@ class DroneEmulator:
         size = cv.GetSize(baseIm)
         self.landedImage = cv.CreateImage(size, 8,3)
         self.rangeImage = self.landedImage
-        #self.landedImage = cv.LoadImageM('landed.png')
-        #cv.Resize(self.landedImage,baseIm)
-        #self.rangeImage = cv.LoadImageM('outOfRange.png')
-        #cv.Resize(self.rangeImage,baseIm)
 
     def publishImage(self):
         x = self.location[1]
