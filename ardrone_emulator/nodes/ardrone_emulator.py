@@ -27,9 +27,11 @@ number of angles at which you took images for each position in your grid, the st
 class DroneEmulator:
 
     def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12,\
-            locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
+            locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0, debug =\
+            False):
 
-        #Some constants: 
+        #Some constants:
+        self.debug = debug
         self.takeoffHeight = 1
         self.xMax = int(xMax)
         self.yMax = int(yMax)
@@ -81,7 +83,8 @@ class DroneEmulator:
         self.groundVel[1] = self.internalVel[1]*cos(self.location[3])
         self.groundVel[0] += self.internalVel[1]*sin(self.location[3])
         self.groundVel[1] += self.internalVel[1]*sin(self.location[3])
-        print "Ground veolcity set to",self.groundVel
+        if self.debug:
+            print "Ground veolcity set to",self.groundVel
 
     def updateCommand(self, data):
         heliStr = data.command
@@ -103,14 +106,16 @@ class DroneEmulator:
         else:
             if command == 'heli':
                 for i in xrange(4):
-                    self.internalVel[i] = commands[1+i]
+                    self.internalVel[i] = -commands[1+i]
                 self.internalVel[2] = self.internalVel[2]*-1
-                print "Internal velocity set to:", self.internalVel
+                if self.debug:
+                    print "Internal velocity set to:", self.internalVel
                 self.formGroundVel()
             else:
                 unrecognizedCommand(heliStr)
                 toReturn = False
-        print "My current location is",self.location,"\n"
+        if self.debug:
+            print "My current location is",self.location,"\n"
         return ControlResponse(toReturn)
 
     def takeoff(self):

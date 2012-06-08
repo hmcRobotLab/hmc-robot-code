@@ -1,9 +1,11 @@
 USE_DRONE = True
 
 if(USE_DRONE):
-  import roslib; roslib.load_manifest('ardrone_mudd')
-  from ardrone_mudd.srv import *
-  from ardrone_mudd.msg import *
+  import roslib; roslib.load_manifest('ardrone_emulator')
+  from ardrone_emulator.srv import *
+  from ardrone_emulator.msg import *
+  #from ardrone_mudd.srv import *
+  #from ardrone_mudd.msg import *
   from sensor_msgs.msg import *
   import rospy
 
