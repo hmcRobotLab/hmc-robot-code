@@ -7,7 +7,7 @@ FILE(REMOVE_RECURSE
   "../srv_gen"
   "CMakeFiles/ROSBUILD_gensrv_py"
   "../src/ardrone_emulator/srv/__init__.py"
-  "../src/ardrone_emulator/srv/_DroneControl.py"
+  "../src/ardrone_emulator/srv/_Control.py"
 )
 
 # Per-language clean rules from dependency scanning.

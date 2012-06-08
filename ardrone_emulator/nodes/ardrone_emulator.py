@@ -3,9 +3,10 @@ import roslib; roslib.load_manifest('ardrone_emulator')
 import rospy
 import sys, time
 import cv
+from math import copysign
 
-from ardrone_emulator.msg import NavData
-from ardrone_emulator.srv import DroneControl
+from ardrone_emulator.msg import navData
+from ardrone_emulator.srv import *
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -23,7 +24,7 @@ number of angles at which you took images for each position in your grid, the st
 
 class DroneEmulator:
 
-    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1):
+    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
 
         #Right now this is totally implausible as we do everything discretely, so we say that a command to go forward,
         # regardless of speed, sends the robot forward at a rate of imScale/delayTime
@@ -33,30 +34,30 @@ class DroneEmulator:
         self.yMax = int(yMax)
         self.zMax = int(zMax)
         self.imScale = float(imScale)
-        self.numHours = float(numHours)
+        self.numHours = int(numHours)
 
         #Setting the initial state:
-        location = map(int, (locX, locY, locZ))
-        self.location = location # the starting location Format: (x, y, z)
+        location = map(int, [locX, locY, locZ])
+        self.location = location # the starting location Format: [x, y, z]
         self.initLocation = location
-        self.imageHour = int(image_hour) # heading at 3 o'clock == toward the markers
+        self.imageHour = int(image_hour)
         self.initHour = self.imageHour
-        self.vel = (0,0,0,0) #Format: (y velocity, x velocity, z velocity, spin velocity)
+        self.vel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
         self.landed = True
 
         self.lastUpdateTime = time.time() # last time we updated our image
         self.baseImageDir = imageDir
 
         print "Broadcasting publishers 'navData' and 'droneImage'"
-        self.navPublisher = rospy.Publisher('navData', NavData)
+        self.navPublisher = rospy.Publisher('navData', navData)
         self.imagePublisher = rospy.Publisher('droneImage', Image)
-
         self.bridge = CvBridge()
 
+        self.createSizedImage()
         self.publishImage()
 
         #Setting up the navdata message
-        self.navData = NavData()
+        self.navData = navData()
 
         #These parameters never change
         self.navData.batLevel = 100
@@ -70,52 +71,70 @@ class DroneEmulator:
         #Now we get the variable ones and publish it. 
         self.publishNavData()
 
-    def updateCommand(self, heliStr):
+    def updateCommand(self, data):
+        heliStr = data.command
         commands = heliStr.split()
-        if len(commands) != 1 or len(commands) != 6:
-            unrecognizedCommand(heliStr)
+        command = commands[0]
+        commands = map(float,commands[1:])
+        toReturn = False
 
-        if commands[0] == 'reset':
+        if command == 'reset':
             self.reset()
-        elif commands[0] == 'land':
+            toReturn = True
+        elif command == 'land':
             self.land()
-
-        if self.landed:
-            if commands[0] == 'takeoff':
+            toReturn = True
+        elif self.landed:
+            if command == 'takeoff':
                 self.landed = False
-                return True
+                toReturn = True
             else:
                 unrecognizedCommand(heliStr)
-                return False
         else:
-            if commands[0] == 'heli':
-                self.vel = tuple(map(lambda(x) : -copysign(1,float(x)), commands[2:]))
+            if command == 'heli':
+                for i in xrange(4):
+                    if commands[1+i] == 0:
+                        self.vel[i] = 0
+                    else:
+                        self.vel[i] = -copysign(1,commands[1+i])
+                print "Setting velocity to:",self.vel
+                toReturn = True
             else:
                 unrecognizedCommand(heliStr)
-                return False
+
+        return ControlResponse(toReturn)
 
     def land(self):
         self.landed = True
-        self.vel = (0,0,0,0)
+        self.vel = [0,0,0,0]
 
     def reset(self):
         self.land()
         self.location = self.initLocation
         self.imageHour = self.initHour
 
-    def folderName(self):
+    def createSizedImage(self):
+        baseIm = cv.LoadImageM('%s/0_0_0/0.png'%self.baseImageDir)
+        size = cv.GetSize(baseIm)
+        self.landedImage = cv.CreateImage(size, 8,3)
+        self.rangeImage = self.landedImage
+        #self.landedImage = cv.LoadImageM('landed.png')
+        #cv.Resize(self.landedImage,baseIm)
+        #self.rangeImage = cv.LoadImageM('outOfRange.png')
+        #cv.Resize(self.rangeImage,baseIm)
+
+    def publishImage(self):
         x = self.location[1]
         y = self.location[0]
         z = self.location[2]
         if self.landed:
-            return 'landed.png'
-        elif (x > self.xMax) or (y > self.yMax) or (z > self.zMax):
-            return 'outOfRange.png'
+            self.image = self.landedImage
+        elif (x > self.xMax) or (x < 0) or (y < 0) or (y > self.yMax) or (z < 0) or (z > self.zMax):
+            self.image = self.rangeImage
         else:
-            return '%s/%i-%i-%i/%i.png' %(self.baseImageDir, x, y, z,self.imageHour)
+            folder = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, x, y, z,self.imageHour)
+            self.image = cv.LoadImageM(folder)
 
-    def publishImage(self):
-        self.image = cv.LoadImageM(self.folderName())
         self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.image,"bgr8"))
 
     def publishNavData(self):
@@ -132,18 +151,19 @@ class DroneEmulator:
         self.navPublisher.publish(self.navData)
 
     def hovering(self):
-        return (self.vel == (0,0,0,0))
+        return (self.vel == [0,0,0,0])
 
     def mainLoop(self):
         while True:
-            if (self.hovering):
+            if (self.hovering()):
                 self.lastUpdateTime = time.time()
-            elif (time.time() - self.delayTime > self.lastUpdateTime):
+            elif ((time.time() - self.lastUpdateTime) > self.delayTime):
                 for i in xrange(3):
                     if self.vel[i] != 0:
-                        self.location[i] += math.copysign(1, self.vel[i])
+                        self.location[i] += copysign(1, self.vel[i])
+                print self.location
                 if self.vel[3] != 0:
-                    self.imageHour += (math.copysign(1,self.vel[3]) % self.numHours)
+                    self.imageHour = (copysign(1,self.vel[3]) + self.imageHour) % self.numHours
                 self.lastUpdateTime = time.time()
             #Now to publish the data like real drone.
             self.publishImage()
@@ -155,7 +175,7 @@ def main(argTuple):
     print "Starting emulator"
     emulator = DroneEmulator(*argTuple)
     print "Registering service 'droneControl'"
-    service = rospy.Service('droneControl', DroneControl, emulator.updateCommand)
+    service = rospy.Service('droneControl', Control, emulator.updateCommand)
     emulator.mainLoop()
 
 if __name__ == "__main__":

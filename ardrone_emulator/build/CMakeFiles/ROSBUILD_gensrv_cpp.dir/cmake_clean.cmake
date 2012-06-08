@@ -6,7 +6,7 @@ FILE(REMOVE_RECURSE
   "../msg_gen"
   "../srv_gen"
   "CMakeFiles/ROSBUILD_gensrv_cpp"
-  "../srv_gen/cpp/include/ardrone_emulator/DroneControl.h"
+  "../srv_gen/cpp/include/ardrone_emulator/Control.h"
 )
 
 # Per-language clean rules from dependency scanning.
