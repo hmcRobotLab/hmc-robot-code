@@ -6,7 +6,7 @@ FILE(REMOVE_RECURSE
   "../msg_gen"
   "../srv_gen"
   "CMakeFiles/ROSBUILD_genmsg_cpp"
-  "../msg_gen/cpp/include/ardrone_emulator/NavData.h"
+  "../msg_gen/cpp/include/ardrone_emulator/navData.h"
 )
 
 # Per-language clean rules from dependency scanning.

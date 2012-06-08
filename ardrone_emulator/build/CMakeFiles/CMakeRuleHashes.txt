@@ -4,11 +4,14 @@
 05e12ae179b3cc18cd3e91cd59ef9908 ../msg_gen/lisp/NavData.lisp
 5f07908b63018b8ba74902987b7f1d2b ../msg_gen/lisp/navData.lisp
 6ac86ac4ad40f87ba58c97226c4adc83 ../src/ardrone_emulator/msg/_NavData.py
-759b36043dfb0ff3da837920fa916a3d ../src/ardrone_emulator/msg/__init__.py
+3d08f71716ece767e1771342287f970f ../src/ardrone_emulator/msg/__init__.py
 2730474b4de96a6495703a5470e16715 ../src/ardrone_emulator/msg/_navData.py
+5b14ab59a588ae9af18c1aa114344704 ../src/ardrone_emulator/srv/_Control.py
 3ff8648679e897229f30650e5346d995 ../src/ardrone_emulator/srv/_DroneControl.py
-d7755d164e53846d3f9f3f3c12d8b3f2 ../src/ardrone_emulator/srv/__init__.py
+73ca38d813fdd9059f559731086d486d ../src/ardrone_emulator/srv/__init__.py
+153ee5e1628764c0d973822a2346ca88 ../srv_gen/cpp/include/ardrone_emulator/Control.h
 2b956b74a39b3ea72dc1392a98918bf1 ../srv_gen/cpp/include/ardrone_emulator/DroneControl.h
+419829415300d3951ed3f7dd74fb1310 ../srv_gen/lisp/Control.lisp
 d41e128ef9894cccb09ecf3fccbe7c82 ../srv_gen/lisp/DroneControl.lisp
 348f4ff3794b57caafe507128f765bd1 CMakeFiles/ROSBUILD_genmsg_cpp
 348f4ff3794b57caafe507128f765bd1 CMakeFiles/ROSBUILD_genmsg_lisp

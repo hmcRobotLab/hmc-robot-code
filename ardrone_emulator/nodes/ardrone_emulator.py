@@ -3,9 +3,11 @@ import roslib; roslib.load_manifest('ardrone_emulator')
 import rospy
 import sys, time
 import cv
+from math import *
+from copy import deepcopy
 
-from ardrone_emulator.msg import NavData
-from ardrone_emulator.srv import DroneControl
+from ardrone_emulator.msg import navData
+from ardrone_emulator.srv import *
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -19,44 +21,43 @@ def usage():
 coordinates, the distance scale between your images, and, optionally the \
 number of angles at which you took images for each position in your grid, the starting x,y,or z, and the delay time"
     print "Example:"
-    print "python <path>/ardrone_emulator.py ~/summer2012/data/droneImages 6 2 0 1 1 12 1 3 0 0 1"
+    print "python <path>/ardrone_emulator.py ~/summer2012/data/droneImages 2 6 1 1 24 1 3 0 0 1"
 
 class DroneEmulator:
 
-    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1):
+    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, locX=0, locY=0, locZ=0, image_hour = 0, delay_time = 1.0):
 
-        #Right now this is totally implausible as we do everything discretely, so we say that a command to go forward,
-        # regardless of speed, sends the robot forward at a rate of imScale/delayTime
-        self.delayTime = delay_time
-
+        #Some constants: 
+        self.takeoffHeight = 1
         self.xMax = int(xMax)
         self.yMax = int(yMax)
         self.zMax = int(zMax)
         self.imScale = float(imScale)
-        self.numHours = float(numHours)
+        self.numHours = int(numHours)
 
         #Setting the initial state:
-        location = map(int, (locX, locY, locZ))
-        self.location = location # the starting location Format: (x, y, z)
-        self.initLocation = location
-        self.imageHour = int(image_hour) # heading at 3 o'clock == toward the markers
-        self.initHour = self.imageHour
-        self.vel = (0,0,0,0) #Format: (y velocity, x velocity, z velocity, spin velocity)
+
+        # the starting location Format: [x, y, z, 0 rad]
+        self.location = map(float, [locX, locY, locZ])
+        self.location.append(0.0)
+        self.initLocation = deepcopy(self.location)
+
+        self.internalVel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
+        self.groundVel = [0,0,0,0] #Format: see above
         self.landed = True
 
-        self.lastUpdateTime = time.time() # last time we updated our image
         self.baseImageDir = imageDir
 
         print "Broadcasting publishers 'navData' and 'droneImage'"
-        self.navPublisher = rospy.Publisher('navData', NavData)
+        self.navPublisher = rospy.Publisher('navData', navData)
         self.imagePublisher = rospy.Publisher('droneImage', Image)
-
         self.bridge = CvBridge()
 
+        self.createSizedImage()
         self.publishImage()
 
         #Setting up the navdata message
-        self.navData = NavData()
+        self.navData = navData()
 
         #These parameters never change
         self.navData.batLevel = 100
@@ -70,81 +71,126 @@ class DroneEmulator:
         #Now we get the variable ones and publish it. 
         self.publishNavData()
 
-    def updateCommand(self, heliStr):
+    def formGroundVel(self):
+        #First just set them equal to copy the z velocity and spin velocity
+        self.groundVel = deepcopy(self.internalVel)
+        #Now modify x and y appropriately.
+        self.groundVel[0] = self.internalVel[0]*cos(self.location[3])
+        self.groundVel[1] = self.internalVel[1]*cos(self.location[3])
+        self.groundVel[0] += self.internalVel[1]*sin(self.location[3])
+        self.groundVel[1] += self.internalVel[1]*sin(self.location[3])
+        print "Ground veolcity set to",self.groundVel
+
+    def updateCommand(self, data):
+        heliStr = data.command
         commands = heliStr.split()
-        if len(commands) != 1 or len(commands) != 6:
-            unrecognizedCommand(heliStr)
+        command = commands[0]
+        commands = map(float,commands[1:])
+        toReturn = True
 
-        if commands[0] == 'reset':
+        if command == 'reset':
             self.reset()
-        elif commands[0] == 'land':
+        elif command == 'land':
             self.land()
-
-        if self.landed:
-            if commands[0] == 'takeoff':
-                self.landed = False
-                return True
+        elif self.landed:
+            if command == 'takeoff':
+                self.takeoff()
             else:
                 unrecognizedCommand(heliStr)
-                return False
+                toReturn = False
         else:
-            if commands[0] == 'heli':
-                self.vel = tuple(map(lambda(x) : -copysign(1,float(x)), commands[2:]))
+            if command == 'heli':
+                for i in xrange(4):
+                    # Really, it should be set equal to the negative command.
+                    self.internalVel[i] = commands[1+i]
+                # Then here, instead of 1, it should be 2. With a proper naming
+                # convention, that should work.
+                self.internalVel[1] = self.internalVel[1]*-1
+                print "Internal velocity set to:", self.internalVel
+                self.formGroundVel()
             else:
                 unrecognizedCommand(heliStr)
-                return False
+                toReturn = False
+        print "My current location is",self.location,"\n"
+        return ControlResponse(toReturn)
+
+    def takeoff(self):
+        self.landed = False
+        self.internalVel = [0,0,0,0]
+        self.groundVel = [0,0,0,0]
+        self.location[2] = self.takeoffHeight
+        print "Taking off to position",self.location
 
     def land(self):
         self.landed = True
-        self.vel = (0,0,0,0)
+        self.internalVel = [0,0,0,0]
+        self.groundVel = [0,0,0,0]
+        self.location[2] = 0
+        print "Landing at position",self.location
 
     def reset(self):
         self.land()
-        self.location = self.initLocation
-        self.imageHour = self.initHour
+        self.location = deepcopy(self.initLocation)
+        print "Resetting to position",self.location
 
-    def folderName(self):
-        x = self.location[1]
-        y = self.location[0]
-        z = self.location[2]
-        if self.landed:
-            return 'landed.png'
-        elif (x > self.xMax) or (y > self.yMax) or (z > self.zMax):
-            return 'outOfRange.png'
-        else:
-            return '%s/%i-%i-%i/%i.png' %(self.baseImageDir, x, y, z,self.imageHour)
+    def createSizedImage(self):
+        baseIm           = cv.LoadImageM('%s/0_0_1/0.png'%self.baseImageDir)
+        size             = cv.GetSize(baseIm)
+        self.landedImage = cv.CreateImage(size, 8,3)
+        self.rangeImage  = self.landedImage
 
     def publishImage(self):
-        self.image = cv.LoadImageM(self.folderName())
+        #First, here I need to convert x, y, z, and the robots rotation
+        # into the appropriate images. The modding shouldn't be necessary, but 
+        # it seems to be. I plan to investigate later. 
+        x      = int(round(self.location[1]/self.imScale))
+        y      = int(round(self.location[0]/self.imScale))
+        z      = int(round(self.location[2]/self.imScale))
+        imHour = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
+        if self.landed:
+            self.image = self.landedImage
+        elif (x > self.xMax) or (x < 0) or (y < 0) or (y > self.yMax) or (z < 1) or (z > self.zMax):
+            self.image = self.rangeImage
+        else:
+            folder     = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, x, y, z,imHour)
+            self.image = cv.LoadImageM(folder)
+
         self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.image,"bgr8"))
 
     def publishNavData(self):
-        z = self.location[2]
-        if self.imageHour > self.numHours/2.0:
-            imHour = self.imageHour - self.numHours
-        else:
-            imHour = self.imageHour
-        self.navData.psi = imHour/(self.numHours) * 360 * 1000 #The real navData reports in degrees times one thousand.
-        self.navData.altitude = z*self.imScale
-        self.navData.vx = self.vel[1]
-        self.navData.vy = self.vel[0]
-        self.navData.vz = self.vel[2]
+        z   = self.location[2]
+        rot = self.location[3]
+        if rot > pi:
+            rot += -2*pi
+
+        #The real navData reports in degrees times one thousand.
+        self.navData.psi      = rot/(2*pi) * 360 * 1000
+        self.navData.altitude = z
+        self.navData.vx       = self.internalVel[1]
+        self.navData.vy       = self.internalVel[0]
+        self.navData.vz       = self.internalVel[2]
         self.navPublisher.publish(self.navData)
 
     def hovering(self):
-        return (self.vel == (0,0,0,0))
+        return (self.internalVel == [0,0,0,0])
 
     def mainLoop(self):
+        oldTime = time.time()
         while True:
-            if (self.hovering):
-                self.lastUpdateTime = time.time()
-            elif (time.time() - self.delayTime > self.lastUpdateTime):
-                for i in xrange(3):
-                    if self.vel[i] != 0:
-                        self.location[i] += math.copysign(1, self.vel[i])
-                if self.vel[3] != 0:
-                    self.imageHour += (math.copysign(1,self.vel[3]) % self.numHours)
-                self.lastUpdateTime = time.time()
+            dt = time.time() - oldTime
+            for i in xrange(4):
+                self.location[i] += self.groundVel[i]*dt
+
+            #Now we correct for potentially having an angle outside of the
+            # desired range.
+            while self.location[3] > 2*pi:
+                self.location[3] -= 2*pi
+            while self.location[3] < 0:
+                self.location[3] += 2*pi
+
+            #Now re-establish oldTime
+            oldTime = time.time()
+
             #Now to publish the data like real drone.
             self.publishImage()
             self.publishNavData()
@@ -155,7 +201,7 @@ def main(argTuple):
     print "Starting emulator"
     emulator = DroneEmulator(*argTuple)
     print "Registering service 'droneControl'"
-    service = rospy.Service('droneControl', DroneControl, emulator.updateCommand)
+    service = rospy.Service('droneControl', Control, emulator.updateCommand)
     emulator.mainLoop()
 
 if __name__ == "__main__":

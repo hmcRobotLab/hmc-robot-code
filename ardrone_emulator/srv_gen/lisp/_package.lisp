@@ -1,10 +1,10 @@
 (cl:defpackage ardrone_emulator-srv
   (:use )
   (:export
-   "DRONECONTROL"
-   "<DRONECONTROL-REQUEST>"
-   "DRONECONTROL-REQUEST"
-   "<DRONECONTROL-RESPONSE>"
-   "DRONECONTROL-RESPONSE"
+   "CONTROL"
+   "<CONTROL-REQUEST>"
+   "CONTROL-REQUEST"
+   "<CONTROL-RESPONSE>"
+   "CONTROL-RESPONSE"
   ))
 
