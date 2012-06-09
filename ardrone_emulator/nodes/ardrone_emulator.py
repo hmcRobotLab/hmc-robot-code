@@ -31,6 +31,7 @@ class DroneEmulator:
             False):
 
         #Some constants:
+        self.speedConstants = [1,1,1,1] #Format: [y, x, z, spin]
         self.debug = debug
         self.takeoffHeight = 1
         self.xMax = int(xMax)
@@ -38,6 +39,8 @@ class DroneEmulator:
         self.zMax = int(zMax)
         self.imScale = float(imScale)
         self.numHours = int(numHours)
+        self.lastUpdatedTime = time.time()
+        self.minDelay = .5
 
         #Setting the initial state:
 
@@ -45,6 +48,7 @@ class DroneEmulator:
         self.location = map(float, [locY, locX, locZ])
         self.location.append(0.0)
         self.initLocation = deepcopy(self.location)
+        self.lastUpdatedLocation = deepcopy(self.location)
 
         self.internalVel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
         self.groundVel = [0,0,0,0] #Format: see above
@@ -106,7 +110,7 @@ class DroneEmulator:
         else:
             if command == 'heli':
                 for i in xrange(4):
-                    self.internalVel[i] = -commands[1+i]
+                    self.internalVel[i] = -commands[1+i]*self.speedConstants[i]
                 self.internalVel[2] = self.internalVel[2]*-1
                 if self.debug:
                     print "Internal velocity set to:", self.internalVel
@@ -151,6 +155,13 @@ class DroneEmulator:
         y      = int(round(self.location[0]/self.imScale))
         z      = int(round(self.location[2]/self.imScale))
         imHour = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
+        #if self.lastUpdatedLocation != [y,x,z,imHour]:
+        #    if time.time() - self.minDelay < self.lastUpdatedTime:
+        #        return
+        #    else:
+        #        self.location = map(float,[y,x,z,imHour])
+        #        self.lastUpdatedLocation = [y,x,z,imHour]
+        #        self.lastUpdatedTime = time.time()
         if self.landed:
             self.image = self.landedImage
         elif (x > self.xMax) or (x < 0) or (y < 0) or (y > self.yMax) or (z < 1) or (z > self.zMax):
@@ -187,10 +198,7 @@ class DroneEmulator:
 
             #Now we correct for potentially having an angle outside of the
             # desired range.
-            while self.location[3] > 2*pi:
-                self.location[3] -= 2*pi
-            while self.location[3] < 0:
-                self.location[3] += 2*pi
+            self.location[3] = self.location[3] % (2*pi)
 
             #Now re-establish oldTime
             oldTime = time.time()
@@ -209,7 +217,7 @@ def main(argTuple):
     emulator.mainLoop()
 
 if __name__ == "__main__":
-    if (len(sys.argv) < 6) or (len(sys.argv) > 9):
+    if (len(sys.argv) < 6) or (len(sys.argv) > 11):
         print usage()
         sys.exit(1)
     else:
