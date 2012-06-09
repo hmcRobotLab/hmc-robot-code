@@ -52,24 +52,44 @@ class picTaker():
     def sensorCb(self,data):
         self.rx = data.x
         self.ry = data.y
-        theta = math.degrees(data.theta) % 360
-        if theta > 180:
-            self.rth = theta - 360
-        else:
-            self.rth = theta
+        self.rth = math.degrees(data.theta) % 360
 
     def goToTheta(self,targetTheta):
-        while abs(self.rth - targetTheta) > THETA_THRES:
-            speed = (self.rth-targetTheta) * 2 + math.copysign(30,self.rth-targetTheta)
-            self.tank(speed,-speed)
-            #if self.rth > targetTheta:
-            #    self.tank(TURN_SPEED,-TURN_SPEED)
-            #else:
-            #    self.tank(-TURN_SPEED,TURN_SPEED)
-        self.tank(0,0)
-        rospy.sleep(.25)
-        if abs(self.rth - targetTheta) > THETA_THRES:
-            self.goToTheta(targetTheta)
+        targetTheta %= 360
+        diffAng = self.rth - targetTheta
+        if abs(diffAng) > 180:
+            diffAng -= 180
+
+        return diffAng
+        #if diffAng < 0:
+        #diffAng = targetTheta - self.rth 
+        #if abs(diffAng) > 180:
+        #    diffAng = targetTheta - self.rth - 360
+        #print "diffAng: " + str(diffAng)
+        ##RIGHT
+
+        #self.tank(0,0)
+
+
+
+        ## if i need to turn left
+        #if targetTheta - self.rth > 0:
+        #    while targetTheta - self.rth > THETA_THRES:
+        #        speed = ((abs(targetTheta - self.rth)) * 2) + 30 
+        #        self.tank(-speed,speed)
+        #        print "going left " + str(self.rth)
+
+        ## if i need to turn right
+        #elif targetTheta - self.rth < 0:
+        #    while targetTheta - abs(self.rth) > THETA_THRES:
+        #        speed = ((abs(targetTheta - self.rth)) * 2) + 30 
+        #        self.tank(speed,-speed)
+        #        print "going right " + str(self.rth)
+
+        #print "done " + str(self.rth)
+        #rospy.sleep(.25)
+        #if abs(self.rth - targetTheta) > THETA_THRES:
+        #    self.goToTheta(targetTheta)
 
     def takeCirclePics(self):
         for x in range(HOURS):
@@ -85,7 +105,7 @@ class picTaker():
                 self.x = x
                 self.y = y
                 self.goToXY(x * X_INC,y * Y_INC)
-                #self.takeCirclePics()
+                self.takeCirclePics()
 
     def goToXY(self,tarX,tarY):
         dist = math.sqrt( (self.rx - tarX)**2 + (self.ry - tarY)**2 )
@@ -103,9 +123,9 @@ class picTaker():
             print "dist: " + str(dist)
 
             avgSpeed=100
-            mult = 200
+            mult = 500
             self.tank(avgSpeed-(mult*diffAng),avgSpeed+(mult*diffAng))
-            print "%f %f" % (avgSpeed-(mult*diffAng),avgSpeed+(mult*diffAng))
+            print "%f %f" % (avgSpeed+(mult*diffAng),avgSpeed-(mult*diffAng))
         self.tank(0,0)
 
         #dist = math.sqrt( (self.rx - tarX)**2 + (self.ry - tarY)**2 )
@@ -135,3 +155,6 @@ class picTaker():
         #if dist > DIST_THRES:
         #    self.goToXY(tarX,tarY)
 
+if __name__=="__main__":
+    pt = picTaker("pics")
+    pt.takePics(4,4)
