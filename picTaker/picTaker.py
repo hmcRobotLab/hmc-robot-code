@@ -7,14 +7,14 @@ from irobot_mudd.msg import *
 import cv,cv_bridge,math,os
 
 # base/x-y-z/hour.png
-IMAGE_SOURCE = "/camera/image"
+IMAGE_SOURCE = "droneImage"
 SENSOR_DATA  = "sensorPacket"
 TANK_SRV = 'tank'
 HOURS=24
 THETA_THRES = 1.5 
 DIST_THRES = .03
-X_INC = .4
-Y_INC = .4
+X_INC = .55
+Y_INC = .6
 
 class picTaker():
     def __init__(self,basePath):
@@ -33,7 +33,9 @@ class picTaker():
         rospy.wait_for_service(TANK_SRV)
         self.tank = rospy.ServiceProxy(TANK_SRV,Tank)
         print "Connecting to video service"
+        rospy.wait_for_message(IMAGE_SOURCE, Image)
         rospy.Subscriber(IMAGE_SOURCE, Image, self.videoCb, queue_size = 1)
+        rospy.sleep(5)
         print "Connecting to sensor data"
         rospy.Subscriber(SENSOR_DATA, SensorPacket, self.sensorCb)
         print "Connected"
@@ -75,7 +77,7 @@ class picTaker():
 
         # Turn right
         if diffAng < 0:
-            while abs(diffAng) > THETA_THRES:
+            while diffAng < -THETA_THRES:
                 diffAng = targetTheta - self.rth
                 if diffAng > 180:
                     diffAng %= -360
@@ -86,7 +88,7 @@ class picTaker():
 
         # Turn left
         else:
-            while abs(diffAng) > THETA_THRES:
+            while diffAng > THETA_THRES:
                 diffAng = targetTheta - self.rth
                 if diffAng > 180:
                     diffAng %= -360
@@ -98,30 +100,39 @@ class picTaker():
 
         self.tank(0,0)
         print "done " + str(self.rth)
+        if abs(diffAng) > THETA_THRES:
+	    self.goToTheta(targetTheta)
 
     def takeCirclePics(self):
         for x in range(HOURS):
             print "\t taking hour = " + str(x)
             self.goToTheta(x * 360/HOURS)
+            if x == 0:
+                raw_input("set to %i %i" % (self.x,self.y))
             self.hour = x
             self.takePic()
 
     def takePics(self,numX,numY):
+        ascend = True
         for y in range(numY):
-            for x in range(numX):
-                print "Taking %i, %i" % (x,y)
-                self.x = x
-                self.y = y
-                self.goToXY(x * X_INC,y * Y_INC)
-                self.takeCirclePics()
+            if ascend:
+                ascend = not ascend
+                for x in range(numX):
+                    print "Taking %i, %i" % (x,y)
+                    self.x = x
+                    self.y = y
+                    self.goToXY(x * X_INC,y * Y_INC)
+                    self.takeCirclePics()
+            else:
+                ascend = not ascend
+                for x in reversed(range(numX)):
+                    print "Taking %i, %i" % (x,y)
+                    self.x = x
+                    self.y = y
+                    self.goToXY(x * X_INC,y * Y_INC)
+                    self.takeCirclePics()
 
     def goToXY(self,tarX,tarY):
-
-
-
-
-
-
         dist = math.sqrt( (self.rx - tarX)**2 + (self.ry - tarY)**2 )
         targetAng = math.degrees(math.atan2(tarY - self.ry,tarX - self.rx))
         print "targetAng " + str(targetAng)
@@ -132,15 +143,15 @@ class picTaker():
             diff = self.diffAng(targetAng)
 
 
-            print "targetAng " + str(targetAng)
-            print "SelfAng " + str(self.rth)
-            print "diff: %s"%diff
-            print "dist: %s, threshold: %s" % (dist, DIST_THRES)
+            #print "targetAng " + str(targetAng)
+            #print "SelfAng " + str(self.rth)
+            #print "diff: %s"%diff
+            #print "dist: %s, threshold: %s" % (dist, DIST_THRES)
 
             avgSpeed=100
             mult = 5
             self.tank(avgSpeed-(mult*diff),avgSpeed+(mult*diff))
-            print "%f %f" % (avgSpeed+(mult*diff),avgSpeed-(mult*diff))
+            #print "%f %f" % (avgSpeed+(mult*diff),avgSpeed-(mult*diff))
         self.tank(0,0)
 
         #dist = math.sqrt( (self.rx - tarX)**2 + (self.ry - tarY)**2 )
@@ -172,4 +183,4 @@ class picTaker():
 
 if __name__=="__main__":
     pt = picTaker("pics")
-    pt.takePics(4,4)
+    pt.takePics(3,2)
