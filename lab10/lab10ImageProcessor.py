@@ -207,16 +207,30 @@ class ImageProcessor:
       br = cv.BoundingRect(biggest,update=0)
 
       #Extract the characteristics of the bounding box.
-      xl=br[0]
-      xr=xl + br[2]
-      yt=br[1]
-      yb=yt + br[3]
+      xl = br[0]
+      xr = (xl + br[2])
+      yt = br[1]
+      yb = (yt + br[3])
 
+      #Form the data to send
+      left    = xl/self.size[0]
+      top     = yt/self.size[1]
+      right   = xr/self.size[0]
+      bottom  = yb/self.size[1]
+      centerX = left + (right - left)/2
+      centerY = bottom + (top - bottom)/2
+      area    = (xr-xl)*(yt-yb)/(self.size[0]*self.size[1])
+      
       #Draw a contour around the bounding box.
       cv.PolyLine(self.color_image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
 
       #Publish the bounding box.
-      self.publisher.publish("%i %i %i %i" % (xl,xr,yt,yb))
+      #Format is: "CenterX (in percent of box width) CenterY (in percent of box height)
+      #            Area (in percent of box area) LeftEdge (in percent of box width)
+      #            TopEdge (in percent of box height) RightEdge (in percent of box width)
+      #            BottomEdge (in percent of box height)"
+
+      self.publisher.publish("%i %i %i %i %i %i %i" % (centerX, centerY, area, left, top, right, bottom))
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):
