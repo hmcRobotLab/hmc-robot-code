@@ -40,7 +40,11 @@ class DroneEmulator:
         self.imScale = float(imScale)
         self.numHours = int(numHours)
 	self.rect = (0,0,1,1)
-	self.textPos = (0,0)#(self.size[0]/4,self.size[1]/4)
+
+	#Text constants
+	self.textPos = (0,100)#(self.size[0]/4,self.size[1]/4)
+	self.textColor = cv.CV_RGB(255,255,255)
+	self.font = cv.InitFont(cv.CV_FONT_HERSHEY_COMPLEX_SMALL, .5,.5,0,1)
 
         #Setting the initial state:
 
@@ -59,7 +63,6 @@ class DroneEmulator:
         self.navPublisher = rospy.Publisher('navData', navData)
         self.imagePublisher = rospy.Publisher('droneImage', Image)
         self.bridge = CvBridge()
-	self.font = cv.InitFont(cv.CV_FONT_HERSHEY_COMPLEX_SMALL, .5,.5,0,1)
 
         self.createSizedImage()
         self.publishImage()
@@ -153,13 +156,13 @@ class DroneEmulator:
 	self.finalImage  = cv.CreateImage(self.baseSize, 8, 3)
 
     def updateRangeImage(self):
-	text = "I am out of range at [%f,%f,%f], passing my maximums [%i, %i, %i]"\
+	self.text = "I am out of range at [%f,%f,%f], passing my maximums [%i, %i, %i]"\
 		%(self.location[1],self.location[0],self.location[2],self.xMax,self.yMax,self.zMax)
-	cv.PutText(self.rangeImage, text, self.textPos, self.font, cv.CV_RGB(1,1,1))
+	cv.PutText(self.rangeImage, self.text, self.textPos, self.font, self.textColor)
 
     def updateLandedImage(self):
-	text = "I have landed at [%f,%f,%f]"%(self.location[1],self.location[0],self.location[2])
-	cv.PutText(self.landedImage, text, self.textPos, self.font, cv.CV_RGB(1,1,1))
+	self.text = "I have landed at [%f,%f,%f]"%(self.location[1],self.location[0],self.location[2])
+	cv.PutText(self.landedImage, self.text, self.textPos, self.font, self.textColor)
 
     def publishImage(self):
         #First, here I need to convert x, y, z, and the robots rotation
@@ -169,16 +172,19 @@ class DroneEmulator:
         base_y      = int(round(self.location[0]/self.imScale))
         base_z      = int(round(self.location[2]/self.imScale))
         imHour      = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
-        
+        addTxt      = False
+
 	if self.landed:
 	    self.updateLandedImage()
-            image  = self.landedImage
+            image   = self.landedImage
+	    addTxt  = True
         elif (base_x > self.xMax) or (base_x < 0) or (base_y < 0) or (base_y > self.yMax) or (base_z < 1) or (base_z > self.zMax):
 	    self.updateRangeImage()
-            image  = self.rangeImage
+            image   = self.rangeImage
+	    addTxt  = True
         else:
-            folder = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
-            image  = cv.LoadImageM(folder)
+            folder  = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
+            image   = cv.LoadImageM(folder)
 	
 	im_width    = self.baseSize[0]
 	im_height   = self.baseSize[1]
@@ -217,7 +223,9 @@ class DroneEmulator:
 
 	#Publish only the center rectangle.
 	cv.SetImageROI(self.baseIm, self.centerRect)
-	cv.Copy(self.baseIm, self.finalImage)	
+	cv.Copy(self.baseIm, self.finalImage)
+	if addTxt:
+	    cv.PutText(self.finalImage, self.text, self.textPos, self.font, self.textColor)
 	cv.ResetImageROI(self.baseIm)
         self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.finalImage,"bgr8"))
 

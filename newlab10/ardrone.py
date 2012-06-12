@@ -1,6 +1,14 @@
-import roslib; roslib.load_manifest('ardrone_mudd')
-from ardrone_mudd.srv import *
-from ardrone_mudd.msg import *
+USE_REAL_DRONE = False
+
+if USE_REAL_DRONE:
+    import roslib; roslib.load_manifest('ardrone_mudd')
+    from ardrone_mudd.srv import *
+    from ardrone_mudd.msg import *
+else:
+    import roslib; roslib.load_manifest('ardrone_emulator')
+    from ardrone_emulator.srv import *
+    from ardrone_emulator.msg import *
+
 import rospy
 import cv
 import math
