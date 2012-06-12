@@ -42,7 +42,7 @@ class picTaker():
 
     
     def takePic(self):
-        path = "%s/%i-%i-%i/" % (self.basePath,self.x,self.y,self.z)
+        path = "%s/%i_%i_%i/" % (self.basePath,self.x,self.y,self.z)
         try:
             os.makedirs(path)
         except:
@@ -50,7 +50,7 @@ class picTaker():
         #cv.SaveImage("%s/%i-%i-%i/%-i.png" % \
         #        (self.basePath,self.x,self.y,self.z,self.hour), \
         #        self.image)
-        cv.SaveImage("%s%-i.png" % \
+        cv.SaveImage("%s%i.png" % \
                 (path,self.hour), \
                 self.image)
 
