@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from GUIardrone import *
+from sliderImageProcessor import *
 import time
 from PyQt4 import QtGui, QtCore
 
@@ -13,7 +14,6 @@ class robotWidget(QtGui.QWidget):
     def timerEvent(self, event):
         '''This will constantly be called because we have a timer widget
             constantly running behind the scenes in our GUI.'''
-        global drone
         self.altitude.display(drone.altitude)
         self.phi.display(drone.phi)
         self.psi.display(drone.psi)
@@ -49,8 +49,15 @@ class robotWidget(QtGui.QWidget):
         self.batLevel  = QtGui.QLCDNumber(self)
         self.ctrlState = QtGui.QLCDNumber(self)
         self.lbl8 = QtGui.QLabel(self.state, self)
-        self.showNums = QtCore.QBasicTimer()
-        self.showNums.start(1000, self)
+
+        self.showData = QtCore.QBasicTimer()
+        self.showData.start(1000, self)
+
+        self.showImage = QtCore.QTimer()
+        self.showImage.setInterval(0)
+        self.showImage.start()
+        self.showImage.timeout.connect(self.displayImage)
+
         
         
 
@@ -72,7 +79,6 @@ class robotWidget(QtGui.QWidget):
         self.sld1.valueChanged.connect(lcd1.display)
         
         self.sld1.setMaximum(255)
-        self.sld1.setValue(245)
         
         sliderGrid.addWidget(lcd1, 1, 2)
         sliderGrid.addWidget(self.sld1, 1, 1)
@@ -86,7 +92,6 @@ class robotWidget(QtGui.QWidget):
         lbl2.setText("<font style='color: green;background: white;'>Green</font>")
         self.sld2.valueChanged.connect(lcd2.display)
         self.sld2.setMaximum(255)
-        self.sld2.setValue(245)
         
         sliderGrid.addWidget(lcd2, 2, 2)
         sliderGrid.addWidget(self.sld2, 2, 1)
@@ -100,7 +105,6 @@ class robotWidget(QtGui.QWidget):
         lbl3.setText("<font style='color: blue;background: white;'>Blue</font>")
         self.sld3.valueChanged.connect(lcd3.display)
         self.sld3.setMaximum(255)
-        self.sld3.setValue(245)
         
         sliderGrid.addWidget(lcd3, 3, 2)
         sliderGrid.addWidget(self.sld3, 3, 1)
@@ -114,7 +118,6 @@ class robotWidget(QtGui.QWidget):
         lbl4.setText("<font style='color: brown;background: white;'>Hue</font>")
         self.sld4.valueChanged.connect(lcd4.display)
         self.sld4.setMaximum(255)
-        self.sld4.setValue(self.col.hue())
         
         sliderGrid.addWidget(lcd4, 4, 2)
         sliderGrid.addWidget(self.sld4, 4, 1)
@@ -128,7 +131,6 @@ class robotWidget(QtGui.QWidget):
         lbl5.setText("<font style='color: grey;background: white;'>Saturation</font>")
         self.sld5.valueChanged.connect(lcd5.display)
         self.sld5.setMaximum(255)
-        self.sld5.setValue(self.col.saturation())
         
         sliderGrid.addWidget(lcd5, 5, 2)
         sliderGrid.addWidget(self.sld5, 5, 1)
@@ -141,13 +143,89 @@ class robotWidget(QtGui.QWidget):
         lbl6.setText("<font style='color: black;background: white;'>Value</font>")
         self.sld6.valueChanged.connect(lcd6.display)
         self.sld6.setMaximum(255)
-        self.sld6.setValue(self.col.value())
         
         sliderGrid.addWidget(lcd6, 6, 2)
         sliderGrid.addWidget(self.sld6, 6, 1)
         sliderGrid.addWidget(lbl6, 6, 0)
         
         
+
+        lcd7 = QtGui.QLCDNumber(self)
+        self.sld7 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl7 = QtGui.QLabel('High Red', self)
+        lbl7.setText("<font style='color: red;background: white;'>High Red</font>")
+
+        self.sld7.valueChanged.connect(lcd7.display)
+        
+        self.sld7.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd7, 7, 2)
+        sliderGrid.addWidget(self.sld7, 7, 1)
+        sliderGrid.addWidget(lbl7, 7, 0)
+
+
+
+        lcd8 = QtGui.QLCDNumber(self)
+        self.sld8 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl9 = QtGui.QLabel('High Green', self)
+        lbl9.setText("<font style='color: green;background: white;'>High Green</font>")
+        self.sld8.valueChanged.connect(lcd8.display)
+        self.sld8.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd8, 8, 2)
+        sliderGrid.addWidget(self.sld8, 8, 1)
+        sliderGrid.addWidget(lbl9, 8, 0)
+
+
+
+        lcd9 = QtGui.QLCDNumber(self)
+        self.sld9 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl10 = QtGui.QLabel("High Blue", self)
+        lbl10.setText("<font style='color: blue;background: white;'>High Blue</font>")
+        self.sld9.valueChanged.connect(lcd9.display)
+        self.sld9.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd9, 9, 2)
+        sliderGrid.addWidget(self.sld9, 9, 1)
+        sliderGrid.addWidget(lbl10, 9, 0)
+
+
+
+        lcd10 = QtGui.QLCDNumber(self)
+        self.sld10 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl11 = QtGui.QLabel("High Hue", self)
+        lbl11.setText("<font style='color: brown;background: white;'>High Hue</font>")
+        self.sld10.valueChanged.connect(lcd10.display)
+        self.sld10.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd10, 10, 2)
+        sliderGrid.addWidget(self.sld10, 10, 1)
+        sliderGrid.addWidget(lbl11, 10, 0)
+        
+        
+        
+        lcd11 = QtGui.QLCDNumber(self)
+        self.sld11 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl13 = QtGui.QLabel("High Saturation", self)
+        lbl13.setText("<font style='color: grey;background: white;'>High Saturation</font>")
+        self.sld11.valueChanged.connect(lcd11.display)
+        self.sld11.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd11, 11, 2)
+        sliderGrid.addWidget(self.sld11, 11, 1)
+        sliderGrid.addWidget(lbl13, 11, 0)
+        
+        
+        lcd12 = QtGui.QLCDNumber(self)
+        self.sld12 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
+        lbl14 = QtGui.QLabel("High Value", self)
+        lbl14.setText("<font style='color: black;background: white;'>High Value</font>")
+        self.sld12.valueChanged.connect(lcd12.display)
+        self.sld12.setMaximum(255)
+        
+        sliderGrid.addWidget(lcd12, 12, 2)
+        sliderGrid.addWidget(self.sld12, 12, 1)
+        sliderGrid.addWidget(lbl14, 12, 0)
         
         self.sld1.valueChanged.connect(self.sliderChange)
         self.sld2.valueChanged.connect(self.sliderChange)
@@ -155,7 +233,13 @@ class robotWidget(QtGui.QWidget):
         self.sld4.valueChanged.connect(self.sliderChange)
         self.sld5.valueChanged.connect(self.sliderChange)
         self.sld6.valueChanged.connect(self.sliderChange)
-        
+        self.sld7.valueChanged.connect(self.sliderChange)
+        self.sld8.valueChanged.connect(self.sliderChange)
+        self.sld9.valueChanged.connect(self.sliderChange)
+        self.sld10.valueChanged.connect(self.sliderChange)
+        self.sld11.valueChanged.connect(self.sliderChange)
+        self.sld12.valueChanged.connect(self.sliderChange)
+
         top = QtGui.QFrame(self)
         top.setLayout(sliderGrid)
         
@@ -177,7 +261,8 @@ class robotWidget(QtGui.QWidget):
         lbl12 = QtGui.QLabel(self)
         lbl12.setText("<center><font size = '3';font style='color: black;'> \
 Keyboard Controls:<br><br> \
-h: quit<br> t: takeoff<br> r: reset<br> spacebar: land <br> \
+h: quit<br> enter/return: land <br> t: takeoff<br> r: reset<br> \
+$: save color thresholds <br> &: load color thresholds<br>\
 q: forward left strafe \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 w: forward \
@@ -193,7 +278,7 @@ z: backward left strafe \
 x: backward \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 e: backward right strafe<br> \
-f: spin left<br> g: spin right<br>Esc (exit)</font></center><br>")
+f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
 
         takeoffBtn = QtGui.QPushButton('Takeoff!', self)
         takeoffBtn.clicked.connect(self.takeoff)
@@ -290,9 +375,8 @@ f: spin left<br> g: spin right<br>Esc (exit)</font></center><br>")
         hbox.addWidget(splitter)
         self.setLayout(hbox)
         QtGui.QApplication.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
-        
         self.setGeometry(900, 0, 1024, 640) #Set the GUI window to be in the top right of the screen
-        self.setWindowTitle('Robot Control Panel')
+        self.setWindowTitle('Drone Control Panel')
         self.show()
 
     
@@ -303,36 +387,48 @@ f: spin left<br> g: spin right<br>Esc (exit)</font></center><br>")
     def sliderChange(self, newValue):
         '''If a slider is moved, then the background's RGB values will be changed accordingly'''
         if self.sender() == self.sld1:
-            self.col.setRed(newValue)
+            image.change_low_red(newValue)
             
         if self.sender() == self.sld2:
-            self.col.setGreen(newValue)
+            image.change_low_green(newValue)
             
         if self.sender() == self.sld3:
-            self.col.setBlue(newValue)
+            image.change_low_blue(newValue)
             
         if self.sender() == self.sld4:
-            self.col.setHsv(newValue, self.col.saturation(), self.col.value())
+            image.change_low_hue(newValue)
         
         if self.sender() == self.sld5:
-            self.col.setHsv(self.col.hue(), newValue, self.col.value())
+            image.change_low_sat(newValue)
             
         if self.sender() == self.sld6:
-            self.col.setHsv(self.col.hue(), self.col.saturation(), newValue)
-            
-        self.setStyleSheet("QFrame { background-color: %s }" % self.col.name())
-        self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
+            image.change_low_val(newValue)
         
+        if self.sender() == self.sld7:
+            image.change_high_red(newValue)
+            
+        if self.sender() == self.sld8:
+            image.change_high_green(newValue)
+            
+        if self.sender() == self.sld9:
+            image.change_high_blue(newValue)
+            
+        if self.sender() == self.sld10:
+            image.change_high_hue(newValue)
+        
+        if self.sender() == self.sld11:
+            image.change_high_sat(newValue)
+            
+        if self.sender() == self.sld12:
+            image.change_high_val(newValue)
+
     def takeoff(self):
-        global drone
         drone.keyCmd('t')
         self.state = "Takeoff"
-        return
         
-    def btn1Function(self):
+    def landing(self):
         '''If the 1st user-defined button is clicked, then send a message
             to the robot saying so.'''
-        global drone
         drone.keyCmd(' ')
         self.state = "Landing"
         
@@ -346,38 +442,62 @@ f: spin left<br> g: spin right<br>Esc (exit)</font></center><br>")
             to the robot saying so.'''
         self.state = "Button 3"
 
+    def displayImage(self):
+        self.thresholdSet()
+        image.keyboardLoop()
+
     def keyPressEvent(self, e):
         '''If a keyboard key is pressed, then respond accordingly'''
-        global drone
+        try: char = chr(e.key()).lower()
+        except ValueError: pass
         if e.key() == QtCore.Qt.Key_Escape: #if the escape key is pressed, then exit
             self.close()
             return
-        if e.key() == 32: #If the space key is pressed, then send the spacebar keypress
+        if e.key() == QtCore.Qt.Key_Return: #If the space key is pressed, then send the spacebar keypress
             drone.keyCmd(' ')
             return
-        drone.keyCmd(chr(e.key()).lower())
+        if char == '$':
+            image.save_thresholds()
+            return
+        if char == '&':
+            image.load_thresholds()
+            #self.thresholdset()
+            return
+        drone.keyCmd(char)
         self.state = "Keyboard"
         
+    def thresholdSet(self):
+        self.sld1.setValue(image.thresholds['low_red'])
+        self.sld2.setValue(image.thresholds['low_green'])
+        self.sld3.setValue(image.thresholds['low_blue'])
+        self.sld4.setValue(image.thresholds['low_hue'])
+        self.sld5.setValue(image.thresholds['low_sat'])
+        self.sld6.setValue(image.thresholds['low_val'])
+        self.sld7.setValue(image.thresholds['high_red'])
+        self.sld8.setValue(image.thresholds['high_green'])
+        self.sld9.setValue(image.thresholds['high_blue'])
+        self.sld10.setValue(image.thresholds['high_hue'])
+        self.sld11.setValue(image.thresholds['high_sat'])
+        self.sld12.setValue(image.thresholds['high_val'])
 
     def onActivated(self, text):
         '''If a value in the combo box is clicked, then change the background color accordingly.'''
-        global col
         if text == "Red Background":
-            col = QtGui.QColor(255, 0, 0)
+            self.col = QtGui.QColor(255, 0, 0)
         elif text == "Orange Background":
-            col = QtGui.QColor(255, 127, 0)
+            self.col = QtGui.QColor(255, 127, 0)
         elif text == "Yellow Background":
-            col = QtGui.QColor(255, 255, 0)
+            self.col = QtGui.QColor(255, 255, 0)
         elif text == "Green Background":
-            col = QtGui.QColor(0, 255, 0)
+            self.col = QtGui.QColor(0, 255, 0)
         elif text == "Blue Background":
-            col = QtGui.QColor(0, 0, 255)
+            self.col = QtGui.QColor(0, 0, 255)
         elif text == "Indigo Background":
-            col = QtGui.QColor(111, 0, 255)
+            self.col = QtGui.QColor(111, 0, 255)
         elif text == "Purple Background":
-            col = QtGui.QColor(143, 0, 255)
+            self.col = QtGui.QColor(143, 0, 255)
         elif text == "Default Background Color":
-            col = QtGui.QColor(245, 245, 245)
+            self.col = QtGui.QColor(245, 245, 245)
         else:
             if text == "Select Background from File":
                 fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -387,21 +507,24 @@ f: spin left<br> g: spin right<br>Esc (exit)</font></center><br>")
                 self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
             return
             
-        self.sld1.setValue(col.red())
-        self.sld2.setValue(col.green())
-        self.sld3.setValue(col.blue())
-        self.sld4.setValue(col.hue())
-        self.sld5.setValue(col.saturation())
-        self.sld6.setValue(col.value())
-        self.setStyleSheet("QFrame { background-color: %s }" % col.name())
+        self.sld1.setValue(self.col.red())
+        self.sld2.setValue(self.col.green())
+        self.sld3.setValue(self.col.blue())
+        self.sld4.setValue(self.col.hue())
+        self.sld5.setValue(self.col.saturation())
+        self.sld6.setValue(self.col.value())
+        self.setStyleSheet("QFrame { background-color: %s }" % self.col.name())
         self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
 
 
     
 if __name__ == '__main__':
-    global drone
     drone = Ardrone()
+    image = ImageProcessor()
     app = QtGui.QApplication(sys.argv)
     widget = robotWidget()
+    widget.thresholdSet()
+    rospy.Subscriber(IMAGE_SOURCE, Image, image.videoUpdate, queue_size = 1)
+    
     sys.exit(app.exec_())
     

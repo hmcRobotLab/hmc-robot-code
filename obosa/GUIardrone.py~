@@ -9,7 +9,7 @@ import sys
 
 class Ardrone():
   def __init__(self,controlName="droneControl", navPubName="navData"):
-    rospy.init_node("ArdroneBase")
+    #rospy.init_node("ArdroneBase")
     print "Connecting to droneControl service"
     rospy.wait_for_service(controlName)
     self.heli = rospy.ServiceProxy(controlName, Control, persistent=True)
@@ -129,7 +129,6 @@ class Ardrone():
         self.airborne = False
         helistr = "reset"
     elif char == 't':
-        print "TAKEOFFF"
         self.airborne = True
         self.send("heli 0 0 0 0 0")
         helistr = "takeoff"
