@@ -22,7 +22,7 @@ coordinates, the distance scale between your images, and, optionally the \
 number of angles at which you took images for each position in your grid, the starting x,y,or z, and the delay time"
     print "Example:"
     print "python <path>/ardrone_emulator.py\
-    /home/robotics/summer2012/data/droneImages 2 6 1 1 12 1 3 0 0 1"
+    /home/robotics/summer2012/data/droneImages3by2 2 1 1 0 24 1 1 0 0 1"
 
 class DroneEmulator:
 
@@ -40,6 +40,7 @@ class DroneEmulator:
         self.imScale = float(imScale)
         self.numHours = int(numHours)
 	self.rect = (0,0,1,1)
+	self.textPos = (0,0)#(self.size[0]/4,self.size[1]/4)
 
         #Setting the initial state:
 
@@ -58,6 +59,7 @@ class DroneEmulator:
         self.navPublisher = rospy.Publisher('navData', navData)
         self.imagePublisher = rospy.Publisher('droneImage', Image)
         self.bridge = CvBridge()
+	self.font = cv.InitFont(cv.CV_FONT_HERSHEY_COMPLEX_SMALL, .5,.5,0,1)
 
         self.createSizedImage()
         self.publishImage()
@@ -143,10 +145,21 @@ class DroneEmulator:
         baseIm           = cv.LoadImageM('%s/0_0_1/0.png'%self.baseImageDir)
         self.baseSize    = cv.GetSize(baseIm)
 	self.size        = map(lambda(x) : int(x+self.imScale*x), self.baseSize) 
+	self.centerRect  = (int(self.imScale/2 * self.baseSize[0]), int(self.imScale/2 * self.baseSize[1]), self.baseSize[0],self.baseSize[1])
 	self.baseIm	 = cv.CreateImage(self.size, 8, 3)
         self.landedImage = cv.CreateImage(self.size, 8, 3)
         self.rangeImage  = cv.CreateImage(self.size, 8, 3)
 	self.blackImage  = cv.CreateImage(self.baseSize, 8, 3)
+	self.finalImage  = cv.CreateImage(self.baseSize, 8, 3)
+
+    def updateRangeImage(self):
+	text = "I am out of range at [%f,%f,%f], passing my maximums [%i, %i, %i]"\
+		%(self.location[1],self.location[0],self.location[2],self.xMax,self.yMax,self.zMax)
+	cv.PutText(self.rangeImage, text, self.textPos, self.font, cv.CV_RGB(1,1,1))
+
+    def updateLandedImage(self):
+	text = "I have landed at [%f,%f,%f]"%(self.location[1],self.location[0],self.location[2])
+	cv.PutText(self.landedImage, text, self.textPos, self.font, cv.CV_RGB(1,1,1))
 
     def publishImage(self):
         #First, here I need to convert x, y, z, and the robots rotation
@@ -158,8 +171,10 @@ class DroneEmulator:
         imHour      = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
         
 	if self.landed:
+	    self.updateLandedImage()
             image  = self.landedImage
         elif (base_x > self.xMax) or (base_x < 0) or (base_y < 0) or (base_y > self.yMax) or (base_z < 1) or (base_z > self.zMax):
+	    self.updateRangeImage()
             image  = self.rangeImage
         else:
             folder = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
@@ -172,7 +187,6 @@ class DroneEmulator:
 	# Z is easy
 	im_z        = int(pot_width_z * (self.location[2]/self.imScale - (base_z - .5)))
 	# X is complicated
-	
 	temp_x 	    = self.location[1]/self.imScale - base_x
 	temp_y      = self.location[0]/self.imScale - base_y
 	imAngle     = imHour*2*pi/self.numHours
@@ -184,12 +198,12 @@ class DroneEmulator:
 	self.oldR   = self.rect
 	self.rect   = (im_x,im_z,im_width,im_height)
 	
-	if self.debug:	
+	if self.debug:
 	    print "temp_x: %f, temp_y: %f"%(temp_x, temp_y)
 	    print "imAngle: %f"%imAngle
 	    print "dx1: %f, dx2: %f"%(dx1,dx2)
 	    print "x: %f"%x
-            print self.rect 
+            print self.rect
 
 	#Delete the old image
 	cv.SetImageROI(self.baseIm, self.oldR)
@@ -201,8 +215,11 @@ class DroneEmulator:
 	cv.Resize(image, self.baseIm)
 	cv.ResetImageROI(self.baseIm)
 
-	#Publish
-        self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.baseIm,"bgr8"))
+	#Publish only the center rectangle.
+	cv.SetImageROI(self.baseIm, self.centerRect)
+	cv.Copy(self.baseIm, self.finalImage)	
+	cv.ResetImageROI(self.baseIm)
+        self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.finalImage,"bgr8"))
 
     def publishNavData(self):
         z   = self.location[2]
@@ -230,7 +247,7 @@ class DroneEmulator:
 
             #Now we correct for potentially having an angle outside of the
             # desired range.
-            self.location[3] = self.location[3] % (2*pi)
+            self.location[3] %= (2*pi)
 
             #Now re-establish oldTime
             oldTime = time.time()
@@ -249,7 +266,7 @@ def main(argTuple):
     emulator.mainLoop()
 
 if __name__ == "__main__":
-    if (len(sys.argv) < 6) or (len(sys.argv) > 11):
+    if (len(sys.argv) < 6) or (len(sys.argv) > 13):
         print usage()
         sys.exit(1)
     else:
