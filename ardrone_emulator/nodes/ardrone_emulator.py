@@ -39,8 +39,7 @@ class DroneEmulator:
         self.zMax = int(zMax)
         self.imScale = float(imScale)
         self.numHours = int(numHours)
-        self.lastUpdatedTime = time.time()
-        self.minDelay = .5
+	self.rect = (0,0,1,1)
 
         #Setting the initial state:
 
@@ -48,7 +47,6 @@ class DroneEmulator:
         self.location = map(float, [locY, locX, locZ])
         self.location.append(0.0)
         self.initLocation = deepcopy(self.location)
-        self.lastUpdatedLocation = deepcopy(self.location)
 
         self.internalVel = [0,0,0,0] #Format: [y velocity, x velocity, z velocity, spin velocity]
         self.groundVel = [0,0,0,0] #Format: see above
@@ -143,34 +141,68 @@ class DroneEmulator:
 
     def createSizedImage(self):
         baseIm           = cv.LoadImageM('%s/0_0_1/0.png'%self.baseImageDir)
-        size             = cv.GetSize(baseIm)
-        self.landedImage = cv.CreateImage(size, 8,3)
-        self.rangeImage  = self.landedImage
+        self.baseSize    = cv.GetSize(baseIm)
+	self.size        = map(lambda(x) : int(x+self.imScale*x), self.baseSize) 
+	self.baseIm	 = cv.CreateImage(self.size, 8, 3)
+        self.landedImage = cv.CreateImage(self.size, 8, 3)
+        self.rangeImage  = cv.CreateImage(self.size, 8, 3)
+	self.blackImage  = cv.CreateImage(self.baseSize, 8, 3)
 
     def publishImage(self):
         #First, here I need to convert x, y, z, and the robots rotation
         # into the appropriate images. The modding shouldn't be necessary, but 
         # it seems to be. I plan to investigate later. 
-        x      = int(round(self.location[1]/self.imScale))
-        y      = int(round(self.location[0]/self.imScale))
-        z      = int(round(self.location[2]/self.imScale))
-        imHour = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
-        #if self.lastUpdatedLocation != [y,x,z,imHour]:
-        #    if time.time() - self.minDelay < self.lastUpdatedTime:
-        #        return
-        #    else:
-        #        self.location = map(float,[y,x,z,imHour])
-        #        self.lastUpdatedLocation = [y,x,z,imHour]
-        #        self.lastUpdatedTime = time.time()
-        if self.landed:
-            self.image = self.landedImage
-        elif (x > self.xMax) or (x < 0) or (y < 0) or (y > self.yMax) or (z < 1) or (z > self.zMax):
-            self.image = self.rangeImage
+        base_x      = int(round(self.location[1]/self.imScale))
+        base_y      = int(round(self.location[0]/self.imScale))
+        base_z      = int(round(self.location[2]/self.imScale))
+        imHour      = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
+        
+	if self.landed:
+            image  = self.landedImage
+        elif (base_x > self.xMax) or (base_x < 0) or (base_y < 0) or (base_y > self.yMax) or (base_z < 1) or (base_z > self.zMax):
+            image  = self.rangeImage
         else:
-            folder     = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, x, y, z,imHour)
-            self.image = cv.LoadImageM(folder)
+            folder = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
+            image  = cv.LoadImageM(folder)
+	
+	im_width    = self.baseSize[0]
+	im_height   = self.baseSize[1]
+	pot_width_x = self.size[0] - self.baseSize[0]
+	pot_width_z = self.size[1] - self.baseSize[1]
+	# Z is easy
+	im_z        = int(pot_width_z * (self.location[2]/self.imScale - (base_z - .5)))
+	# X is complicated
+	
+	temp_x 	    = self.location[1]/self.imScale - base_x
+	temp_y      = self.location[0]/self.imScale - base_y
+	imAngle     = imHour*2*pi/self.numHours
+	dx1         = temp_x * sin(imAngle)
+	dx2 	    = temp_y * cos(imAngle)
+	x	    = dx1 + dx2
+	im_x        = int(pot_width_x * (x + .5))
 
-        self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.image,"bgr8"))
+	self.oldR   = self.rect
+	self.rect   = (im_x,im_z,im_width,im_height)
+	
+	if self.debug:	
+	    print "temp_x: %f, temp_y: %f"%(temp_x, temp_y)
+	    print "imAngle: %f"%imAngle
+	    print "dx1: %f, dx2: %f"%(dx1,dx2)
+	    print "x: %f"%x
+            print self.rect 
+
+	#Delete the old image
+	cv.SetImageROI(self.baseIm, self.oldR)
+	cv.Resize(self.blackImage, self.baseIm)
+	cv.ResetImageROI(self.baseIm)
+
+	#Add in the new one
+	cv.SetImageROI(self.baseIm, self.rect)
+	cv.Resize(image, self.baseIm)
+	cv.ResetImageROI(self.baseIm)
+
+	#Publish
+        self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.baseIm,"bgr8"))
 
     def publishNavData(self):
         z   = self.location[2]

@@ -8,8 +8,12 @@ class myArdrone(ardrone.Ardrone):
         self.state = "keyboard"
         self.boxX = 0
         self.boxHeight = 0
-        self.tarHeight = 35
-        self.tarX = 150
+        self.tarHeight = 35.0/240
+        self.tarX = .46
+	self.toleranceX = 40/320.0
+	self.toleranceHeight = 10/240.0
+	self.toleranceArea = .001
+	self.noBox = True
 
     def loop(self):
         while True:
@@ -25,17 +29,24 @@ class myArdrone(ardrone.Ardrone):
         elif self.state == "start":
             self.takeoff()
             self.state = "searching"
-        elif self.state == "searching":
-            if abs(self.boxX - self.tarX) < 40:
+	elif self.state == "searching":
+	    if self.noBox:
+	    	self.spinLeft(.3)
+	    else:
+		self.state = "closing_in"
+        elif self.state == "closing_in":
+            if abs(self.boxX - self.tarX) < self.toleranceX:
                 self.state = "approaching"
             elif self.boxX < self.tarX:
                 self.spinLeft(.3)
             else:
                 self.spinRight(.3)
         elif self.state == "approaching":
-            if abs(self.boxX - self.tarX) > 40:
-                self.state = "searching"
-            elif self.tarHeight - self.boxHeight > 10:
+	    if self.noBox:
+		self.state = "searching"
+            elif abs(self.boxX - self.tarX) > self.toleranceX:
+                self.state = "closing_in"
+            elif self.tarHeight - self.boxHeight > self.toleranceHeight:
                 self.forward(.07)
             else:
                 self.land()
@@ -49,16 +60,24 @@ class myArdrone(ardrone.Ardrone):
         rospy.Timer( rospy.Duration(0.01), self.fsm, oneshot=True )
 
     def bBoxUpdate(self, data):
-        br = data.data.split()
-        xl = int(br[0])
-        xr = int(br[1])
-        yt = int(br[2])
-        yb = int(br[3])
-        if (xr-xl)*(yb-yt) < 200:
+        #Format is: "CenterX (in percent of box width) CenterY (in percent of box height)
+        #            Area (in percent of box area) LeftEdge (in percent of box width)
+        #            TopEdge (in percent of box height) RightEdge (in percent of box width)
+        #            BottomEdge (in percent of box height)"
+        br      = data.data.split()
+	centerX = float(br[0])
+	centerY = float(br[1])
+	area    = float(br[2])
+	height  = float(br[6])-float(br[4]) #the y axis points down.
+        if area < self.toleranceArea:
+	    print "I see a too small box of area %f"%area
+	    self.noBox = True
             self.boxX = float("inf")
+	    self.boxHeight = 0
         else:
-            self.boxX = (xl + xr)/2
-            self.boxHeight = yb - yt #the y axis points down.
+	    self.noBox = False
+            self.boxX = centerX
+            self.boxHeight = height
 
 if __name__== "__main__":
   drone = myArdrone()
