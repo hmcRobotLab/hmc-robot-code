@@ -1,23 +1,18 @@
-#Application Specific Imports
-#from ardrone_mudd.srv import *  #Might not need this.
-#from ardrone_mudd.msg import *  #Might not need this.
-import roslib; roslib.load_manifest('ardrone_mudd')
-
-IMAGE_SOURCE = "droneImage"
-
 #Generic Imports
+import roslib; roslib.load_manifest('ardrone_mudd')
 from std_msgs.msg import String
 from sensor_msgs.msg import *
 import rospy
 import time,sys,random,cv,cv_bridge,math,os
 import threading
 
+#Application Specific Imports
+# You'll likely use "droneImage" for the drone.
+IMAGE_SOURCE = "droneImage"
+
 class ImageProcessor:
 
   def __init__(self):
-    #Start the open CV window thread (may not be necessary)
-    #cv.StartWindowThread()
-
     #Setting up the publisher to broadcast the data.
     self.publisher = rospy.Publisher('imageData', String)
 
@@ -31,15 +26,20 @@ class ImageProcessor:
 
     cv.NamedWindow('image')
     cv.MoveWindow('image', 0, 0)
+    cv.SetMouseCallback('image', self.onMouse, None)
     cv.NamedWindow('threshold')
-    cv.MoveWindow('threshold',0,400)
+    cv.MoveWindow('threshold',0,480)
+    cv.SetMouseCallback('threshold', self.onMouse, None)
     self.make_control_window()
     self.bridge = cv_bridge.CvBridge()
-    self.color_image = None             # the image from the drone
+    self.image = None             # the image from the drone
     self.new_image = False              # did we just receive a new image?
     self.threshed_image = None          # thresholded image
-    self.font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN, 1, 1, 0, 1)
     self.contours_found = False
+    
+    #If you want to use text on the image, uncomment the line below.
+    # it sets the font to something readable. 
+    #self.font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN, 1, 1, 0, 1)
 
   def load_thresholds(self):
     """ loads the thresholds from data.txt into self.thresholds """
@@ -48,7 +48,7 @@ class ImageProcessor:
       data = f.read()
       f.close()
       self.thresholds = eval(data)
-      print "thresholds loaded from data.txt"
+      print "Thresholds loaded from data.txt"
       self.make_control_window()
     except:
       print "An error occurred in loading data.txt"
@@ -106,11 +106,11 @@ class ImageProcessor:
     """ a one-time method that creates all of the images needed
         for the image processing...
         
-        This should be called only if self.color_image is NOT None
+        This should be called only if self.image is NOT None
         but self.threshed_image IS None
     """
     #Find the size of the images
-    self.size = cv.GetSize(self.color_image)
+    self.size = cv.GetSize(self.image)
 
     self.red = cv.CreateImage(self.size, 8, 1)     # color components
     self.green = cv.CreateImage(self.size, 8, 1)
@@ -133,11 +133,47 @@ class ImageProcessor:
     f.close()
     print "thresholds saved to data.txt"
 
+  def onMouse(self,event,x,y,flags,param):
+    """ the method called when the mouse is clicked """
+    width = 40
+    if flags == cv.CV_EVENT_FLAG_CTRLKEY:
+      width -= 20
+    elif flags == cv.CV_EVENT_FLAG_SHIFTKEY:
+      width += 20
+    # if the left button was clicked
+    if event == cv.CV_EVENT_RBUTTONDOWN:
+      bgrTuple = tuple(map(lambda(v) :(max(int(v)-width,0),min(int(v)+width,256)),self.image[y,x]))
+      hsvTuple = tuple(map(lambda(v) :(max(int(v)-width,0),min(int(v)+width,256)),self.hsv[y,x]))
+      print "Setting Filters to:"
+      print "b: %s, g: %s,  r: %s" % bgrTuple
+      print "h: %s, s: %s, v: %s" % hsvTuple
+      self.change_low_blue(bgrTuple[0][0])
+      self.change_high_blue(bgrTuple[0][1])
+      self.change_low_green(bgrTuple[1][0])
+      self.change_high_green(bgrTuple[1][1])
+      self.change_low_red(bgrTuple[2][0])
+      self.change_high_red(bgrTuple[2][1])
+      self.change_low_hue(hsvTuple[0][0])
+      self.change_high_hue(hsvTuple[0][1])
+      self.change_low_sat(hsvTuple[1][0])
+      self.change_high_sat(hsvTuple[1][1])
+      self.change_low_val(hsvTuple[2][0])
+      self.change_high_val(hsvTuple[2][1])
+      self.make_control_window()
+      print "Type '$' to save."
+    elif event == cv.CV_EVENT_LBUTTONDOWN:
+      print "r: %s, g: %s, b: %s" % self.image[y,x]
+      print "h: %s, s: %s, v: %s" % self.hsv[y,x]
+      print "Right click to set filters"
+
   def videoUpdate(self, data):
     """Displays the image, calls find_info"""
     # kinect images: self.image = self.bridge.imgmsg_to_cv(data, "32FC1")
-    # drone images:
-    self.color_image = self.bridge.imgmsg_to_cv(data, "bgr8")
+    # drone images: self.image = self.bridge.imgmsg_to_cv(data, "bgr8")
+    self.image = self.bridge.imgmsg_to_cv(data, "bgr8")
+
+    # Here we set a boolean so that the opencv calls don't happen in the callback thread.
+    # We read and react to the boolean in the main thread, in keyboardLoop
     self.new_image = True
 
   # do all of the image processing
@@ -145,12 +181,12 @@ class ImageProcessor:
     """ here is where the image should be processed to get the bounding box """
     # check if we've created the supporting images yet
     if self.threshed_image == None:
-      if self.color_image != None:
+      if self.image != None:
         self.create_all_images()
 
     # from the old method call def threshold_image(self):
-    cv.Split(self.color_image, self.blue, self.green, self.red, None)
-    cv.CvtColor(self.color_image, self.hsv, cv.CV_RGB2HSV)
+    cv.Split(self.image, self.blue, self.green, self.red, None)
+    cv.CvtColor(self.image, self.hsv, cv.CV_RGB2HSV)
     cv.Split(self.hsv, self.hue, self.sat, self.val, None)
 
     # replace each channel with its thresholded version
@@ -177,6 +213,8 @@ class ImageProcessor:
     # erode and dilate shave off and add edge pixels respectively
     cv.Erode(self.copy, self.copy, iterations = 1)
     cv.Dilate(self.copy, self.copy, iterations = 1)
+
+    # Make self.threshed_image be self.copy
     cv.Copy(self.copy,self.threshed_image)
 
     self.find_biggest_region()
@@ -204,50 +242,51 @@ class ImageProcessor:
         contours=contours.h_next()
     
       #Use OpenCV to get a bounding rectangle for the largest contour
-      br = cv.BoundingRect(biggest,update=0)
-
-      #Extract the characteristics of the bounding box.
-      xl = br[0]
-      xr = (xl + br[2])
-      yt = br[1]
-      yb = (yt + br[3])
-
-      #Form the data to send
-      left    = xl/self.size[0]
-      top     = yt/self.size[1]
-      right   = xr/self.size[0]
-      bottom  = yb/self.size[1]
-      centerX = left + (right - left)/2
-      centerY = bottom + (top - bottom)/2
-      area    = (xr-xl)*(yt-yb)/(self.size[0]*self.size[1])
+      self.br = cv.BoundingRect(biggest,update=0)
       
-      #Draw a contour around the bounding box.
-      cv.PolyLine(self.color_image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
+      #Publish the data.
+      self.publishBoxData()
 
-      #Publish the bounding box.
-      #Format is: "CenterX (in percent of box width) CenterY (in percent of box height)
-      #            Area (in percent of box area) LeftEdge (in percent of box width)
-      #            TopEdge (in percent of box height) RightEdge (in percent of box width)
-      #            BottomEdge (in percent of box height)"
+  def publishBoxData(self):
+    #Extract the characteristics of the bounding box.
+    xl = self.br[0]
+    xr = xl + self.br[2]
+    yt = self.br[1]
+    yb = yt + self.br[3]
 
-      self.publisher.publish("%i %i %i %i %i %i %i" % (centerX, centerY, area, left, top, right, bottom))
+    #Form the data to send
+    left    = float(xl)/self.size[0]
+    top     = float(yt)/self.size[1]
+    right   = float(xr)/self.size[0]
+    bottom  = float(yb)/self.size[1]
+    centerX = left + (right - left)/2
+    centerY = bottom + (top - bottom)/2
+    area    = 1.0*(xr-xl)*(yb-yt)/(self.size[0]*self.size[1])
+    
+    #Draw a contour around the bounding box.
+    cv.PolyLine(self.image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
+
+    #Publish the bounding box.
+    #Format is: "CenterX (in percent of box width) CenterY (in percent of box height)
+    #            Area (in percent of box area) LeftEdge (in percent of box width)
+    #            TopEdge (in percent of box height) RightEdge (in percent of box width)
+    #            BottomEdge (in percent of box height)"
+
+    self.publisher.publish("%f %f %f %f %f %f %f" % (centerX, centerY, area, left, top, right, bottom))
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):
     """ the main keypress-handling thread to control the drone """
 
-    # this is the main loop for the keyboard thread
-    #
-    # don't use 'Q', 'R', 'S', or 'T'  (they're the arrow keys)
-    #
     while True:
       # handle the image processing if we have a new Kinect image
       if (self.new_image):
         self.new_image = False # until we get a new one...
-        # now, do the image processing
-        # Process the image
+        #Do the image processing
         self.process_Image()
-        cv.ShowImage('image', self.color_image)
+        
+        #And show the images.
+        cv.ShowImage('image', self.image)
         cv.ShowImage('threshold', self.threshed_image)
 
       # get the next keypress
@@ -269,17 +308,20 @@ class ImageProcessor:
         self.load_thresholds()
 
 def main():
+  # Initializing the node
   rospy.init_node("image_processing")
+  
+  # Creating the image processor
   iP = ImageProcessor()
 
-  #Subscribing to the video source
-  print "\r Connecting to video service"
+  # Subscribing to the video source
+  print "Connecting to video service"
   rospy.Subscriber(IMAGE_SOURCE, Image, iP.videoUpdate, queue_size = 1)
-  print "\r Connected\n"
+  print "Connected"
   
   rospy.sleep(1)
 
-  #the main loop
+  # The main loop
   iP.keyboardLoop()
 
   print "Exiting Program"

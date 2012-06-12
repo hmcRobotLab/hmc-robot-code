@@ -175,20 +175,21 @@ class DroneEmulator:
 	
 	temp_x 	    = self.location[1]/self.imScale - base_x
 	temp_y      = self.location[0]/self.imScale - base_y
-	print "temp_x: %f, temp_y: %f"%(temp_x, temp_y)
 	imAngle     = imHour*2*pi/self.numHours
-	print "imAngle: %f"%imAngle
 	dx1         = temp_x * sin(imAngle)
 	dx2 	    = temp_y * cos(imAngle)
-	print "dx1: %f, dx2: %f"%(dx1,dx2)
 	x	    = dx1 + dx2
-	print "x: %f"%x
 	im_x        = int(pot_width_x * (x + .5))
-	
 
 	self.oldR   = self.rect
 	self.rect   = (im_x,im_z,im_width,im_height)
-	print self.rect 
+	
+	if self.debug:	
+	    print "temp_x: %f, temp_y: %f"%(temp_x, temp_y)
+	    print "imAngle: %f"%imAngle
+	    print "dx1: %f, dx2: %f"%(dx1,dx2)
+	    print "x: %f"%x
+            print self.rect 
 
 	#Delete the old image
 	cv.SetImageROI(self.baseIm, self.oldR)
