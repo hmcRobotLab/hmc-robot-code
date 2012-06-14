@@ -16,8 +16,6 @@ color("green")
     
 def handle_odometry_data( data ):
     '''This processes the odometry data published by the robot'''
-    global odometry
-    global pub
     odometryPacket = data.data.split()
     if odometryPacket[0] == "Odometry:": #If the packet contains odometry, then set the GUI's odometry values accordingly
         odometry.setOdometry(float(odometryPacket[1]), float(odometryPacket[2]), float(odometryPacket[3]))
@@ -39,10 +37,6 @@ def handle_odometry_data( data ):
         
 def listener():
     '''Sets up the stuff that the GUI needs in order to publish and receive messages'''
-    global odometry
-    global pub
-    odometry = odomClass.Odometry() #Initializes the odometer
-    pub = rospy.Publisher('GUI', String) #Creates the GUI's publisher
     rospy.init_node('publishGUI')
     pub.publish(String("reset")) #Publishes the reset command, which the robot will receive
     rospy.Subscriber('Odometry', String, handle_odometry_data)
@@ -57,7 +51,6 @@ class robotWidget(QtGui.QWidget):
     def timerEvent(self, event):
         '''This will constantly be called because we have a timer widget
             constantly running behind the scenes in our GUI.'''
-        global odometry
         self.lcd4.display(odometry.current_theta)
         self.lcd5.display(odometry.current_x)
         self.lcd6.display(odometry.current_y)
@@ -306,7 +299,7 @@ class robotWidget(QtGui.QWidget):
 
         ###### Row 4 Widgets (Text box with code examples, and 3 user-defined buttons) ######
         ex1 = QtGui.QTextEdit(self)
-        ex1.setText("tank(0,50,200)\n\ntank(0,data['speed'],data['speed'])\n\nZelda Item Get Tune:\nsong(0,[69,24,70,24,71,24,72,80])\n\nZelda Ballad of the Goddess Tune:\nsong(0,[62,80,64,16,65,16,67,64,72,28,74,64,67,28,64,64])")
+        ex1.setText("tank(50,200)\n\ntank(data['speed'],data['speed'])\n\nZelda Item Get Tune:\nsong([69,70,71,72],[24,24,24,80])\n\nZelda Main Theme:\nsong([70,65,70,70,72,74,75,77,77,77,78,80,82,82,82,80,78,80,78,77],[32,48,16,8,8,8,8,64,16,12,12,12,64,16,12,12,12,32,16,64])\n\nZelda Skyward Sword Ballad of the Goddess Tune:\nsong([62,64,65,67,72,74,67,64,62,67,64,62,60,62,67,64],[80,16,16,64,28,64,28,64,80,28,64,16,16,64,28,64])")
         
         
         
@@ -396,7 +389,6 @@ class robotWidget(QtGui.QWidget):
             
     def buttonClicked(self):
         '''If the reset button is clicked, then we reset stuff.'''
-        global pub
         pub.publish(String("reset"))
         self.showNums.stop()
         self.speed = 50
@@ -411,34 +403,29 @@ class robotWidget(QtGui.QWidget):
     def btn1Function(self):
         '''If the 1st user-defined button is clicked, then send a message
             to the robot saying so.'''
-        global pub
         self.state = "Button 1"
         pub.publish(String("Button 1"))
         
     def btn2Function(self):
         '''If the 2nd user-defined button is clicked, then send a message
             to the robot saying so.'''
-        global pub
         self.state = "Button 2"
         pub.publish(String("Button 2"))
         
     def btn3Function(self):
         '''If the 3rd user-defined button is clicked, then send a message
             to the robot saying so.'''
-        global pub
         self.state = "Button 3"
         pub.publish(String("Button 3"))
             
     def codeSend(self):
         '''If the code-sending button is clicked, then send the code to the robot'''
-        global pub
         pub.publish(String("code: " + str(self.qle.text())))
         self.state = "Code"
         self.qle.clear()
         
     def keyPressEvent(self, e):
         '''If a keyboard key is pressed, then respond accordingly'''
-        global pub
         if e.key() == QtCore.Qt.Key_Escape: #if the escape key is pressed, then exit
             direction = "None"
             self.close()
@@ -492,13 +479,11 @@ class robotWidget(QtGui.QWidget):
         
     def speedChange(self, newSpeed):
         '''If the speed-controlling dial is turned, then change the speed value accordingly.'''
-        global pub
         pub.publish(String("speed: " + str(newSpeed)))
         self.speed = newSpeed
             
     def changeState(self, check):
         '''If the checkbox is clicked, then change the state accordingly.'''
-        global pub
         if check == QtCore.Qt.Checked:
             self.state = 'Square Movement'
         else:
@@ -508,23 +493,22 @@ class robotWidget(QtGui.QWidget):
 
     def onActivated(self, text):
         '''If a value in the combo box is clicked, then change the background color accordingly.'''
-        global col
         if text == "Red Background":
-            col = QtGui.QColor(255, 0, 0)
+            self.col = QtGui.QColor(255, 0, 0)
         elif text == "Orange Background":
-            col = QtGui.QColor(255, 127, 0)
+            self.col = QtGui.QColor(255, 127, 0)
         elif text == "Yellow Background":
-            col = QtGui.QColor(255, 255, 0)
+            self.col = QtGui.QColor(255, 255, 0)
         elif text == "Green Background":
-            col = QtGui.QColor(0, 255, 0)
+            self.col = QtGui.QColor(0, 255, 0)
         elif text == "Blue Background":
-            col = QtGui.QColor(0, 0, 255)
+            self.col = QtGui.QColor(0, 0, 255)
         elif text == "Indigo Background":
-            col = QtGui.QColor(111, 0, 255)
+            self.col = QtGui.QColor(111, 0, 255)
         elif text == "Purple Background":
-            col = QtGui.QColor(143, 0, 255)
+            self.col = QtGui.QColor(143, 0, 255)
         elif text == "Default Background Color":
-            col = QtGui.QColor(245, 245, 245)
+            self.col = QtGui.QColor(245, 245, 245)
         else:
             if text == "Select Background from File":
                 fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -534,19 +518,20 @@ class robotWidget(QtGui.QWidget):
                 self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
             return
             
-        self.sld1.setValue(col.red())
-        self.sld2.setValue(col.green())
-        self.sld3.setValue(col.blue())
-        self.sld4.setValue(col.hue())
-        self.sld5.setValue(col.saturation())
-        self.sld6.setValue(col.value())
-        self.setStyleSheet("QFrame { background-color: %s }" % col.name())
+        self.sld1.setValue(self.col.red())
+        self.sld2.setValue(self.col.green())
+        self.sld3.setValue(self.col.blue())
+        self.sld4.setValue(self.col.hue())
+        self.sld5.setValue(self.col.saturation())
+        self.sld6.setValue(self.col.value())
+        self.setStyleSheet("QFrame { background-color: %s }" % self.col.name())
         self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
 
 
     
 if __name__ == '__main__':
-    global widget
+    odometry = odomClass.Odometry() #Initializes the odometer
+    pub = rospy.Publisher('GUI', String) #Creates the GUI's publisher
     try: listener()
     except rospy.ROSInterruptException:
         print "Connection Failed. Try Again."

@@ -1,0 +1,1 @@
+{'high_green': 255, 'low_green': 100, 'low_blue': 36, 'low_val': 91, 'high_hue': 255, 'high_val': 255, 'high_blue': 255, 'low_hue': 64, 'low_red': 24, 'high_red': 255, 'high_sat': 255, 'low_sat': 201}
