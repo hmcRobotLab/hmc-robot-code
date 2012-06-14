@@ -178,7 +178,6 @@ class DroneEmulator:
         base_y      = int(round(self.location[0]/self.imScale))
         base_z      = int(round(self.location[2]/self.imScale))
         imHour      = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
-        addTxt      = False
 
 	if self.landed:
 	    self.updateLandedImage()
@@ -244,9 +243,6 @@ class DroneEmulator:
         self.navData.vy       = self.internalVel[0]
         self.navData.vz       = self.internalVel[2]
         self.navPublisher.publish(self.navData)
-
-    def hovering(self):
-        return (self.internalVel == [0,0,0,0])
 
     def mainLoop(self):
         oldTime = time.time()
