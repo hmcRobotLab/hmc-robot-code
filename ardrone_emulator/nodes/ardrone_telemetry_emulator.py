@@ -5,6 +5,7 @@ import sys, time
 import cv
 from math import *
 from copy import deepcopy
+import vision_emulator
 
 from ardrone_emulator.msg import navData
 from ardrone_emulator.srv import *
@@ -19,36 +20,24 @@ def usage():
     print "Ardrone Emulator:"
     print "Please specify the image directory, the maximum x, y, and z \
 coordinates, the distance scale between your images, and, optionally the \
-number of angles at which you took images for each position in your grid, and the starting x,y,or z"
+number of angles at which you took images for each position in your grid, \
+the starting x,y,or z, and the name of the navData publisher."
     print "Example:"
     print "python <path>/ardrone_emulator.py\
-    /home/robotics/summer2012/data/droneImages3by2 2 1 1 0 24 1 1 0 0"
+    /home/robotics/summer2012/data/droneImages3by2 2 1 1 0 24 1 1 0 0 navData"
 
 class DroneEmulator:
 
     def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12,\
-            locX=0, locY=0, locZ=0, image_hour = 0, debug = False):
+            locX=0, locY=0, locZ=0, image_hour = 0, navDataPubName = "navData", debug = False):
 
         #Some constants:
         self.speedConstants = [1,1,1,1] #Format: [y, x, z, spin]
         self.debug          = debug
         self.takeoffHeight  = 1
-        self.xMax           = int(xMax)
-        self.yMax           = int(yMax)
-        self.zMax           = int(zMax)
-        self.imScale        = float(imScale)
-        self.numHours       = int(numHours)
-	self.rect           = (0,0,1,1)
-
-	#Text constants
-	self.textPos1       = (20,100)#(self.size[0]/4,self.size[1]/4)
-	self.textPos2       = (20,140)
-	self.textPos3       = (20,180)
-	self.textColor      = cv.CV_RGB(255,255,255)
-	self.font           = cv.InitFont(cv.CV_FONT_HERSHEY_COMPLEX, 1.0, 1.0, 0, 2)
+	self.visionEmulator = vision_emulator.visionEmulator.__init__(imageDir, xMax, yMax, zMax, imScale, numHours, debug) 
 
         #Setting the initial state:
-
         # the starting location Format: [y, x, z, 0 rad]
         self.location = map(float, [locY, locX, locZ])
         self.location.append(0.0)
@@ -58,15 +47,8 @@ class DroneEmulator:
         self.groundVel = [0,0,0,0] #Format: see above
         self.landed = True
 
-        self.baseImageDir = imageDir
-
-        print "Broadcasting publishers 'navData' and 'droneImage'"
-        self.navPublisher = rospy.Publisher('navData', navData)
-        self.imagePublisher = rospy.Publisher('droneImage', Image)
-        self.bridge = CvBridge()
-
-        self.createSizedImage()
-        self.publishImage()
+        print "Broadcasting publisher '%s'" % navDataPubName
+        self.navPublisher = rospy.Publisher(navDataPubName, navData)
 
         #Setting up the navdata message
         self.navData = navData()
@@ -145,92 +127,6 @@ class DroneEmulator:
         self.location = deepcopy(self.initLocation)
         print "Resetting to position",self.location
 
-    def createSizedImage(self):
-        baseIm           = cv.LoadImageM('%s/0_0_1/0.png'%self.baseImageDir)
-        self.baseSize    = cv.GetSize(baseIm)
-	self.size        = map(lambda(x) : int(x+self.imScale*x), self.baseSize) 
-	self.centerRect  = (int(self.imScale/2 * self.baseSize[0]), int(self.imScale/2 * self.baseSize[1]), self.baseSize[0],self.baseSize[1])
-	self.baseIm	 = cv.CreateImage(self.size, 8, 3)
-        self.landedImage = cv.CreateImage(self.size, 8, 3)
-        self.rangeImage  = cv.CreateImage(self.size, 8, 3)
-	self.blackImage  = cv.CreateImage(self.baseSize, 8, 3)
-	self.finalImage  = cv.CreateImage(self.baseSize, 8, 3)
-
-    def updateRangeImage(self):
-	self.text1 = "I am out of range"
-	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(self.location[1],self.location[0],self.location[2])
-	self.text3 = "Max: [%i, %i, %i]"%(self.xMax,self.yMax,self.zMax)
-	cv.PutText(self.rangeImage, self.text1, self.textPos1, self.font, self.textColor)
-	cv.PutText(self.rangeImage, self.text2, self.textPos2, self.font, self.textColor)
-	cv.PutText(self.rangeImage, self.text3, self.textPos3, self.font, self.textColor)
-
-    def updateLandedImage(self):
-	self.text1 = "I have landed"
-	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(self.location[1],self.location[0],self.location[2])
-	cv.PutText(self.landedImage, self.text1, self.textPos1, self.font, self.textColor)
-	cv.PutText(self.landedImage, self.text2, self.textPos2, self.font, self.textColor)
-
-    def publishImage(self):
-        #First, here I need to convert x, y, z, and the robots rotation
-        # into the appropriate images. The modding shouldn't be necessary, but 
-        # it seems to be. I plan to investigate later. 
-        base_x      = int(round(self.location[1]/self.imScale))
-        base_y      = int(round(self.location[0]/self.imScale))
-        base_z      = int(round(self.location[2]/self.imScale))
-        imHour      = int(round(self.location[3]*(self.numHours/(2*pi)))) % self.numHours
-        addTxt      = False
-
-	if self.landed:
-	    self.updateLandedImage()
-            image   = self.landedImage
-        elif (base_x > self.xMax) or (base_x < 0) or (base_y < 0) or (base_y > self.yMax) or (base_z < 1) or (base_z > self.zMax):
-	    self.updateRangeImage()
-            image   = self.rangeImage
-        else:
-            folder  = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
-            image   = cv.LoadImageM(folder)
-	
-	im_width    = self.baseSize[0]
-	im_height   = self.baseSize[1]
-	pot_width_x = self.size[0] - self.baseSize[0]
-	pot_width_z = self.size[1] - self.baseSize[1]
-	# Z is easy
-	im_z        = int(pot_width_z * (self.location[2]/self.imScale - (base_z - .5)))
-	# X is complicated
-	temp_x 	    = self.location[1]/self.imScale - base_x
-	temp_y      = self.location[0]/self.imScale - base_y
-	imAngle     = imHour*2*pi/self.numHours
-	dx1         = temp_x * sin(imAngle)
-	dx2 	    = temp_y * cos(imAngle)
-	x	    = dx1 + dx2
-	im_x        = int(pot_width_x * (x + .5))
-
-	self.oldR   = self.rect
-	self.rect   = (im_x,im_z,im_width,im_height)
-	
-	if self.debug:
-	    print "temp_x: %f, temp_y: %f"%(temp_x, temp_y)
-	    print "imAngle: %f"%imAngle
-	    print "dx1: %f, dx2: %f"%(dx1,dx2)
-	    print "x: %f"%x
-            print self.rect
-
-	#Delete the old image
-	cv.SetImageROI(self.baseIm, self.oldR)
-	cv.Resize(self.blackImage, self.baseIm)
-	cv.ResetImageROI(self.baseIm)
-
-	#Add in the new one
-	cv.SetImageROI(self.baseIm, self.rect)
-	cv.Resize(image, self.baseIm)
-	cv.ResetImageROI(self.baseIm)
-
-	#Publish only the center rectangle.
-	cv.SetImageROI(self.baseIm, self.centerRect)
-	cv.Copy(self.baseIm, self.finalImage)
-	cv.ResetImageROI(self.baseIm)
-        self.imagePublisher.publish(self.bridge.cv_to_imgmsg(self.finalImage,"bgr8"))
-
     def publishNavData(self):
         z   = self.location[2]
         rot = self.location[3]
@@ -244,9 +140,6 @@ class DroneEmulator:
         self.navData.vy       = self.internalVel[0]
         self.navData.vz       = self.internalVel[2]
         self.navPublisher.publish(self.navData)
-
-    def hovering(self):
-        return (self.internalVel == [0,0,0,0])
 
     def mainLoop(self):
         oldTime = time.time()
@@ -263,7 +156,7 @@ class DroneEmulator:
             oldTime = time.time()
 
             #Now to publish the data like real drone.
-            self.publishImage()
+            self.visionEmulator.publishImage(self.location, self.landed)
             self.publishNavData()
 
 def main(argTuple):

@@ -4,7 +4,6 @@ import rospy
 import sys, time
 import cv
 from math import *
-from copy import deepcopy
 
 from ardrone_emulator.srv import *
 from sensor_msgs.msg import Image
@@ -12,7 +11,7 @@ from cv_bridge import CvBridge, CvBridgeError
 
 class VisionEmulator:
 
-    def __init__(self, imageDir, xMax, yMax, zMax, imScale, imagePubName, numHours = 12, debug = False):
+    def __init__(self, imageDir, xMax, yMax, zMax, imScale, numHours = 12, debug = False, imagePubName = 'droneImage'):
 
         #Some constants:
         self.debug          = debug
@@ -52,7 +51,7 @@ class VisionEmulator:
 
     def updateRangeImage(self,location):
 	self.text1 = "I am out of range"
-	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(self.location[1],self.location[0],self.location[2])
+	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(location[1],location[0],location[2])
 	self.text3 = "Max: [%i, %i, %i]"%(self.xMax,self.yMax,self.zMax)
 	cv.PutText(self.rangeImage, self.text1, self.textPos1, self.font, self.textColor)
 	cv.PutText(self.rangeImage, self.text2, self.textPos2, self.font, self.textColor)
@@ -60,11 +59,11 @@ class VisionEmulator:
 
     def updateLandedImage(self,location):
 	self.text1 = "I have landed"
-	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(self.location[1],self.location[0],self.location[2])
+	self.text2 = "Pos: [%.2f, %.2f, %.2f]"%(location[1],location[0],location[2])
 	cv.PutText(self.landedImage, self.text1, self.textPos1, self.font, self.textColor)
 	cv.PutText(self.landedImage, self.text2, self.textPos2, self.font, self.textColor)
 
-    def publishImage(self,location):
+    def publishImage(self,location,landed):
         #First, here I need to convert x, y, z, and the robots rotation
         # into the appropriate images. The modding shouldn't be necessary, but 
         # it seems to be. I plan to investigate later. 
@@ -72,13 +71,12 @@ class VisionEmulator:
         base_y      = int(round(location[0]/self.imScale))
         base_z      = int(round(location[2]/self.imScale))
         imHour      = int(round(location[3]*(self.numHours/(2*pi)))) % self.numHours
-        addTxt      = False
 
-	if base_z == 0:
-	    self.updateLandedImage()
+	if landed:
+	    self.updateLandedImage(location)
             image   = self.landedImage
         elif (base_x > self.xMax) or (base_x < 0) or (base_y < 0) or (base_y > self.yMax) or (base_z < 1) or (base_z > self.zMax):
-	    self.updateRangeImage()
+	    self.updateRangeImage(location)
             image   = self.rangeImage
         else:
             folder  = '%s/%i_%i_%i/%i.png' %(self.baseImageDir, base_x, base_y, base_z,imHour)
