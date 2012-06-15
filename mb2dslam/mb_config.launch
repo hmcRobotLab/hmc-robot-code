@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="tf" type="static_transform_publisher" name="base_kinect_broadcaster" args="-0.115 0 0.226 0 0 0 base_link openni_camera 100" />
+  !--- <include file="$(find mb2dslam)/kinectlaser.launch"/>
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
+</launch>

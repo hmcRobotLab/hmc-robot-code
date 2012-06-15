@@ -1,0 +1,15 @@
+<package>
+  <description brief="mb2dslam">
+
+     mb2dslam
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mb2dslam</url>
+  <depend package="roscpp"/>
+
+</package>
+
+
