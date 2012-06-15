@@ -8,7 +8,7 @@ import threading
 
 #Application Specific Imports
 # You'll likely use "droneImage" for the drone.
-IMAGE_SOURCE = "camera/image"
+IMAGE_SOURCE = "output"
 
 class ImageProcessor:
 
