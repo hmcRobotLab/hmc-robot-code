@@ -1,5 +1,5 @@
 <launch>
-	<!-- <include file="$(find mb2dslam)/mb_config.launch"/> -->
+	<include file="$(find mb2dslam)/mb_config.launch"/>
 
 	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
 		<!--remap from="scan" to="base_scan"/-->
