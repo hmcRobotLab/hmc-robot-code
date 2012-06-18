@@ -27,7 +27,7 @@
   <!-- pointcloud_to_laserscan -->
   <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager">
     <param name="output_frame_id" value="/openni_depth_frame"/>
-    <param name="scan_time" value="1/5.0"/>
+    <param name="scan_time" value="1/3.0"/>
     <remap from="cloud" to="cloud_throttled"/>
   </node>
 
@@ -48,6 +48,10 @@
     <param name="base_frame" value="base_link"/>
     <param name="map_frame" value="map"/>
     <param name="iterations" value="10"/>
-    <param name="temporalUpdate" value="2"/>
+    <param name="linearUpdate" value="0.25"/>     <!-- param name="linearUpdate" value="0.5"/-->
+     <param name="angularUpdate" value="0.262"/>   <!--param name="angularUpdate" value="0.436"/-->
+     <param name="temporalUpdate" value="0.1"/>
+     <param name="resampleThreshold" value="0.5"/>
+     <param name="particles" value="3" />
   </node>
 </launch>
