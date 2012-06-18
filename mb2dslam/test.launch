@@ -42,5 +42,6 @@
     <param name="iterations" value="10"/>
     <param name="linearUpdate" value="0.1"/>
     <param name="angularUpdate" value="0.1"/>
+    <param name="temporalUpdate" value="1"/>
   </node>
 </launch>
