@@ -2,7 +2,7 @@
   <!-- <machine name="zhuchka" address="zhuchka" ros-root="$(env ROS_ROOT)" ros-package-path="$(env ROS_PACKAGE_PATH" user="robotics" password="(go 'ev)*"/> -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
       args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link openni_camera 20" />
-  <node pkg="muddbot" type="irobot_mudd" name="driver.py"/>
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
   
   <!-- kinect -->
   <include file="$(find openni_camera)/launch/openni_node.launch"/>
