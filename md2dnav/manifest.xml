@@ -1,0 +1,15 @@
+<package>
+  <description brief="md2dnav">
+
+     md2dnav
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/md2dnav</url>
+  <depend package="irobot_mudd"/>
+
+</package>
+
+
