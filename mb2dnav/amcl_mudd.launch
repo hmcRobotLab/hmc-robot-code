@@ -10,9 +10,9 @@
   <param name="update_min_d" value="0.05"/>
   <param name="update_min_a" value="0.1"/>
   <param name="resample_interval" value="1"/>
-  <param name="transform_tolerance" value="0.2" />
+  <param name="transform_tolerance" value="5.2" />
   <param name="recovery_alpha_slow" value="0.001"/>
   <param name="recovery_alpha_fast" value="0.1"/>
-  <param name="laser_model_type" value="beam"/>
+  <param name="laser_model_type" value="likelihood_field"/>
 </node>
 </launch>
