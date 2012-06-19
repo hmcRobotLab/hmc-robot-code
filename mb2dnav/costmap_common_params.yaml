@@ -1,6 +1,7 @@
 obstacle_range: 2.5
-raytrace_range: 3.0
+raytrace_range: 5.0
 robot_radius: .3302
+transform_tolerance: 15
 inflation_radius: .4
 observation_sources: laserscan
 laserscan: {sensor_frame: openni_depth_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
