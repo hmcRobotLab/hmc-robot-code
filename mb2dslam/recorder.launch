@@ -4,6 +4,7 @@
 
   <!-- MuddBot -->
   <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
+  <node name="muddbot" pkg="irobot_mudd" type="joy.py"/>
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
