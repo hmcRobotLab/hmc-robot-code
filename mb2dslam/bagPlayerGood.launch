@@ -1,7 +1,4 @@
 <launch>
-
-  <param name="use_sim_time" value="true"/>
-
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
       args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link openni_camera 40" />
 
