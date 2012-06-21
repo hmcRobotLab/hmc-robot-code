@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-#include <fovis/fovis.hpp>
+#include <fovis.hpp>
 
 #include "data_capture.hpp"
 

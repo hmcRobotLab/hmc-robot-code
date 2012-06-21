@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 # Include any dependencies generated for this target.
 include libfovis/CMakeFiles/fovis.dir/depend.make
@@ -48,17 +48,17 @@ include libfovis/CMakeFiles/fovis.dir/flags.make
 
 libfovis/CMakeFiles/fovis.dir/frame.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/frame.cpp.o: ../libfovis/frame.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/frame.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/frame.cpp.o -c /home/robotics/libfovis/libfovis/frame.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/frame.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.cpp
 
 libfovis/CMakeFiles/fovis.dir/frame.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/frame.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/frame.cpp > CMakeFiles/fovis.dir/frame.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.cpp > CMakeFiles/fovis.dir/frame.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/frame.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/frame.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/frame.cpp -o CMakeFiles/fovis.dir/frame.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.cpp -o CMakeFiles/fovis.dir/frame.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/frame.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/frame.cpp.o.requires
@@ -71,17 +71,17 @@ libfovis/CMakeFiles/fovis.dir/frame.cpp.o.provides.build: libfovis/CMakeFiles/fo
 
 libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o: ../libfovis/visual_odometry.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/visual_odometry.cpp.o -c /home/robotics/libfovis/libfovis/visual_odometry.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/visual_odometry.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.cpp
 
 libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/visual_odometry.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/visual_odometry.cpp > CMakeFiles/fovis.dir/visual_odometry.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.cpp > CMakeFiles/fovis.dir/visual_odometry.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/visual_odometry.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/visual_odometry.cpp -o CMakeFiles/fovis.dir/visual_odometry.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.cpp -o CMakeFiles/fovis.dir/visual_odometry.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o.requires
@@ -94,17 +94,17 @@ libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o.provides.build: libfovis/CMa
 
 libfovis/CMakeFiles/fovis.dir/fast.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/fast.cpp.o: ../libfovis/fast.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/fast.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/fast.cpp.o -c /home/robotics/libfovis/libfovis/fast.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/fast.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.cpp
 
 libfovis/CMakeFiles/fovis.dir/fast.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/fast.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/fast.cpp > CMakeFiles/fovis.dir/fast.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.cpp > CMakeFiles/fovis.dir/fast.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/fast.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/fast.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/fast.cpp -o CMakeFiles/fovis.dir/fast.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.cpp -o CMakeFiles/fovis.dir/fast.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/fast.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/fast.cpp.o.requires
@@ -117,17 +117,17 @@ libfovis/CMakeFiles/fovis.dir/fast.cpp.o.provides.build: libfovis/CMakeFiles/fov
 
 libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o: ../libfovis/motion_estimation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/motion_estimation.cpp.o -c /home/robotics/libfovis/libfovis/motion_estimation.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/motion_estimation.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.cpp
 
 libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/motion_estimation.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/motion_estimation.cpp > CMakeFiles/fovis.dir/motion_estimation.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.cpp > CMakeFiles/fovis.dir/motion_estimation.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/motion_estimation.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/motion_estimation.cpp -o CMakeFiles/fovis.dir/motion_estimation.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.cpp -o CMakeFiles/fovis.dir/motion_estimation.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o.requires
@@ -140,17 +140,17 @@ libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o.provides.build: libfovis/C
 
 libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o: ../libfovis/gauss_pyramid.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fovis.dir/gauss_pyramid.c.o   -c /home/robotics/libfovis/libfovis/gauss_pyramid.c
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fovis.dir/gauss_pyramid.c.o   -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.c
 
 libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/fovis.dir/gauss_pyramid.c.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/robotics/libfovis/libfovis/gauss_pyramid.c > CMakeFiles/fovis.dir/gauss_pyramid.c.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.c > CMakeFiles/fovis.dir/gauss_pyramid.c.i
 
 libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/fovis.dir/gauss_pyramid.c.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/robotics/libfovis/libfovis/gauss_pyramid.c -o CMakeFiles/fovis.dir/gauss_pyramid.c.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.c -o CMakeFiles/fovis.dir/gauss_pyramid.c.s
 
 libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o.requires
@@ -163,17 +163,17 @@ libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o.provides.build: libfovis/CMakeFi
 
 libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o: ../libfovis/refine_motion_estimate.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o -c /home/robotics/libfovis/libfovis/refine_motion_estimate.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.cpp
 
 libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/refine_motion_estimate.cpp > CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.cpp > CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/refine_motion_estimate.cpp -o CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.cpp -o CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o.requires
@@ -186,17 +186,17 @@ libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o.provides.build: libfo
 
 libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o: ../libfovis/tictoc.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/tictoc.cpp.o -c /home/robotics/libfovis/libfovis/tictoc.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/tictoc.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.cpp
 
 libfovis/CMakeFiles/fovis.dir/tictoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/tictoc.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/tictoc.cpp > CMakeFiles/fovis.dir/tictoc.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.cpp > CMakeFiles/fovis.dir/tictoc.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/tictoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/tictoc.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/tictoc.cpp -o CMakeFiles/fovis.dir/tictoc.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.cpp -o CMakeFiles/fovis.dir/tictoc.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o.requires
@@ -209,17 +209,17 @@ libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o.provides.build: libfovis/CMakeFiles/f
 
 libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o: ../libfovis/primesense_depth.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/primesense_depth.cpp.o -c /home/robotics/libfovis/libfovis/primesense_depth.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/primesense_depth.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.cpp
 
 libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/primesense_depth.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/primesense_depth.cpp > CMakeFiles/fovis.dir/primesense_depth.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.cpp > CMakeFiles/fovis.dir/primesense_depth.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/primesense_depth.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/primesense_depth.cpp -o CMakeFiles/fovis.dir/primesense_depth.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.cpp -o CMakeFiles/fovis.dir/primesense_depth.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o.requires
@@ -232,17 +232,17 @@ libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o.provides.build: libfovis/CM
 
 libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o: ../libfovis/initial_homography_estimation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o -c /home/robotics/libfovis/libfovis/initial_homography_estimation.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.cpp
 
 libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/initial_homography_estimation.cpp > CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.cpp > CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/initial_homography_estimation.cpp -o CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.cpp -o CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o.requires
@@ -255,17 +255,17 @@ libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o.provides.build
 
 libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o: ../libfovis/grid_filter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/grid_filter.cpp.o -c /home/robotics/libfovis/libfovis/grid_filter.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/grid_filter.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.cpp
 
 libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/grid_filter.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/grid_filter.cpp > CMakeFiles/fovis.dir/grid_filter.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.cpp > CMakeFiles/fovis.dir/grid_filter.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/grid_filter.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/grid_filter.cpp -o CMakeFiles/fovis.dir/grid_filter.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.cpp -o CMakeFiles/fovis.dir/grid_filter.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o.requires
@@ -278,17 +278,17 @@ libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o.provides.build: libfovis/CMakeFi
 
 libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o: ../libfovis/intensity_descriptor.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/intensity_descriptor.cpp.o -c /home/robotics/libfovis/libfovis/intensity_descriptor.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/intensity_descriptor.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.cpp
 
 libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/intensity_descriptor.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/intensity_descriptor.cpp > CMakeFiles/fovis.dir/intensity_descriptor.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.cpp > CMakeFiles/fovis.dir/intensity_descriptor.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/intensity_descriptor.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/intensity_descriptor.cpp -o CMakeFiles/fovis.dir/intensity_descriptor.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.cpp -o CMakeFiles/fovis.dir/intensity_descriptor.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o.requires
@@ -301,17 +301,17 @@ libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o.provides.build: libfovi
 
 libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o: ../libfovis/pyramid_level.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/pyramid_level.cpp.o -c /home/robotics/libfovis/libfovis/pyramid_level.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/pyramid_level.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.cpp
 
 libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/pyramid_level.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/pyramid_level.cpp > CMakeFiles/fovis.dir/pyramid_level.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.cpp > CMakeFiles/fovis.dir/pyramid_level.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/pyramid_level.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/pyramid_level.cpp -o CMakeFiles/fovis.dir/pyramid_level.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.cpp -o CMakeFiles/fovis.dir/pyramid_level.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o.requires
@@ -324,17 +324,17 @@ libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o.provides.build: libfovis/CMake
 
 libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o: ../libfovis/feature_matcher.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/feature_matcher.cpp.o -c /home/robotics/libfovis/libfovis/feature_matcher.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/feature_matcher.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.cpp
 
 libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/feature_matcher.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/feature_matcher.cpp > CMakeFiles/fovis.dir/feature_matcher.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.cpp > CMakeFiles/fovis.dir/feature_matcher.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/feature_matcher.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/feature_matcher.cpp -o CMakeFiles/fovis.dir/feature_matcher.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.cpp -o CMakeFiles/fovis.dir/feature_matcher.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o.requires
@@ -347,17 +347,17 @@ libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o.provides.build: libfovis/CMa
 
 libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o: ../libfovis/refine_feature_match.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/refine_feature_match.cpp.o -c /home/robotics/libfovis/libfovis/refine_feature_match.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/refine_feature_match.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.cpp
 
 libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/refine_feature_match.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/refine_feature_match.cpp > CMakeFiles/fovis.dir/refine_feature_match.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.cpp > CMakeFiles/fovis.dir/refine_feature_match.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/refine_feature_match.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/refine_feature_match.cpp -o CMakeFiles/fovis.dir/refine_feature_match.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.cpp -o CMakeFiles/fovis.dir/refine_feature_match.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o.requires
@@ -370,17 +370,17 @@ libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o.provides.build: libfovi
 
 libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o: ../libfovis/stereo_depth.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_depth.cpp.o -c /home/robotics/libfovis/libfovis/stereo_depth.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_depth.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.cpp
 
 libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/stereo_depth.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/stereo_depth.cpp > CMakeFiles/fovis.dir/stereo_depth.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.cpp > CMakeFiles/fovis.dir/stereo_depth.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/stereo_depth.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/stereo_depth.cpp -o CMakeFiles/fovis.dir/stereo_depth.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.cpp -o CMakeFiles/fovis.dir/stereo_depth.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o.requires
@@ -393,17 +393,17 @@ libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o.provides.build: libfovis/CMakeF
 
 libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o: ../libfovis/stereo_frame.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_frame.cpp.o -c /home/robotics/libfovis/libfovis/stereo_frame.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_frame.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.cpp
 
 libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/stereo_frame.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/stereo_frame.cpp > CMakeFiles/fovis.dir/stereo_frame.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.cpp > CMakeFiles/fovis.dir/stereo_frame.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/stereo_frame.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/stereo_frame.cpp -o CMakeFiles/fovis.dir/stereo_frame.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.cpp -o CMakeFiles/fovis.dir/stereo_frame.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o.requires
@@ -416,17 +416,17 @@ libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o.provides.build: libfovis/CMakeF
 
 libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o: ../libfovis/depth_image.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/depth_image.cpp.o -c /home/robotics/libfovis/libfovis/depth_image.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/depth_image.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.cpp
 
 libfovis/CMakeFiles/fovis.dir/depth_image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/depth_image.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/depth_image.cpp > CMakeFiles/fovis.dir/depth_image.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.cpp > CMakeFiles/fovis.dir/depth_image.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/depth_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/depth_image.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/depth_image.cpp -o CMakeFiles/fovis.dir/depth_image.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.cpp -o CMakeFiles/fovis.dir/depth_image.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o.requires
@@ -439,17 +439,17 @@ libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o.provides.build: libfovis/CMakeFi
 
 libfovis/CMakeFiles/fovis.dir/rectification.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/rectification.cpp.o: ../libfovis/rectification.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/rectification.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/rectification.cpp.o -c /home/robotics/libfovis/libfovis/rectification.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/rectification.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.cpp
 
 libfovis/CMakeFiles/fovis.dir/rectification.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/rectification.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/rectification.cpp > CMakeFiles/fovis.dir/rectification.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.cpp > CMakeFiles/fovis.dir/rectification.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/rectification.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/rectification.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/rectification.cpp -o CMakeFiles/fovis.dir/rectification.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.cpp -o CMakeFiles/fovis.dir/rectification.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/rectification.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/rectification.cpp.o.requires
@@ -462,17 +462,17 @@ libfovis/CMakeFiles/fovis.dir/rectification.cpp.o.provides.build: libfovis/CMake
 
 libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o: ../libfovis/stereo_rectify.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_rectify.cpp.o -c /home/robotics/libfovis/libfovis/stereo_rectify.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/stereo_rectify.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.cpp
 
 libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/stereo_rectify.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/stereo_rectify.cpp > CMakeFiles/fovis.dir/stereo_rectify.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.cpp > CMakeFiles/fovis.dir/stereo_rectify.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/stereo_rectify.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/stereo_rectify.cpp -o CMakeFiles/fovis.dir/stereo_rectify.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.cpp -o CMakeFiles/fovis.dir/stereo_rectify.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o.requires
@@ -485,17 +485,17 @@ libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o.provides.build: libfovis/CMak
 
 libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o: ../libfovis/internal_utils.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/internal_utils.cpp.o -c /home/robotics/libfovis/libfovis/internal_utils.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/internal_utils.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.cpp
 
 libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/internal_utils.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/internal_utils.cpp > CMakeFiles/fovis.dir/internal_utils.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.cpp > CMakeFiles/fovis.dir/internal_utils.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/internal_utils.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/internal_utils.cpp -o CMakeFiles/fovis.dir/internal_utils.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.cpp -o CMakeFiles/fovis.dir/internal_utils.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o.requires
@@ -508,17 +508,17 @@ libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o.provides.build: libfovis/CMak
 
 libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o: libfovis/CMakeFiles/fovis.dir/flags.make
 libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o: ../libfovis/normalize_image.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/normalize_image.cpp.o -c /home/robotics/libfovis/libfovis/normalize_image.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fovis.dir/normalize_image.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.cpp
 
 libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fovis.dir/normalize_image.cpp.i"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/libfovis/normalize_image.cpp > CMakeFiles/fovis.dir/normalize_image.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.cpp > CMakeFiles/fovis.dir/normalize_image.cpp.i
 
 libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fovis.dir/normalize_image.cpp.s"
-	cd /home/robotics/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/libfovis/normalize_image.cpp -o CMakeFiles/fovis.dir/normalize_image.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.cpp -o CMakeFiles/fovis.dir/normalize_image.cpp.s
 
 libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o.requires:
 .PHONY : libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o.requires
@@ -580,8 +580,8 @@ lib/libfovis.so.1: libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o
 lib/libfovis.so.1: libfovis/CMakeFiles/fovis.dir/build.make
 lib/libfovis.so.1: libfovis/CMakeFiles/fovis.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library ../lib/libfovis.so"
-	cd /home/robotics/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/fovis.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/robotics/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -E cmake_symlink_library ../lib/libfovis.so.1 ../lib/libfovis.so.1 ../lib/libfovis.so
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/fovis.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -E cmake_symlink_library ../lib/libfovis.so.1 ../lib/libfovis.so.1 ../lib/libfovis.so
 
 lib/libfovis.so: lib/libfovis.so.1
 
@@ -613,10 +613,10 @@ libfovis/CMakeFiles/fovis.dir/requires: libfovis/CMakeFiles/fovis.dir/normalize_
 .PHONY : libfovis/CMakeFiles/fovis.dir/requires
 
 libfovis/CMakeFiles/fovis.dir/clean:
-	cd /home/robotics/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -P CMakeFiles/fovis.dir/cmake_clean.cmake
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis && $(CMAKE_COMMAND) -P CMakeFiles/fovis.dir/cmake_clean.cmake
 .PHONY : libfovis/CMakeFiles/fovis.dir/clean
 
 libfovis/CMakeFiles/fovis.dir/depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/libfovis /home/robotics/libfovis/libfovis /home/robotics/libfovis/pod-build /home/robotics/libfovis/pod-build/libfovis /home/robotics/libfovis/pod-build/libfovis/CMakeFiles/fovis.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis/CMakeFiles/fovis.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : libfovis/CMakeFiles/fovis.dir/depend
 

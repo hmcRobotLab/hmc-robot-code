@@ -1,8 +1,8 @@
-# Install script for directory: /home/robotics/libfovis
+# Install script for directory: /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/robotics/libfovis/build")
+  SET(CMAKE_INSTALL_PREFIX "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,9 +34,9 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/robotics/libfovis/pod-build/libfovis/cmake_install.cmake")
-  INCLUDE("/home/robotics/libfovis/pod-build/testers/cmake_install.cmake")
-  INCLUDE("/home/robotics/libfovis/pod-build/examples/cmake_install.cmake")
+  INCLUDE("/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis/cmake_install.cmake")
+  INCLUDE("/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/testers/cmake_install.cmake")
+  INCLUDE("/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -46,7 +46,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/robotics/libfovis/pod-build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/robotics/libfovis/pod-build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

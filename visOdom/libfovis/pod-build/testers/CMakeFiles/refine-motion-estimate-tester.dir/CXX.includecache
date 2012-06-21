@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/robotics/libfovis/testers/../libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/../libfovis/refine_motion_estimate.hpp
 Eigen/Geometry
 -
 
-/home/robotics/libfovis/testers/refine_motion_estimate_tester.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/refine_motion_estimate_tester.cpp
 stdio.h
 -
 iostream
@@ -18,7 +18,7 @@ iostream
 Eigen/Geometry
 -
 ../libfovis/refine_motion_estimate.hpp
-/home/robotics/libfovis/testers/../libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/../libfovis/refine_motion_estimate.hpp
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

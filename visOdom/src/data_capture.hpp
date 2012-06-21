@@ -4,7 +4,7 @@
 #include <XnOS.h>
 #include <XnCppWrapper.h>
 
-#include <fovis/fovis.hpp>
+#include <fovis.hpp>
 
 namespace fovis_example
 {

@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -107,14 +107,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles /home/robotics/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/progress.marks
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/progress.marks
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/clean
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/clean
 .PHONY : clean
 
 # The main clean target
@@ -123,22 +123,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/rule:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/rule
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/rule
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/rule
 
 # Convenience name for target.
@@ -147,7 +147,7 @@ fv-example-openni: examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/r
 
 # fast build rule for target.
 fv-example-openni/fast:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build
 .PHONY : fv-example-openni/fast
 
 data_capture.o: data_capture.cpp.o
@@ -155,7 +155,7 @@ data_capture.o: data_capture.cpp.o
 
 # target to build an object file
 data_capture.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o
 .PHONY : data_capture.cpp.o
 
 data_capture.i: data_capture.cpp.i
@@ -163,7 +163,7 @@ data_capture.i: data_capture.cpp.i
 
 # target to preprocess a source file
 data_capture.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.i
 .PHONY : data_capture.cpp.i
 
 data_capture.s: data_capture.cpp.s
@@ -171,7 +171,7 @@ data_capture.s: data_capture.cpp.s
 
 # target to generate assembly for a file
 data_capture.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.s
 .PHONY : data_capture.cpp.s
 
 main.o: main.cpp.o
@@ -179,7 +179,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -187,7 +187,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -195,7 +195,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -228,6 +228,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

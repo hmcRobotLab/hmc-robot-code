@@ -1,8 +1,8 @@
-# Install script for directory: /home/robotics/libfovis/examples/fv-example-openni
+# Install script for directory: /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/robotics/libfovis/build")
+  SET(CMAKE_INSTALL_PREFIX "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,15 +37,15 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni")
     FILE(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni"
-         RPATH "/home/robotics/libfovis/build/lib")
+         RPATH "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/lib")
   ENDIF()
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/robotics/libfovis/pod-build/bin/fv-example-openni")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/bin/fv-example-openni")
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni")
     FILE(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni"
-         OLD_RPATH "/home/robotics/libfovis/pod-build/lib:/home/robotics/libfovis/build/lib:"
-         NEW_RPATH "/home/robotics/libfovis/build/lib")
+         OLD_RPATH "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/lib:/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/lib:"
+         NEW_RPATH "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/lib")
     IF(CMAKE_INSTALL_DO_STRIP)
       EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/fv-example-openni")
     ENDIF(CMAKE_INSTALL_DO_STRIP)

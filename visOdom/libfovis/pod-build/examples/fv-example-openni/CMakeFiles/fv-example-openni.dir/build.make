@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 # Include any dependencies generated for this target.
 include examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/depend.make
@@ -48,17 +48,17 @@ include examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/flags.make
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o: examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/flags.make
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o: ../examples/fv-example-openni/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fv-example-openni.dir/main.cpp.o -c /home/robotics/libfovis/examples/fv-example-openni/main.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fv-example-openni.dir/main.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/main.cpp
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fv-example-openni.dir/main.cpp.i"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/examples/fv-example-openni/main.cpp > CMakeFiles/fv-example-openni.dir/main.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/main.cpp > CMakeFiles/fv-example-openni.dir/main.cpp.i
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fv-example-openni.dir/main.cpp.s"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/examples/fv-example-openni/main.cpp -o CMakeFiles/fv-example-openni.dir/main.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/main.cpp -o CMakeFiles/fv-example-openni.dir/main.cpp.s
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o.requires:
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o.requires
@@ -71,17 +71,17 @@ examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/main.cpp.o.provides.
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o: examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/flags.make
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o: ../examples/fv-example-openni/data_capture.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fv-example-openni.dir/data_capture.cpp.o -c /home/robotics/libfovis/examples/fv-example-openni/data_capture.cpp
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/fv-example-openni.dir/data_capture.cpp.o -c /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.cpp
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fv-example-openni.dir/data_capture.cpp.i"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/libfovis/examples/fv-example-openni/data_capture.cpp > CMakeFiles/fv-example-openni.dir/data_capture.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.cpp > CMakeFiles/fv-example-openni.dir/data_capture.cpp.i
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fv-example-openni.dir/data_capture.cpp.s"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/libfovis/examples/fv-example-openni/data_capture.cpp -o CMakeFiles/fv-example-openni.dir/data_capture.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.cpp -o CMakeFiles/fv-example-openni.dir/data_capture.cpp.s
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o.requires:
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/data_capture.cpp.o.requires
@@ -107,7 +107,7 @@ bin/fv-example-openni: lib/libfovis.so.1
 bin/fv-example-openni: examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build.make
 bin/fv-example-openni: examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../../bin/fv-example-openni"
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/fv-example-openni.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/fv-example-openni.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/build: bin/fv-example-openni
@@ -118,10 +118,10 @@ examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/requires: examples/f
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/requires
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/clean:
-	cd /home/robotics/libfovis/pod-build/examples/fv-example-openni && $(CMAKE_COMMAND) -P CMakeFiles/fv-example-openni.dir/cmake_clean.cmake
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni && $(CMAKE_COMMAND) -P CMakeFiles/fv-example-openni.dir/cmake_clean.cmake
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/clean
 
 examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/libfovis /home/robotics/libfovis/examples/fv-example-openni /home/robotics/libfovis/pod-build /home/robotics/libfovis/pod-build/examples/fv-example-openni /home/robotics/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : examples/fv-example-openni/CMakeFiles/fv-example-openni.dir/depend
 

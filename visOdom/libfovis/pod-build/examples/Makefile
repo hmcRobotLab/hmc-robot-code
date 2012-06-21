@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -107,14 +107,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles /home/robotics/libfovis/pod-build/examples/CMakeFiles/progress.marks
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/CMakeFiles/progress.marks
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/clean
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/clean
 .PHONY : clean
 
 # The main clean target
@@ -123,17 +123,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -159,6 +159,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

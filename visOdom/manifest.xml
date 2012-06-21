@@ -9,6 +9,8 @@
   <depend package="nav_msgs"/>
   <depend package="tf"/>
   <depend package="geometry_msgs"/>
+  <depend package="common_rosdeps"/>
+  <rosdep name="eigen"/>
   <author>robotics</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>

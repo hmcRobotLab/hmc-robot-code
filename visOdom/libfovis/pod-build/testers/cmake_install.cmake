@@ -1,8 +1,8 @@
-# Install script for directory: /home/robotics/libfovis/testers
+# Install script for directory: /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/robotics/libfovis/build")
+  SET(CMAKE_INSTALL_PREFIX "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

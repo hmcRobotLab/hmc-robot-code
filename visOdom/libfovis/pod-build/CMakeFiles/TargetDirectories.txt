@@ -1,5 +1,5 @@
-/home/robotics/libfovis/pod-build/testers/CMakeFiles/absolute-orientation-tester.dir
-/home/robotics/libfovis/pod-build/libfovis/CMakeFiles/fovis.dir
-/home/robotics/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/fv-example-openni.dir
-/home/robotics/libfovis/pod-build/testers/CMakeFiles/refine-motion-estimate-tester.dir
-/home/robotics/libfovis/pod-build/CMakeFiles/tmp.dir
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/testers/CMakeFiles/absolute-orientation-tester.dir
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis/CMakeFiles/fovis.dir
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/examples/fv-example-openni/CMakeFiles/fv-example-openni.dir
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/testers/CMakeFiles/refine-motion-estimate-tester.dir
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles/tmp.dir

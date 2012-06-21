@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robotics/libfovis/testers/../libfovis/absolute_orientation_horn.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/../libfovis/absolute_orientation_horn.hpp
 assert.h
 -
 Eigen/Geometry
@@ -14,7 +14,7 @@ Eigen/Geometry
 Eigen/Eigenvalues
 -
 
-/home/robotics/libfovis/testers/absolute_orientation_horn_tester.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/absolute_orientation_horn_tester.cpp
 stdio.h
 -
 stdlib.h
@@ -22,7 +22,7 @@ stdlib.h
 Eigen/Core
 -
 ../libfovis/absolute_orientation_horn.hpp
-/home/robotics/libfovis/testers/../libfovis/absolute_orientation_horn.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/testers/../libfovis/absolute_orientation_horn.hpp
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

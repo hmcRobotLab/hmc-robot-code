@@ -1,8 +1,27 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Eigen REQUIRED)
-include_directories(${Eigen_INCLUDE_DIRS})
+include_directories(${EIGEN_INCLUDE_DIRS})
+
+include_directories(/usr/local/openni)
+
+find_path(OPENNI_INCLUDE_DIRS
+    NAMES XnOS.h
+    PATH_SUFFIXES ni)
+if("${OPENNI_INCLUDE_DIRS}" STREQUAL "OPENNI_INCLUDE_DIRS-NOTFOUND")
+    set(OPENNI_EXAMPLE_MESSAGE "Disabled - XnOS.h not found" PARENT_SCOPE)
+else()
+    find_library(OPENNI_LIBS OpenNI)
+    if("${OPENNI_LIBS}" STREQUAL "OPENNI_LIBS-NOTFOUND")
+        set(OPENNI_EXAMPLE_MESSAGE "Disabled - OpenNI library not found" PARENT_SCOPE)
+    else()
+        set(OPENNI_EXAMPLE_MESSAGE "Enabled" PARENT_SCOPE)
+    endif()
+endif()
+
+include_directories(${OPENNI_INCLUDE_DIRS})
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -26,9 +45,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 #common commands for building c++ executables and libraries
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-include_directories(libfovis/build/lib)
-target_link_libraries(libfovis.so)
+include_directories(libfovis/build/lib libfovis/libfovis)
 rosbuild_add_executable(odomPub src/odomPub.cpp src/data_capture.cpp)
+target_link_libraries(odomPub libfovis.so ${OPENNI_LIBS} fovis)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #target_link_libraries(example ${PROJECT_NAME})

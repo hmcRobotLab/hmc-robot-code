@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/robotics/libfovis/libfovis/gauss_pyramid.c
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.c
 gauss_pyramid.h
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 stdint.h
 -
 

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robotics/libfovis/libfovis/absolute_orientation_horn.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/absolute_orientation_horn.hpp
 assert.h
 -
 Eigen/Geometry
@@ -14,49 +14,49 @@ Eigen/Geometry
 Eigen/Eigenvalues
 -
 
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 Eigen/Geometry
 -
 
-/home/robotics/libfovis/libfovis/depth_image.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.cpp
 math.h
 -
 assert.h
 -
 depth_image.hpp
-/home/robotics/libfovis/libfovis/depth_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 
-/home/robotics/libfovis/libfovis/depth_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.hpp
 inttypes.h
 -
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 Eigen/Core
 -
 
-/home/robotics/libfovis/libfovis/fast.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.cpp
 stdint.h
 -
 vector
 -
 fast.hpp
-/home/robotics/libfovis/libfovis/fast.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.hpp
 
-/home/robotics/libfovis/libfovis/fast.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.hpp
 vector
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 vector
 -
 Eigen/Dense
@@ -64,23 +64,23 @@ Eigen/Dense
 Eigen/Geometry
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 
-/home/robotics/libfovis/libfovis/feature_matcher.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.cpp
 feature_matcher.hpp
-/home/robotics/libfovis/libfovis/feature_matcher.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.hpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 sad.hpp
-/home/robotics/libfovis/libfovis/sad.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/sad.hpp
 
-/home/robotics/libfovis/libfovis/feature_matcher.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 
-/home/robotics/libfovis/libfovis/frame.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.cpp
 stdio.h
 -
 iostream
@@ -88,27 +88,27 @@ iostream
 emmintrin.h
 -
 visual_odometry.hpp
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 fast.hpp
-/home/robotics/libfovis/libfovis/fast.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.hpp
 gauss_pyramid.h
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 normalize_image.hpp
-/home/robotics/libfovis/libfovis/normalize_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.hpp
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 stdint.h
 -
 assert.h
@@ -118,23 +118,23 @@ vector
 Eigen/Geometry
 -
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 grid_filter.hpp
-/home/robotics/libfovis/libfovis/grid_filter.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.hpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 stdint.h
 -
 
-/home/robotics/libfovis/libfovis/grid_filter.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.cpp
 assert.h
 -
 grid_filter.hpp
-/home/robotics/libfovis/libfovis/grid_filter.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.hpp
 cmath
 -
 algorithm
@@ -144,15 +144,15 @@ iterator
 iostream
 -
 
-/home/robotics/libfovis/libfovis/grid_filter.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.hpp
 math.h
 -
 vector
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 
-/home/robotics/libfovis/libfovis/initial_homography_estimation.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.cpp
 vector
 -
 iostream
@@ -164,11 +164,11 @@ Eigen/SVD
 unsupported/Eigen/MatrixFunctions
 -
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 initial_homography_estimation.hpp
-/home/robotics/libfovis/libfovis/initial_homography_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.hpp
 
-/home/robotics/libfovis/libfovis/initial_homography_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.hpp
 vector
 -
 stdint.h
@@ -176,9 +176,9 @@ stdint.h
 Eigen/Dense
 -
 
-/home/robotics/libfovis/libfovis/intensity_descriptor.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.cpp
 intensity_descriptor.hpp
-/home/robotics/libfovis/libfovis/intensity_descriptor.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.hpp
 assert.h
 -
 stdio.h
@@ -194,17 +194,17 @@ numeric
 emmintrin.h
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 
-/home/robotics/libfovis/libfovis/intensity_descriptor.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.hpp
 inttypes.h
 -
 stdlib.h
 -
 
-/home/robotics/libfovis/libfovis/internal_utils.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.cpp
 stdio.h
 -
 stdlib.h
@@ -212,9 +212,9 @@ stdlib.h
 assert.h
 -
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 stdio.h
 -
 Eigen/Core
@@ -224,15 +224,15 @@ Eigen/Geometry
 emmintrin.h
 -
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 inttypes.h
 -
 Eigen/Core
 -
 
-/home/robotics/libfovis/libfovis/motion_estimation.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.cpp
 stdio.h
 -
 stdlib.h
@@ -248,27 +248,27 @@ iostream
 iomanip
 -
 motion_estimation.hpp
-/home/robotics/libfovis/libfovis/motion_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.hpp
 absolute_orientation_horn.hpp
-/home/robotics/libfovis/libfovis/absolute_orientation_horn.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/absolute_orientation_horn.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 refine_motion_estimate.hpp
-/home/robotics/libfovis/libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.hpp
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 sad.hpp
-/home/robotics/libfovis/libfovis/sad.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/sad.hpp
 visual_odometry.hpp
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 refine_feature_match.hpp
-/home/robotics/libfovis/libfovis/refine_feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.hpp
 stereo_depth.hpp
-/home/robotics/libfovis/libfovis/stereo_depth.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.hpp
 
-/home/robotics/libfovis/libfovis/motion_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.hpp
 stdint.h
 -
 Eigen/Dense
@@ -276,73 +276,73 @@ Eigen/Dense
 Eigen/Geometry
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 feature_matcher.hpp
-/home/robotics/libfovis/libfovis/feature_matcher.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 
-/home/robotics/libfovis/libfovis/normalize_image.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.cpp
 normalize_image.hpp
-/home/robotics/libfovis/libfovis/normalize_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.hpp
 math.h
 -
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 
-/home/robotics/libfovis/libfovis/normalize_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.hpp
 inttypes.h
 -
 
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 string
 -
 map
 -
 
-/home/robotics/libfovis/libfovis/primesense_depth.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.cpp
 assert.h
 -
 primesense_depth.hpp
-/home/robotics/libfovis/libfovis/primesense_depth.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 
-/home/robotics/libfovis/libfovis/primesense_depth.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.hpp
 inttypes.h
 -
 assert.h
 -
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 
-/home/robotics/libfovis/libfovis/pyramid_level.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.cpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 stdio.h
 -
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 gauss_pyramid.h
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 vector
 -
 Eigen/Core
@@ -350,43 +350,43 @@ Eigen/Core
 Eigen/Geometry
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 intensity_descriptor.hpp
-/home/robotics/libfovis/libfovis/intensity_descriptor.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.hpp
 grid_filter.hpp
-/home/robotics/libfovis/libfovis/grid_filter.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.hpp
 
-/home/robotics/libfovis/libfovis/rectification.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.cpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 inttypes.h
 -
 iostream
 -
 
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 inttypes.h
 -
 Eigen/Core
 -
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 
-/home/robotics/libfovis/libfovis/refine_feature_match.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.cpp
 refine_feature_match.hpp
-/home/robotics/libfovis/libfovis/refine_feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 emmintrin.h
 -
 
-/home/robotics/libfovis/libfovis/refine_feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 
-/home/robotics/libfovis/libfovis/refine_motion_estimate.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.cpp
 stdio.h
 -
 iostream
@@ -394,19 +394,19 @@ iostream
 assert.h
 -
 refine_motion_estimate.hpp
-/home/robotics/libfovis/libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.hpp
 
-/home/robotics/libfovis/libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.hpp
 Eigen/Geometry
 -
 
-/home/robotics/libfovis/libfovis/sad.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/sad.hpp
 emmintrin.h
 -
 
-/home/robotics/libfovis/libfovis/stereo_depth.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.cpp
 stereo_depth.hpp
-/home/robotics/libfovis/libfovis/stereo_depth.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.hpp
 cstdio
 -
 iostream
@@ -414,67 +414,67 @@ iostream
 emmintrin.h
 -
 visual_odometry.hpp
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 fast.hpp
-/home/robotics/libfovis/libfovis/fast.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.hpp
 sad.hpp
-/home/robotics/libfovis/libfovis/sad.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/sad.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 refine_feature_match.hpp
-/home/robotics/libfovis/libfovis/refine_feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.hpp
 refine_motion_estimate.hpp
-/home/robotics/libfovis/libfovis/refine_motion_estimate.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 stereo_rectify.hpp
-/home/robotics/libfovis/libfovis/stereo_rectify.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.hpp
 
-/home/robotics/libfovis/libfovis/stereo_depth.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.hpp
 inttypes.h
 -
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 stereo_frame.hpp
-/home/robotics/libfovis/libfovis/stereo_frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.hpp
 feature_match.hpp
-/home/robotics/libfovis/libfovis/feature_match.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 motion_estimation.hpp
-/home/robotics/libfovis/libfovis/motion_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.hpp
 
-/home/robotics/libfovis/libfovis/stereo_frame.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.cpp
 stereo_frame.hpp
-/home/robotics/libfovis/libfovis/stereo_frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.hpp
 stdio.h
 -
 iostream
 -
 visual_odometry.hpp
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 gauss_pyramid.h
-/home/robotics/libfovis/libfovis/gauss_pyramid.h
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/gauss_pyramid.h
 fast.hpp
-/home/robotics/libfovis/libfovis/fast.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fast.hpp
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 normalize_image.hpp
-/home/robotics/libfovis/libfovis/normalize_image.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/normalize_image.hpp
 
-/home/robotics/libfovis/libfovis/stereo_frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.hpp
 stdint.h
 -
 assert.h
@@ -484,29 +484,29 @@ vector
 Eigen/Geometry
 -
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 pyramid_level.hpp
-/home/robotics/libfovis/libfovis/pyramid_level.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp
 rectification.hpp
-/home/robotics/libfovis/libfovis/rectification.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp
 
-/home/robotics/libfovis/libfovis/stereo_rectify.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.cpp
 stereo_rectify.hpp
-/home/robotics/libfovis/libfovis/stereo_rectify.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.hpp
 iostream
 -
 
-/home/robotics/libfovis/libfovis/stereo_rectify.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.hpp
 Eigen/Core
 -
 Eigen/Geometry
 -
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 
-/home/robotics/libfovis/libfovis/tictoc.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.cpp
 stdio.h
 -
 stdlib.h
@@ -526,9 +526,9 @@ string
 algorithm
 -
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 inttypes.h
 -
 vector
@@ -536,7 +536,7 @@ vector
 string
 -
 
-/home/robotics/libfovis/libfovis/visual_odometry.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.cpp
 stdio.h
 -
 stdlib.h
@@ -546,35 +546,35 @@ string.h
 assert.h
 -
 tictoc.hpp
-/home/robotics/libfovis/libfovis/tictoc.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp
 visual_odometry.hpp
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 initial_homography_estimation.hpp
-/home/robotics/libfovis/libfovis/initial_homography_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.hpp
 internal_utils.hpp
-/home/robotics/libfovis/libfovis/internal_utils.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp
 iostream
 -
 iomanip
 -
 
-/home/robotics/libfovis/libfovis/visual_odometry.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp
 stdint.h
 -
 Eigen/Geometry
 -
 keypoint.hpp
-/home/robotics/libfovis/libfovis/keypoint.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp
 camera_intrinsics.hpp
-/home/robotics/libfovis/libfovis/camera_intrinsics.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp
 frame.hpp
-/home/robotics/libfovis/libfovis/frame.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp
 depth_source.hpp
-/home/robotics/libfovis/libfovis/depth_source.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp
 motion_estimation.hpp
-/home/robotics/libfovis/libfovis/motion_estimation.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.hpp
 options.hpp
-/home/robotics/libfovis/libfovis/options.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

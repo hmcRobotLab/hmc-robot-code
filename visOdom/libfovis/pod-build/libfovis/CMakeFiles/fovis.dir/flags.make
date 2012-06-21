@@ -3,11 +3,11 @@
 
 # compile C with /usr/bin/gcc
 # compile CXX with /usr/bin/c++
-C_FLAGS = -O3 -DNDEBUG -fPIC -I/home/robotics/libfovis/pod-build/include -I/home/robotics/libfovis/build/include -I/usr/include/eigen3    -Wall -msse2 -msse3
+C_FLAGS = -O3 -DNDEBUG -fPIC -I/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/include -I/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/include -I/usr/include/eigen3    -Wall -msse2 -msse3
 
 C_DEFINES = -Dfovis_EXPORTS
 
-CXX_FLAGS = -O3 -DNDEBUG -fPIC -I/home/robotics/libfovis/pod-build/include -I/home/robotics/libfovis/build/include -I/usr/include/eigen3    -Wall -msse2 -msse3
+CXX_FLAGS = -O3 -DNDEBUG -fPIC -I/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/include -I/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/include -I/usr/include/eigen3    -Wall -msse2 -msse3
 
 CXX_DEFINES = -Dfovis_EXPORTS
 

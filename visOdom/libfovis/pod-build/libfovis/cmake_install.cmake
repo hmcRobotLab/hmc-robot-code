@@ -1,8 +1,8 @@
-# Install script for directory: /home/robotics/libfovis/libfovis
+# Install script for directory: /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/robotics/libfovis/build")
+  SET(CMAKE_INSTALL_PREFIX "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,7 +33,7 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/robotics/libfovis/pod-build/lib/pkgconfig/libfovis.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/lib/pkgconfig/libfovis.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
@@ -45,12 +45,12 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
        NOT IS_SYMLINK "${file}")
       FILE(RPATH_CHECK
            FILE "${file}"
-           RPATH "/home/robotics/libfovis/build/lib")
+           RPATH "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/lib")
     ENDIF()
   ENDFOREACH()
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/home/robotics/libfovis/pod-build/lib/libfovis.so.1"
-    "/home/robotics/libfovis/pod-build/lib/libfovis.so"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/lib/libfovis.so.1"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/lib/libfovis.so"
     )
   FOREACH(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libfovis.so.1"
@@ -60,8 +60,8 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
        NOT IS_SYMLINK "${file}")
       FILE(RPATH_CHANGE
            FILE "${file}"
-           OLD_RPATH ":::::::::::::::::::::::::::::::::"
-           NEW_RPATH "/home/robotics/libfovis/build/lib")
+           OLD_RPATH "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+           NEW_RPATH "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build/lib")
       IF(CMAKE_INSTALL_DO_STRIP)
         EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "${file}")
       ENDIF(CMAKE_INSTALL_DO_STRIP)
@@ -71,31 +71,31 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/fovis" TYPE FILE FILES
-    "/home/robotics/libfovis/libfovis/fovis.hpp"
-    "/home/robotics/libfovis/libfovis/visual_odometry.hpp"
-    "/home/robotics/libfovis/libfovis/motion_estimation.hpp"
-    "/home/robotics/libfovis/libfovis/frame.hpp"
-    "/home/robotics/libfovis/libfovis/keypoint.hpp"
-    "/home/robotics/libfovis/libfovis/depth_source.hpp"
-    "/home/robotics/libfovis/libfovis/camera_intrinsics.hpp"
-    "/home/robotics/libfovis/libfovis/primesense_depth.hpp"
-    "/home/robotics/libfovis/libfovis/grid_filter.hpp"
-    "/home/robotics/libfovis/libfovis/sad.hpp"
-    "/home/robotics/libfovis/libfovis/internal_utils.hpp"
-    "/home/robotics/libfovis/libfovis/intensity_descriptor.hpp"
-    "/home/robotics/libfovis/libfovis/pyramid_level.hpp"
-    "/home/robotics/libfovis/libfovis/feature_match.hpp"
-    "/home/robotics/libfovis/libfovis/feature_matcher.hpp"
-    "/home/robotics/libfovis/libfovis/refine_feature_match.hpp"
-    "/home/robotics/libfovis/libfovis/stereo_depth.hpp"
-    "/home/robotics/libfovis/libfovis/stereo_frame.hpp"
-    "/home/robotics/libfovis/libfovis/depth_image.hpp"
-    "/home/robotics/libfovis/libfovis/rectification.hpp"
-    "/home/robotics/libfovis/libfovis/stereo_rectify.hpp"
-    "/home/robotics/libfovis/libfovis/options.hpp"
-    "/home/robotics/libfovis/libfovis/tictoc.hpp"
-    "/home/robotics/libfovis/libfovis/refine_motion_estimate.hpp"
-    "/home/robotics/libfovis/libfovis/initial_homography_estimation.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/fovis.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/visual_odometry.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/motion_estimation.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/frame.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/keypoint.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_source.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/camera_intrinsics.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/primesense_depth.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/grid_filter.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/sad.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/internal_utils.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/intensity_descriptor.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/pyramid_level.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_match.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/feature_matcher.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_feature_match.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_depth.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_frame.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/depth_image.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/rectification.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/stereo_rectify.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/options.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/tictoc.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/refine_motion_estimate.hpp"
+    "/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/libfovis/initial_homography_estimation.hpp"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/robotics/libfovis/examples/fv-example-openni/data_capture.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.cpp
 stdio.h
 -
 data_capture.hpp
-/home/robotics/libfovis/examples/fv-example-openni/data_capture.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.hpp
 
-/home/robotics/libfovis/examples/fv-example-openni/data_capture.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.hpp
 XnOS.h
 -
 XnCppWrapper.h
@@ -20,7 +20,7 @@ XnCppWrapper.h
 fovis/fovis.hpp
 -
 
-/home/robotics/libfovis/examples/fv-example-openni/main.cpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/main.cpp
 stdio.h
 -
 stdlib.h
@@ -36,7 +36,7 @@ string
 fovis/fovis.hpp
 -
 data_capture.hpp
-/home/robotics/libfovis/examples/fv-example-openni/data_capture.hpp
+/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/examples/fv-example-openni/data_capture.hpp
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

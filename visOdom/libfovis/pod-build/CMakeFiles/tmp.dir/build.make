@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 # Utility rule file for tmp.
 
@@ -54,6 +54,6 @@ CMakeFiles/tmp.dir/clean:
 .PHONY : CMakeFiles/tmp.dir/clean
 
 CMakeFiles/tmp.dir/depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/libfovis /home/robotics/libfovis /home/robotics/libfovis/pod-build /home/robotics/libfovis/pod-build /home/robotics/libfovis/pod-build/CMakeFiles/tmp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles/tmp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tmp.dir/depend
 

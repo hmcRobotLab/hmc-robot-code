@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robotics/libfovis
+CMAKE_SOURCE_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robotics/libfovis/pod-build
+CMAKE_BINARY_DIR = /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -107,14 +107,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles /home/robotics/libfovis/pod-build/libfovis/CMakeFiles/progress.marks
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/libfovis/pod-build/CMakeFiles 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/libfovis/CMakeFiles/progress.marks
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/clean
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/clean
 .PHONY : clean
 
 # The main clean target
@@ -123,22 +123,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/preinstall
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libfovis/CMakeFiles/fovis.dir/rule:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/CMakeFiles/fovis.dir/rule
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f CMakeFiles/Makefile2 libfovis/CMakeFiles/fovis.dir/rule
 .PHONY : libfovis/CMakeFiles/fovis.dir/rule
 
 # Convenience name for target.
@@ -147,7 +147,7 @@ fovis: libfovis/CMakeFiles/fovis.dir/rule
 
 # fast build rule for target.
 fovis/fast:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/build
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/build
 .PHONY : fovis/fast
 
 depth_image.o: depth_image.cpp.o
@@ -155,7 +155,7 @@ depth_image.o: depth_image.cpp.o
 
 # target to build an object file
 depth_image.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.o
 .PHONY : depth_image.cpp.o
 
 depth_image.i: depth_image.cpp.i
@@ -163,7 +163,7 @@ depth_image.i: depth_image.cpp.i
 
 # target to preprocess a source file
 depth_image.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.i
 .PHONY : depth_image.cpp.i
 
 depth_image.s: depth_image.cpp.s
@@ -171,7 +171,7 @@ depth_image.s: depth_image.cpp.s
 
 # target to generate assembly for a file
 depth_image.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/depth_image.cpp.s
 .PHONY : depth_image.cpp.s
 
 fast.o: fast.cpp.o
@@ -179,7 +179,7 @@ fast.o: fast.cpp.o
 
 # target to build an object file
 fast.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.o
 .PHONY : fast.cpp.o
 
 fast.i: fast.cpp.i
@@ -187,7 +187,7 @@ fast.i: fast.cpp.i
 
 # target to preprocess a source file
 fast.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.i
 .PHONY : fast.cpp.i
 
 fast.s: fast.cpp.s
@@ -195,7 +195,7 @@ fast.s: fast.cpp.s
 
 # target to generate assembly for a file
 fast.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/fast.cpp.s
 .PHONY : fast.cpp.s
 
 feature_matcher.o: feature_matcher.cpp.o
@@ -203,7 +203,7 @@ feature_matcher.o: feature_matcher.cpp.o
 
 # target to build an object file
 feature_matcher.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.o
 .PHONY : feature_matcher.cpp.o
 
 feature_matcher.i: feature_matcher.cpp.i
@@ -211,7 +211,7 @@ feature_matcher.i: feature_matcher.cpp.i
 
 # target to preprocess a source file
 feature_matcher.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.i
 .PHONY : feature_matcher.cpp.i
 
 feature_matcher.s: feature_matcher.cpp.s
@@ -219,7 +219,7 @@ feature_matcher.s: feature_matcher.cpp.s
 
 # target to generate assembly for a file
 feature_matcher.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/feature_matcher.cpp.s
 .PHONY : feature_matcher.cpp.s
 
 frame.o: frame.cpp.o
@@ -227,7 +227,7 @@ frame.o: frame.cpp.o
 
 # target to build an object file
 frame.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.o
 .PHONY : frame.cpp.o
 
 frame.i: frame.cpp.i
@@ -235,7 +235,7 @@ frame.i: frame.cpp.i
 
 # target to preprocess a source file
 frame.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.i
 .PHONY : frame.cpp.i
 
 frame.s: frame.cpp.s
@@ -243,7 +243,7 @@ frame.s: frame.cpp.s
 
 # target to generate assembly for a file
 frame.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/frame.cpp.s
 .PHONY : frame.cpp.s
 
 gauss_pyramid.o: gauss_pyramid.c.o
@@ -251,7 +251,7 @@ gauss_pyramid.o: gauss_pyramid.c.o
 
 # target to build an object file
 gauss_pyramid.c.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.o
 .PHONY : gauss_pyramid.c.o
 
 gauss_pyramid.i: gauss_pyramid.c.i
@@ -259,7 +259,7 @@ gauss_pyramid.i: gauss_pyramid.c.i
 
 # target to preprocess a source file
 gauss_pyramid.c.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.i
 .PHONY : gauss_pyramid.c.i
 
 gauss_pyramid.s: gauss_pyramid.c.s
@@ -267,7 +267,7 @@ gauss_pyramid.s: gauss_pyramid.c.s
 
 # target to generate assembly for a file
 gauss_pyramid.c.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/gauss_pyramid.c.s
 .PHONY : gauss_pyramid.c.s
 
 grid_filter.o: grid_filter.cpp.o
@@ -275,7 +275,7 @@ grid_filter.o: grid_filter.cpp.o
 
 # target to build an object file
 grid_filter.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.o
 .PHONY : grid_filter.cpp.o
 
 grid_filter.i: grid_filter.cpp.i
@@ -283,7 +283,7 @@ grid_filter.i: grid_filter.cpp.i
 
 # target to preprocess a source file
 grid_filter.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.i
 .PHONY : grid_filter.cpp.i
 
 grid_filter.s: grid_filter.cpp.s
@@ -291,7 +291,7 @@ grid_filter.s: grid_filter.cpp.s
 
 # target to generate assembly for a file
 grid_filter.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/grid_filter.cpp.s
 .PHONY : grid_filter.cpp.s
 
 initial_homography_estimation.o: initial_homography_estimation.cpp.o
@@ -299,7 +299,7 @@ initial_homography_estimation.o: initial_homography_estimation.cpp.o
 
 # target to build an object file
 initial_homography_estimation.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.o
 .PHONY : initial_homography_estimation.cpp.o
 
 initial_homography_estimation.i: initial_homography_estimation.cpp.i
@@ -307,7 +307,7 @@ initial_homography_estimation.i: initial_homography_estimation.cpp.i
 
 # target to preprocess a source file
 initial_homography_estimation.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.i
 .PHONY : initial_homography_estimation.cpp.i
 
 initial_homography_estimation.s: initial_homography_estimation.cpp.s
@@ -315,7 +315,7 @@ initial_homography_estimation.s: initial_homography_estimation.cpp.s
 
 # target to generate assembly for a file
 initial_homography_estimation.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/initial_homography_estimation.cpp.s
 .PHONY : initial_homography_estimation.cpp.s
 
 intensity_descriptor.o: intensity_descriptor.cpp.o
@@ -323,7 +323,7 @@ intensity_descriptor.o: intensity_descriptor.cpp.o
 
 # target to build an object file
 intensity_descriptor.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.o
 .PHONY : intensity_descriptor.cpp.o
 
 intensity_descriptor.i: intensity_descriptor.cpp.i
@@ -331,7 +331,7 @@ intensity_descriptor.i: intensity_descriptor.cpp.i
 
 # target to preprocess a source file
 intensity_descriptor.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.i
 .PHONY : intensity_descriptor.cpp.i
 
 intensity_descriptor.s: intensity_descriptor.cpp.s
@@ -339,7 +339,7 @@ intensity_descriptor.s: intensity_descriptor.cpp.s
 
 # target to generate assembly for a file
 intensity_descriptor.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/intensity_descriptor.cpp.s
 .PHONY : intensity_descriptor.cpp.s
 
 internal_utils.o: internal_utils.cpp.o
@@ -347,7 +347,7 @@ internal_utils.o: internal_utils.cpp.o
 
 # target to build an object file
 internal_utils.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.o
 .PHONY : internal_utils.cpp.o
 
 internal_utils.i: internal_utils.cpp.i
@@ -355,7 +355,7 @@ internal_utils.i: internal_utils.cpp.i
 
 # target to preprocess a source file
 internal_utils.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.i
 .PHONY : internal_utils.cpp.i
 
 internal_utils.s: internal_utils.cpp.s
@@ -363,7 +363,7 @@ internal_utils.s: internal_utils.cpp.s
 
 # target to generate assembly for a file
 internal_utils.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/internal_utils.cpp.s
 .PHONY : internal_utils.cpp.s
 
 motion_estimation.o: motion_estimation.cpp.o
@@ -371,7 +371,7 @@ motion_estimation.o: motion_estimation.cpp.o
 
 # target to build an object file
 motion_estimation.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.o
 .PHONY : motion_estimation.cpp.o
 
 motion_estimation.i: motion_estimation.cpp.i
@@ -379,7 +379,7 @@ motion_estimation.i: motion_estimation.cpp.i
 
 # target to preprocess a source file
 motion_estimation.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.i
 .PHONY : motion_estimation.cpp.i
 
 motion_estimation.s: motion_estimation.cpp.s
@@ -387,7 +387,7 @@ motion_estimation.s: motion_estimation.cpp.s
 
 # target to generate assembly for a file
 motion_estimation.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/motion_estimation.cpp.s
 .PHONY : motion_estimation.cpp.s
 
 normalize_image.o: normalize_image.cpp.o
@@ -395,7 +395,7 @@ normalize_image.o: normalize_image.cpp.o
 
 # target to build an object file
 normalize_image.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.o
 .PHONY : normalize_image.cpp.o
 
 normalize_image.i: normalize_image.cpp.i
@@ -403,7 +403,7 @@ normalize_image.i: normalize_image.cpp.i
 
 # target to preprocess a source file
 normalize_image.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.i
 .PHONY : normalize_image.cpp.i
 
 normalize_image.s: normalize_image.cpp.s
@@ -411,7 +411,7 @@ normalize_image.s: normalize_image.cpp.s
 
 # target to generate assembly for a file
 normalize_image.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/normalize_image.cpp.s
 .PHONY : normalize_image.cpp.s
 
 primesense_depth.o: primesense_depth.cpp.o
@@ -419,7 +419,7 @@ primesense_depth.o: primesense_depth.cpp.o
 
 # target to build an object file
 primesense_depth.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.o
 .PHONY : primesense_depth.cpp.o
 
 primesense_depth.i: primesense_depth.cpp.i
@@ -427,7 +427,7 @@ primesense_depth.i: primesense_depth.cpp.i
 
 # target to preprocess a source file
 primesense_depth.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.i
 .PHONY : primesense_depth.cpp.i
 
 primesense_depth.s: primesense_depth.cpp.s
@@ -435,7 +435,7 @@ primesense_depth.s: primesense_depth.cpp.s
 
 # target to generate assembly for a file
 primesense_depth.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/primesense_depth.cpp.s
 .PHONY : primesense_depth.cpp.s
 
 pyramid_level.o: pyramid_level.cpp.o
@@ -443,7 +443,7 @@ pyramid_level.o: pyramid_level.cpp.o
 
 # target to build an object file
 pyramid_level.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.o
 .PHONY : pyramid_level.cpp.o
 
 pyramid_level.i: pyramid_level.cpp.i
@@ -451,7 +451,7 @@ pyramid_level.i: pyramid_level.cpp.i
 
 # target to preprocess a source file
 pyramid_level.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.i
 .PHONY : pyramid_level.cpp.i
 
 pyramid_level.s: pyramid_level.cpp.s
@@ -459,7 +459,7 @@ pyramid_level.s: pyramid_level.cpp.s
 
 # target to generate assembly for a file
 pyramid_level.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/pyramid_level.cpp.s
 .PHONY : pyramid_level.cpp.s
 
 rectification.o: rectification.cpp.o
@@ -467,7 +467,7 @@ rectification.o: rectification.cpp.o
 
 # target to build an object file
 rectification.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.o
 .PHONY : rectification.cpp.o
 
 rectification.i: rectification.cpp.i
@@ -475,7 +475,7 @@ rectification.i: rectification.cpp.i
 
 # target to preprocess a source file
 rectification.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.i
 .PHONY : rectification.cpp.i
 
 rectification.s: rectification.cpp.s
@@ -483,7 +483,7 @@ rectification.s: rectification.cpp.s
 
 # target to generate assembly for a file
 rectification.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/rectification.cpp.s
 .PHONY : rectification.cpp.s
 
 refine_feature_match.o: refine_feature_match.cpp.o
@@ -491,7 +491,7 @@ refine_feature_match.o: refine_feature_match.cpp.o
 
 # target to build an object file
 refine_feature_match.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.o
 .PHONY : refine_feature_match.cpp.o
 
 refine_feature_match.i: refine_feature_match.cpp.i
@@ -499,7 +499,7 @@ refine_feature_match.i: refine_feature_match.cpp.i
 
 # target to preprocess a source file
 refine_feature_match.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.i
 .PHONY : refine_feature_match.cpp.i
 
 refine_feature_match.s: refine_feature_match.cpp.s
@@ -507,7 +507,7 @@ refine_feature_match.s: refine_feature_match.cpp.s
 
 # target to generate assembly for a file
 refine_feature_match.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_feature_match.cpp.s
 .PHONY : refine_feature_match.cpp.s
 
 refine_motion_estimate.o: refine_motion_estimate.cpp.o
@@ -515,7 +515,7 @@ refine_motion_estimate.o: refine_motion_estimate.cpp.o
 
 # target to build an object file
 refine_motion_estimate.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.o
 .PHONY : refine_motion_estimate.cpp.o
 
 refine_motion_estimate.i: refine_motion_estimate.cpp.i
@@ -523,7 +523,7 @@ refine_motion_estimate.i: refine_motion_estimate.cpp.i
 
 # target to preprocess a source file
 refine_motion_estimate.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.i
 .PHONY : refine_motion_estimate.cpp.i
 
 refine_motion_estimate.s: refine_motion_estimate.cpp.s
@@ -531,7 +531,7 @@ refine_motion_estimate.s: refine_motion_estimate.cpp.s
 
 # target to generate assembly for a file
 refine_motion_estimate.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/refine_motion_estimate.cpp.s
 .PHONY : refine_motion_estimate.cpp.s
 
 stereo_depth.o: stereo_depth.cpp.o
@@ -539,7 +539,7 @@ stereo_depth.o: stereo_depth.cpp.o
 
 # target to build an object file
 stereo_depth.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.o
 .PHONY : stereo_depth.cpp.o
 
 stereo_depth.i: stereo_depth.cpp.i
@@ -547,7 +547,7 @@ stereo_depth.i: stereo_depth.cpp.i
 
 # target to preprocess a source file
 stereo_depth.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.i
 .PHONY : stereo_depth.cpp.i
 
 stereo_depth.s: stereo_depth.cpp.s
@@ -555,7 +555,7 @@ stereo_depth.s: stereo_depth.cpp.s
 
 # target to generate assembly for a file
 stereo_depth.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_depth.cpp.s
 .PHONY : stereo_depth.cpp.s
 
 stereo_frame.o: stereo_frame.cpp.o
@@ -563,7 +563,7 @@ stereo_frame.o: stereo_frame.cpp.o
 
 # target to build an object file
 stereo_frame.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.o
 .PHONY : stereo_frame.cpp.o
 
 stereo_frame.i: stereo_frame.cpp.i
@@ -571,7 +571,7 @@ stereo_frame.i: stereo_frame.cpp.i
 
 # target to preprocess a source file
 stereo_frame.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.i
 .PHONY : stereo_frame.cpp.i
 
 stereo_frame.s: stereo_frame.cpp.s
@@ -579,7 +579,7 @@ stereo_frame.s: stereo_frame.cpp.s
 
 # target to generate assembly for a file
 stereo_frame.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_frame.cpp.s
 .PHONY : stereo_frame.cpp.s
 
 stereo_rectify.o: stereo_rectify.cpp.o
@@ -587,7 +587,7 @@ stereo_rectify.o: stereo_rectify.cpp.o
 
 # target to build an object file
 stereo_rectify.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.o
 .PHONY : stereo_rectify.cpp.o
 
 stereo_rectify.i: stereo_rectify.cpp.i
@@ -595,7 +595,7 @@ stereo_rectify.i: stereo_rectify.cpp.i
 
 # target to preprocess a source file
 stereo_rectify.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.i
 .PHONY : stereo_rectify.cpp.i
 
 stereo_rectify.s: stereo_rectify.cpp.s
@@ -603,7 +603,7 @@ stereo_rectify.s: stereo_rectify.cpp.s
 
 # target to generate assembly for a file
 stereo_rectify.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/stereo_rectify.cpp.s
 .PHONY : stereo_rectify.cpp.s
 
 tictoc.o: tictoc.cpp.o
@@ -611,7 +611,7 @@ tictoc.o: tictoc.cpp.o
 
 # target to build an object file
 tictoc.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.o
 .PHONY : tictoc.cpp.o
 
 tictoc.i: tictoc.cpp.i
@@ -619,7 +619,7 @@ tictoc.i: tictoc.cpp.i
 
 # target to preprocess a source file
 tictoc.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.i
 .PHONY : tictoc.cpp.i
 
 tictoc.s: tictoc.cpp.s
@@ -627,7 +627,7 @@ tictoc.s: tictoc.cpp.s
 
 # target to generate assembly for a file
 tictoc.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/tictoc.cpp.s
 .PHONY : tictoc.cpp.s
 
 visual_odometry.o: visual_odometry.cpp.o
@@ -635,7 +635,7 @@ visual_odometry.o: visual_odometry.cpp.o
 
 # target to build an object file
 visual_odometry.cpp.o:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.o
 .PHONY : visual_odometry.cpp.o
 
 visual_odometry.i: visual_odometry.cpp.i
@@ -643,7 +643,7 @@ visual_odometry.i: visual_odometry.cpp.i
 
 # target to preprocess a source file
 visual_odometry.cpp.i:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.i
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.i
 .PHONY : visual_odometry.cpp.i
 
 visual_odometry.s: visual_odometry.cpp.s
@@ -651,7 +651,7 @@ visual_odometry.s: visual_odometry.cpp.s
 
 # target to generate assembly for a file
 visual_odometry.cpp.s:
-	cd /home/robotics/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.s
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(MAKE) -f libfovis/CMakeFiles/fovis.dir/build.make libfovis/CMakeFiles/fovis.dir/visual_odometry.cpp.s
 .PHONY : visual_odometry.cpp.s
 
 # Help Target
@@ -741,6 +741,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/robotics/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/pod-build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

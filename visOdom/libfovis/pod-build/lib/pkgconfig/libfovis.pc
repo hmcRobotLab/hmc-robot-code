@@ -1,4 +1,4 @@
-prefix=/home/robotics/libfovis/build
+prefix=/home/robotics/ros_workspace/hmc-robot-code/visOdom/libfovis/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
