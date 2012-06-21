@@ -56,14 +56,6 @@ Map.Alpha=0.7
 Map.Draw\ Behind=0
 Map.Enabled=1
 Map.Topic=/map
-Odometry.Angle\ Tolerance=0.1
-Odometry.ColorR=1
-Odometry.ColorG=0.1
-Odometry.ColorB=0
-Odometry.Enabled=1
-Odometry.Keep=100
-Odometry.Position\ Tolerance=0.1
-Odometry.Topic=/odom
 Path.Alpha=1
 Path.ColorR=0.1
 Path.ColorG=1
@@ -109,8 +101,8 @@ TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::FixedOrientationOrthoViewController
-Camera\ Config=88.3384 5.44397 5.6511 -5.07173 -0.705497 -0.0476938 -0.0476937 0.705497
-Property\ Grid\ State=selection=Path2.Enabled.Path2.Topic;expanded=.Global Options,TF./base_link/base_link,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./odom/odom,TF./map/map,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Laser Scan.Enabled,Laser Scan.Enabled.Laser Scan.StatusTopStatus,Pose Array.Enabled,Path2.Enabled,Polygon.Enabled;scrollpos=0,5;splitterpos=133,253;ispageselected=1
+Camera\ Config=59.1728 2.99822 5.6511 -5.5223 -0.705497 -0.0476938 -0.0476937 0.705497
+Property\ Grid\ State=selection=;expanded=.Global Options,TF./base_link/base_link,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./map/map,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Laser Scan.Enabled,Pose Array.Enabled,Path2.Enabled,Polygon.Enabled;scrollpos=0,4;splitterpos=129,261;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
@@ -132,26 +124,22 @@ Name=Pose Array
 Package=rviz
 ClassName=rviz::PoseArrayDisplay
 [Display5]
-Name=Odometry
-Package=rviz
-ClassName=rviz::OdometryDisplay
-[Display6]
 Name=Path
 Package=rviz
 ClassName=rviz::PathDisplay
-[Display7]
+[Display6]
 Name=Path2
 Package=rviz
 ClassName=rviz::PathDisplay
-[Display8]
+[Display7]
 Name=Polygon
 Package=rviz
 ClassName=rviz::PolygonDisplay
-[Display9]
+[Display8]
 Name=Pose
 Package=rviz
 ClassName=rviz::PoseDisplay
-[Display10]
+[Display9]
 Name=Grid Cells
 Package=rviz
 ClassName=rviz::GridCellsDisplay
