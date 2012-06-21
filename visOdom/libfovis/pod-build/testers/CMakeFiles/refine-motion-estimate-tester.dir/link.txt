@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/refine-motion-estimate-tester.dir/refine_motion_estimate_tester.cpp.o  -o ../bin/refine-motion-estimate-tester -rdynamic -L/home/robotics/libfovis/pod-build/lib -L/home/robotics/libfovis/build/lib -lm -L/home/robotics/libfovis/build/lib -lfovis -Wl,-rpath,/home/robotics/libfovis/pod-build/lib:/home/robotics/libfovis/build/lib 
