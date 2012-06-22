@@ -7,6 +7,10 @@
 #include <string>
 
 #include <fovis.hpp>
+#include <ros/ros.h>
+#include <tf/transform_listener.h>
+#include <tf/transform_broadcaster.h>
+#include <nav_msgs/Odometry.h>
 
 #include "data_capture.hpp"
 
@@ -35,6 +39,12 @@ isometryToString(const Eigen::Isometry3d& m)
 
 int main(int argc, char **argv)
 {
+  // initialize the node and various publishers
+  ros::init(argc, argv, "fovis_odom");
+  ros::NodeHandle n;
+  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom", 50);
+  tf::TransformBroadcaster odom_broadcaster;
+
   // initialize the device
   fovis_example::DataCapture* cap = new fovis_example::DataCapture();
   if(!cap->initialize()) {
@@ -76,6 +86,57 @@ int main(int argc, char **argv)
 
     // get the integrated pose estimate.
     Eigen::Isometry3d cam_to_local = odom->getPose();
+    Eigen::Quaternion<double> quat = Eigen::Quaternion<double>(cam_to_local.rotation());
+
+    double w = quat.w();
+    double qx = quat.x();
+    double qy = quat.y();
+    double qz = quat.z();
+
+    Eigen::Vector3d xyz = cam_to_local.translation();
+    double x = xyz(0);
+    double y = xyz(1);
+    double z = xyz(2);
+
+    tf::Quaternion tf_odom_quat = tf::Quaternion(qx,qy,qz,w);
+    geometry_msgs::Quaternion gm_odom_quat;
+    tf::quaternionTFToMsg(tf_odom_quat, gm_odom_quat);
+
+    //first, we'll publish the transform over tf
+    //geometry_msgs::TransformStamped odom_trans;
+    //odom_trans.header.stamp = ros::Time::now();;
+    //odom_trans.header.frame_id = "odom";
+    //odom_trans.child_frame_id = "base_link";
+
+    //odom_trans.transform.translation.x = x;
+    //odom_trans.transform.translation.y = y;
+    //odom_trans.transform.translation.z = 0.0;
+    //odom_trans.transform.rotation = odom_quat;
+
+    ////send the transform
+    //odom_broadcaster.sendTransform(odom_trans);
+
+    ////next, we'll publish the odometry message over ROS
+    //nav_msgs::Odometry odom;
+    //odom.header.stamp = ros::Time::now();
+    //odom.header.frame_id = "odom";
+
+    ////set the position
+    //odom.pose.pose.position.x = x;
+    //odom.pose.pose.position.y = y;
+    //odom.pose.pose.position.z = 0.0;
+    //odom.pose.pose.orientation = odom_quat;
+
+    ////set the velocity
+    //odom.child_frame_id = "base_link";
+    ////odom.twist.twist.linear.x = vx;
+    ////odom.twist.twist.linear.y = vy;
+    ////odom.twist.twist.angular.z = vth;
+
+    ////publish the message
+    //odom_pub.publish(odom);
+
+       
 
     // get the motion estimate for this frame to the previous frame.
     Eigen::Isometry3d motion_estimate = odom->getMotionEstimate();
