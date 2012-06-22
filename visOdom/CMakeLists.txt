@@ -29,10 +29,7 @@ include_directories(${OPENNI_INCLUDE_DIRS})
 #  Release        : w/o debug symbols, w/ optimization
 #  RelWithDebInfo : w/ debug symbols, w/ optimization
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-set(ROS_BUILD_TYPE Release)
-set(BUILD_TYPE Release)
 set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_INSTALL_CONFIG_NAME Release)
 
 add_subdirectory(libfovis)
 
