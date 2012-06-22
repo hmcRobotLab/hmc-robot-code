@@ -29,7 +29,12 @@ include_directories(${OPENNI_INCLUDE_DIRS})
 #  Release        : w/o debug symbols, w/ optimization
 #  RelWithDebInfo : w/ debug symbols, w/ optimization
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+set(ROS_BUILD_TYPE Release)
+set(BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_INSTALL_CONFIG_NAME Release)
+
+add_subdirectory(libfovis)
 
 rosbuild_init()
 
@@ -47,7 +52,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
 include_directories(libfovis/build/lib libfovis/libfovis)
 rosbuild_add_executable(odomPub src/odomPub.cpp src/data_capture.cpp)
-target_link_libraries(odomPub libfovis.so ${OPENNI_LIBS} fovis)
+target_link_libraries(odomPub ${OPENNI_LIBS} fovis)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #target_link_libraries(example ${PROJECT_NAME})

@@ -10,6 +10,7 @@
   <depend package="tf"/>
   <depend package="geometry_msgs"/>
   <depend package="common_rosdeps"/>
+  <depend package="openni_camera"/>
   <rosdep name="eigen"/>
   <author>robotics</author>
   <license>BSD</license>
