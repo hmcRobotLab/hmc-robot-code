@@ -103,38 +103,38 @@ int main(int argc, char **argv)
     tf::quaternionTFToMsg(tf_odom_quat, gm_odom_quat);
 
     //first, we'll publish the transform over tf
-    //geometry_msgs::TransformStamped odom_trans;
-    //odom_trans.header.stamp = ros::Time::now();;
-    //odom_trans.header.frame_id = "odom";
-    //odom_trans.child_frame_id = "base_link";
+    geometry_msgs::TransformStamped odom_trans;
+    odom_trans.header.stamp = ros::Time::now();;
+    odom_trans.header.frame_id = "odom";
+    odom_trans.child_frame_id = "base_link";
 
-    //odom_trans.transform.translation.x = x;
-    //odom_trans.transform.translation.y = y;
-    //odom_trans.transform.translation.z = 0.0;
-    //odom_trans.transform.rotation = odom_quat;
+    odom_trans.transform.translation.x = x;
+    odom_trans.transform.translation.y = y;
+    odom_trans.transform.translation.z = z;
+    odom_trans.transform.rotation = gm_odom_quat;
 
-    ////send the transform
-    //odom_broadcaster.sendTransform(odom_trans);
+    //send the transform
+    odom_broadcaster.sendTransform(odom_trans);
 
-    ////next, we'll publish the odometry message over ROS
-    //nav_msgs::Odometry odom;
-    //odom.header.stamp = ros::Time::now();
-    //odom.header.frame_id = "odom";
+    //next, we'll publish the odometry message over ROS
+    nav_msgs::Odometry odom_msg;
+    odom_msg.header.stamp = ros::Time::now();
+    odom_msg.header.frame_id = "odom";
 
-    ////set the position
-    //odom.pose.pose.position.x = x;
-    //odom.pose.pose.position.y = y;
-    //odom.pose.pose.position.z = 0.0;
-    //odom.pose.pose.orientation = odom_quat;
+    //set the position
+    odom_msg.pose.pose.position.x = x;
+    odom_msg.pose.pose.position.y = y;
+    odom_msg.pose.pose.position.z = z;
+    odom_msg.pose.pose.orientation = gm_odom_quat;
 
-    ////set the velocity
-    //odom.child_frame_id = "base_link";
-    ////odom.twist.twist.linear.x = vx;
-    ////odom.twist.twist.linear.y = vy;
-    ////odom.twist.twist.angular.z = vth;
+    //set the velocity
+    odom_msg.child_frame_id = "base_link";
+    //odom_msg.twist.twist.linear.x = vx;
+    //odom_msg.twist.twist.linear.y = vy;
+    //odom_msg.twist.twist.angular.z = vth;
 
-    ////publish the message
-    //odom_pub.publish(odom);
+    //publish the message
+    odom_pub.publish(odom_msg);
 
        
 
