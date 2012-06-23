@@ -1,0 +1,19 @@
+<launch>
+  <!-- <machine name="zhuchka" address="zhuchka" ros-root="$(env ROS_ROOT)" ros-package-path="$(env ROS_PACKAGE_PATH" user="robotics" password="(go 'ev)*"/> -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+      args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link openni_camera 20" />
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
+  
+  <!-- kinect -->
+  <include file="$(find openni_camera)/launch/openni_node.launch"/>
+
+  <!-- openni_manager -->
+  <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
+  
+  <!-- pointcloud_to_laserscan -->
+  <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager">
+    <param name="output_frame_id" value="/openni_depth_frame"/>
+    <param name="scan_time" value="1/3.0"/>
+    <remap from="cloud" to="camera/depth/points"/>
+  </node>
+</launch>

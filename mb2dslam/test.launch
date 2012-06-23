@@ -1,7 +1,9 @@
 <launch>
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-      args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link openni_camera 40" />
+      args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link openni_camera 20" />
 
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_odom" 
+      args="0.0 0.0 0.0 0.0 0.0 0.0 odom base_link 20" />
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
       args="-d $(find laser_scan_matcher)/demo/demo_gmapping.vcg"/>
@@ -14,33 +16,35 @@
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
-
-  <!-- throttling -->
-  <node pkg="nodelet" type="nodelet" name="pointcloud_throttle" args="load pointcloud_to_laserscan/CloudThrottle openni_manager">
-    <param name="max_rate" value="10" />
-    <remap from="cloud_in"  to="/camera/depth/points"/>
-    <remap from="cloud_out" to="cloud_throttled"/>
-  </node>
   
   <!-- pointcloud_to_laserscan -->
   <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager">
     <param name="output_frame_id" value="/openni_depth_frame"/>
-    <remap from="cloud" to="cloud_throttled"/>
+    <param name="scan_time" value="1/3.0"/>
+    <remap from="cloud" to="camera/depth/points"/>
   </node>
 
+<!--
   <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" name="lsm" output="screen" >
-    <param name="fixed_frame" value="scanOdom"/>
+    <param name="fixed_frame" value="map"/>
+    <param name="base_frame" value="base_link"/>
     <param name="use_odom" value="false"/>
     <param name="use_imu" value="false"/>
     <param name="use_cloud_input" value="false"/>
     <param name="max_iterations" value="20"/>
-    <param name="publish_pose" value="false"/>
+    <param name="publish_pose" value="true"/>
   </node>
+-->
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-    <param name="odom_frame" value="scanOdom"/>
+    <param name="scan" value="scan" />
+    <param name="base_frame" value="base_link"/>
+    <param name="map_frame" value="map"/>
     <param name="iterations" value="10"/>
-    <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
+    <param name="linearUpdate" value="0.25"/>     <!-- param name="linearUpdate" value="0.5"/-->
+     <param name="angularUpdate" value="0.262"/>   <!--param name="angularUpdate" value="0.436"/-->
+     <param name="temporalUpdate" value="0.1"/>
+     <param name="resampleThreshold" value="0.5"/>
+     <param name="particles" value="3" />
   </node>
 </launch>
