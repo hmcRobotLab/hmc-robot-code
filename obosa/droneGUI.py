@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from GUIardrone import *
 from sliderImageProcessor import *
+from FSMs import *
 import time
 from PyQt4 import QtGui, QtCore
 
@@ -23,7 +24,6 @@ class robotWidget(QtGui.QWidget):
         self.vz.display(drone.vz)
         self.batLevel.display(drone.batLevel)
         self.ctrlState.display(drone.ctrlState)
-        self.lbl8.setText("<font size='5'>" + self.state + "</font>")
 
         
     def __init__(self):
@@ -48,7 +48,7 @@ class robotWidget(QtGui.QWidget):
         self.vz        = QtGui.QLCDNumber(self)
         self.batLevel  = QtGui.QLCDNumber(self)
         self.ctrlState = QtGui.QLCDNumber(self)
-        self.lbl8 = QtGui.QLabel(self.state, self)
+        self.stateLabel = QtGui.QLabel(self.state, self)
 
         self.showData = QtCore.QBasicTimer()
         self.showData.start(1000, self)
@@ -72,12 +72,12 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.setColumnMinimumWidth(1, 255)
            
         
+        #Low Red
         lcd1 = QtGui.QLCDNumber(self)
         self.sld1 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl1 = QtGui.QLabel('Red', self)
         lbl1.setText("<font style='color: red;background: white;'>Red</font>")
         self.sld1.valueChanged.connect(lcd1.display)
-        
         self.sld1.setMaximum(255)
         
         sliderGrid.addWidget(lcd1, 1, 2)
@@ -85,7 +85,7 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl1, 1, 0)
 
 
-
+        #Low Green
         lcd2 = QtGui.QLCDNumber(self)
         self.sld2 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl2 = QtGui.QLabel('Green', self)
@@ -98,7 +98,7 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl2, 2, 0)
 
 
-
+        #Low Blue
         lcd3 = QtGui.QLCDNumber(self)
         self.sld3 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl3 = QtGui.QLabel("Blue", self)
@@ -111,7 +111,7 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl3, 3, 0)
 
 
-
+        #Low Hue
         lcd4 = QtGui.QLCDNumber(self)
         self.sld4 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl4 = QtGui.QLabel("Hue", self)
@@ -124,7 +124,7 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl4, 4, 0)
         
         
-        
+        #Low Saturation       
         lcd5 = QtGui.QLCDNumber(self)
         self.sld5 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl5 = QtGui.QLabel("Saturation", self)
@@ -136,7 +136,8 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(self.sld5, 5, 1)
         sliderGrid.addWidget(lbl5, 5, 0)
         
-        
+
+        #Low Value   
         lcd6 = QtGui.QLCDNumber(self)
         self.sld6 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl6 = QtGui.QLabel("Value", self)
@@ -149,14 +150,12 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl6, 6, 0)
         
         
-
+        #High Red
         lcd7 = QtGui.QLCDNumber(self)
         self.sld7 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
         lbl7 = QtGui.QLabel('High Red', self)
         lbl7.setText("<font style='color: red;background: white;'>High Red</font>")
-
-        self.sld7.valueChanged.connect(lcd7.display)
-        
+        self.sld7.valueChanged.connect(lcd7.display)   
         self.sld7.setMaximum(255)
         
         sliderGrid.addWidget(lcd7, 7, 2)
@@ -164,68 +163,69 @@ class robotWidget(QtGui.QWidget):
         sliderGrid.addWidget(lbl7, 7, 0)
 
 
-
+        #High Green
         lcd8 = QtGui.QLCDNumber(self)
         self.sld8 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        lbl9 = QtGui.QLabel('High Green', self)
-        lbl9.setText("<font style='color: green;background: white;'>High Green</font>")
+        lbl8 = QtGui.QLabel('High Green', self)
+        lbl8.setText("<font style='color: green;background: white;'>High Green</font>")
         self.sld8.valueChanged.connect(lcd8.display)
         self.sld8.setMaximum(255)
         
         sliderGrid.addWidget(lcd8, 8, 2)
         sliderGrid.addWidget(self.sld8, 8, 1)
-        sliderGrid.addWidget(lbl9, 8, 0)
+        sliderGrid.addWidget(lbl8, 8, 0)
 
 
-
+        #High Blue
         lcd9 = QtGui.QLCDNumber(self)
         self.sld9 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        lbl10 = QtGui.QLabel("High Blue", self)
-        lbl10.setText("<font style='color: blue;background: white;'>High Blue</font>")
+        lbl9 = QtGui.QLabel("High Blue", self)
+        lbl9.setText("<font style='color: blue;background: white;'>High Blue</font>")
         self.sld9.valueChanged.connect(lcd9.display)
         self.sld9.setMaximum(255)
         
         sliderGrid.addWidget(lcd9, 9, 2)
         sliderGrid.addWidget(self.sld9, 9, 1)
-        sliderGrid.addWidget(lbl10, 9, 0)
+        sliderGrid.addWidget(lbl9, 9, 0)
 
 
-
+        #High Hue
         lcd10 = QtGui.QLCDNumber(self)
         self.sld10 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        lbl11 = QtGui.QLabel("High Hue", self)
-        lbl11.setText("<font style='color: brown;background: white;'>High Hue</font>")
+        lbl10 = QtGui.QLabel("High Hue", self)
+        lbl10.setText("<font style='color: brown;background: white;'>High Hue</font>")
         self.sld10.valueChanged.connect(lcd10.display)
         self.sld10.setMaximum(255)
         
         sliderGrid.addWidget(lcd10, 10, 2)
         sliderGrid.addWidget(self.sld10, 10, 1)
-        sliderGrid.addWidget(lbl11, 10, 0)
+        sliderGrid.addWidget(lbl10, 10, 0)
         
         
-        
+        #High Saturation       
         lcd11 = QtGui.QLCDNumber(self)
         self.sld11 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        lbl13 = QtGui.QLabel("High Saturation", self)
-        lbl13.setText("<font style='color: grey;background: white;'>High Saturation</font>")
+        lbl11 = QtGui.QLabel("High Saturation", self)
+        lbl11.setText("<font style='color: grey;background: white;'>High Saturation</font>")
         self.sld11.valueChanged.connect(lcd11.display)
         self.sld11.setMaximum(255)
         
         sliderGrid.addWidget(lcd11, 11, 2)
         sliderGrid.addWidget(self.sld11, 11, 1)
-        sliderGrid.addWidget(lbl13, 11, 0)
+        sliderGrid.addWidget(lbl11, 11, 0)
         
-        
+
+        #High Value     
         lcd12 = QtGui.QLCDNumber(self)
         self.sld12 = QtGui.QSlider(QtCore.Qt.Horizontal, self)
-        lbl14 = QtGui.QLabel("High Value", self)
-        lbl14.setText("<font style='color: black;background: white;'>High Value</font>")
+        lbl12 = QtGui.QLabel("High Value", self)
+        lbl12.setText("<font style='color: black;background: white;'>High Value</font>")
         self.sld12.valueChanged.connect(lcd12.display)
         self.sld12.setMaximum(255)
         
         sliderGrid.addWidget(lcd12, 12, 2)
         sliderGrid.addWidget(self.sld12, 12, 1)
-        sliderGrid.addWidget(lbl14, 12, 0)
+        sliderGrid.addWidget(lbl12, 12, 0)
         
         self.sld1.valueChanged.connect(self.sliderChange)
         self.sld2.valueChanged.connect(self.sliderChange)
@@ -244,12 +244,12 @@ class robotWidget(QtGui.QWidget):
         top.setLayout(sliderGrid)
         
         
-        ###########################################
-        #### Setting up the bottom-left box    ####
-        ###########################################
+        #######################################################
+        #### Setting up the bottom-left box                ####
+        #### (The keyboard controls, and all the buttons)  ####
+        #######################################################
         
         
-        ###### Row 1 Widgets  (Reset button, speed-controlling dial, and speed-displaying LCD) ######
         bottomGrid = QtGui.QGridLayout()
         bottomGrid.setVerticalSpacing(5)
         bottomGrid.setHorizontalSpacing(10)
@@ -257,12 +257,13 @@ class robotWidget(QtGui.QWidget):
        
         
 
-        
-        lbl12 = QtGui.QLabel(self)
-        lbl12.setText("<center><font size = '3';font style='color: black;'> \
+        #Displaying the keyboard controls
+        keyboardControls = QtGui.QLabel(self)
+        keyboardControls.setText("<center><font size = '3';font style='color: black;'> \
 Keyboard Controls:<br><br> \
 h: quit<br> enter/return: land <br> t: takeoff<br> r: reset<br> \
 $: save color thresholds <br> &: load color thresholds<br>\
+1: Use forward camera <br> 2: Use bottom camera <br>\
 q: forward left strafe \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 w: forward \
@@ -270,38 +271,52 @@ w: forward \
 e: forward right strafe<br> \
 a: strafe left \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
-s: hover: \
+s: self-adjusting hover \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 d: strafe right<br> \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
+3: regular, non-adjusting hover <br>\
 z: backward left strafe \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 x: backward \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
 e: backward right strafe<br> \
-f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
+f: spin left<br> g: spin right<br> \
+r: v<br> b: down<br> \
+Esc (exit) </font></center><br>")
 
-        takeoffBtn = QtGui.QPushButton('Takeoff!', self)
-        takeoffBtn.clicked.connect(self.takeoff)
-
-
-
-        ###### Row 4 Widgets (Text box with code examples, and 3 user-defined buttons) ######
-           
-        landingBtn = QtGui.QPushButton('Land!', self)
-        newBtn2 = QtGui.QPushButton('User-defined Button 2', self)
-        newBtn3 = QtGui.QPushButton('User-defined Button 3', self)
         
+        #Creating the takeoff, landing, FSM, and camera-changing buttons
+        takeoffBtn = QtGui.QPushButton('Takeoff!', self)
+        landingBtn = QtGui.QPushButton('Land!', self)
+        newBtn2 = QtGui.QPushButton('Find and Land in Front', self)
+        newBtn3 = QtGui.QPushButton('Find and Follow the Leader', self) 
+        newBtn4 = QtGui.QPushButton('Find and Land on Top', self)   
+        newBtn5 = QtGui.QPushButton('Hover Above iRobot, then Land on Target', self)       
+        self.camera1 = QtGui.QPushButton('Front Camera Image', self)
+        self.camera2 = QtGui.QPushButton('Bottom Camera Image', self)
+        
+        #Connecting the buttons to their various functions
+        takeoffBtn.clicked.connect(self.takeoff)
         landingBtn.clicked.connect(self.landing)
         newBtn2.clicked.connect(self.btn2Function)
         newBtn3.clicked.connect(self.btn3Function)
+        newBtn4.clicked.connect(self.btn4Function)
+        newBtn5.clicked.connect(self.btn5Function)
+        self.camera1.clicked.connect(self.cameraChange)
+        self.camera2.clicked.connect(self.cameraChange)
         
-        ###### Adding the Widgets ######
-        bottomGrid.addWidget(lbl12, 1, 0, 4, 1)
+
+        ###### Adding the Widgets to the GUI######
+        bottomGrid.addWidget(keyboardControls, 1, 0, 4, 1)
         bottomGrid.addWidget(takeoffBtn, 1, 3)
-        
         bottomGrid.addWidget(landingBtn, 2, 3)
         bottomGrid.addWidget(newBtn2, 3, 3)
         bottomGrid.addWidget(newBtn3, 4, 3)
+        bottomGrid.addWidget(self.camera1, 5, 0)
+        bottomGrid.addWidget(self.camera2, 6, 0)
+        bottomGrid.addWidget(newBtn4, 5, 3)
+        bottomGrid.addWidget(newBtn5, 6, 3)
         
         bottom = QtGui.QFrame(self)
         bottom.setLayout(bottomGrid)
@@ -351,7 +366,7 @@ f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
 
         state = QtGui.QLabel("Current State:", self) 
         droneData.addWidget(state, 10, 0)
-        droneData.addWidget(self.lbl8, 10, 1)
+        droneData.addWidget(self.stateLabel, 10, 1)
 
         right = QtGui.QFrame(self)
         right.setLayout(droneData)
@@ -384,8 +399,16 @@ f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
     ####  Functions that define  ####
     ####  widget behavior        ####
     #################################
+
+    def cameraChange(self):
+        '''Function to change which camera is being used'''
+        if self.sender() == self.camera1: 
+            drone.keyCmd('1')
+        else: 
+            drone.keyCmd('2')
+
     def sliderChange(self, newValue):
-        '''If a slider is moved, then the background's RGB values will be changed accordingly'''
+        '''If a slider is moved, then the imageProcessor's threshold values will be changed accordingly'''
         if self.sender() == self.sld1:
             image.change_low_red(newValue)
             
@@ -423,50 +446,89 @@ f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
             image.change_high_val(newValue)
 
     def takeoff(self):
+        '''The takeoff button'''
         drone.keyCmd('t')
         self.state = "Takeoff"
+        time.sleep(3)
+        self.state = "Airborne"
+        publisher.publish(self.state)
         
     def landing(self):
-        '''If the 1st user-defined button is clicked, then send a message
-            to the robot saying so.'''
+        '''The landing button'''
         drone.keyCmd(' ')
         self.state = "Landing"
+        publisher.publish(self.state)
+        time.sleep(3)
         
     def btn2Function(self):
-        '''If the 2nd user-defined button is clicked, then send a message
-            to the robot saying so.'''
+        '''Run the "Land in front" FSM'''
         self.state = "Button 2"
-        
+        print "RUNNING FSM0"
+        FSM.FSMstart()
+        FSM.FSM0()
+
     def btn3Function(self):
-        '''If the 3rd user-defined button is clicked, then send a message
-            to the robot saying so.'''
+        '''Run the "Follow the leader" FSM'''
         self.state = "Button 3"
+        print "RUNNING FSM1"
+        FSM.FSMstart()
+        FSM.FSM1()
+        
+    def btn4Function(self):
+        '''Run the "Land on top" FSM'''
+        self.state = "Button 4"
+        print "RUNNING FSM2"
+        FSM.FSMstart()
+        FSM.FSM2()
+
+    def btn5Function(self):
+        '''Run the "Hover-follow, then land on top" FSM'''
+        self.state = "Button 5"
+        print "RUNNING FSM3"
+        FSM.FSMstart()
+        FSM.FSM3()
 
     def displayImage(self):
+        '''Slider, state, and keyboard loop updating'''
         self.thresholdSet()
         image.keyboardLoop()
+        self.stateLabel.setText("<font size='5'>" + self.state + "</font>")
 
     def keyPressEvent(self, e):
         '''If a keyboard key is pressed, then respond accordingly'''
+        char = ''
         try: char = chr(e.key()).lower()
-        except ValueError: pass
+        except ValueError: char == e.key()
         if e.key() == QtCore.Qt.Key_Escape: #if the escape key is pressed, then exit
             self.close()
             return
+
         if e.key() == QtCore.Qt.Key_Return: #If the space key is pressed, then send the spacebar keypress
             drone.keyCmd(' ')
             return
-        if char == '$':
+
+        if char == '$': #If '$' is pressed, save the thresholds
             image.save_thresholds()
             return
-        if char == '&':
+
+        if char == '&': #If '&' is pressed, load the thresholds
             image.load_thresholds()
-            #self.thresholdset()
             return
+
+        if char == '1': #If '1' is pressed, use the forward camera
+            drone.keyCmd('1')
+            return
+
+        if char == '2': #if '2' is pressed, use the bottom camera
+            drone.keyCmd('2')
+            return
+
+        publisher.publish("Keyboard")
         drone.keyCmd(char)
         self.state = "Keyboard"
         
     def thresholdSet(self):
+        '''Set all of the slider values to match those used by the imageProcessor'''
         self.sld1.setValue(image.thresholds['low_red'])
         self.sld2.setValue(image.thresholds['low_green'])
         self.sld3.setValue(image.thresholds['low_blue'])
@@ -480,51 +542,35 @@ f: spin left<br> g: spin right<br> Esc (exit) </font></center><br>")
         self.sld11.setValue(image.thresholds['high_sat'])
         self.sld12.setValue(image.thresholds['high_val'])
 
-    def onActivated(self, text):
-        '''If a value in the combo box is clicked, then change the background color accordingly.'''
-        if text == "Red Background":
-            self.col = QtGui.QColor(255, 0, 0)
-        elif text == "Orange Background":
-            self.col = QtGui.QColor(255, 127, 0)
-        elif text == "Yellow Background":
-            self.col = QtGui.QColor(255, 255, 0)
-        elif text == "Green Background":
-            self.col = QtGui.QColor(0, 255, 0)
-        elif text == "Blue Background":
-            self.col = QtGui.QColor(0, 0, 255)
-        elif text == "Indigo Background":
-            self.col = QtGui.QColor(111, 0, 255)
-        elif text == "Purple Background":
-            self.col = QtGui.QColor(143, 0, 255)
-        elif text == "Default Background Color":
-            self.col = QtGui.QColor(245, 245, 245)
+    def handle_state_data(self, data):
+        '''Function for handling data from the finite state machine'''
+        packet = data.data.split()
+        if packet[0] == "ChangeCamera":
+            drone.keyCmd(packet[1])
         else:
-            if text == "Select Background from File":
-                fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
-                if fname == '': #If the user presses 'cancel', then do nothing
-                    return
-                self.setStyleSheet("width: 10%;background-image: url(" + fname + ");}")
-                self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
-            return
-            
-        self.sld1.setValue(self.col.red())
-        self.sld2.setValue(self.col.green())
-        self.sld3.setValue(self.col.blue())
-        self.sld4.setValue(self.col.hue())
-        self.sld5.setValue(self.col.saturation())
-        self.sld6.setValue(self.col.value())
-        self.setStyleSheet("QFrame { background-color: %s }" % self.col.name())
-        self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
-
-
+            #The first string should be the state. 
+            #If there's a second string, it will be a drone key command.
+            self.state = packet[0]
+            if self.state == "Keyboard" or self.state == "Hover":
+                drone.keyCmd('s')
+            if self.state == "Landing":
+                drone.keyCmd(' ')
+            if self.state == "Takeoff":
+                drone.keyCmd('t')
+            else:
+                if len(packet) > 1:
+                    drone.keyCmd(packet[1])
+        
     
 if __name__ == '__main__':
+    publisher = rospy.Publisher('GUI', String)
     drone = Ardrone()
     image = ImageProcessor()
+    FSM = FSM()
     app = QtGui.QApplication(sys.argv)
     widget = robotWidget()
     widget.thresholdSet()
+    rospy.Subscriber('state', String, widget.handle_state_data)
     rospy.Subscriber(IMAGE_SOURCE, Image, image.videoUpdate, queue_size = 1)
-    
     sys.exit(app.exec_())
     
