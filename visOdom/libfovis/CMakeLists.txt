@@ -13,8 +13,6 @@ pkg_check_modules(EIGEN REQUIRED eigen3)
 # build the main library
 add_subdirectory(libfovis)
 
-add_subdirectory(testers)
-add_subdirectory(examples)
 
 message("
 
