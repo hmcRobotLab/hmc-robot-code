@@ -1,0 +1,31 @@
+<launch>
+  <!-- Hardcoded tfs -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 base_link openni_camera 40" />
+
+  <node pkg="tf" type="static_transform_publisher" name="mbOdom_to_odom"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 mbOdom odom 40" />
+
+  <!-- rviz config -->
+  <node pkg="rviz" type="rviz" name="rviz" 
+      args="-d $(find laser_scan_matcher)/demo/demo_gmapping.vcg"/>
+  
+  <!-- gmapping params -->
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <param name="scan" value="scan" />
+    <param name="base_frame" value="base_link"/>
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="iterations" value="10"/>
+    <param name="linearUpdate" value="0.25"/>
+    <param name="angularUpdate" value="0.262"/>
+    <param name="temporalUpdate" value="0.1"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="100" />
+    <param name="stt" value=".3"/>
+    <param name="str" value=".2"/>
+    <param name="srt" value=".3"/>
+    <param name="srr" value=".1"/>
+  </node>
+
+</launch>
