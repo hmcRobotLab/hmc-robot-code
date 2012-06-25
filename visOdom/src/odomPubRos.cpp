@@ -76,14 +76,14 @@ int main(int argc, char **argv)
     Eigen::Quaternion<double> quat = Eigen::Quaternion<double>(cam_to_local.rotation());
 
     double w = quat.w();
-    double qx = quat.x();
-    double qy = quat.y();
-    double qz = quat.z();
+    double qx = quat.z();
+    double qy = -quat.x();
+    double qz = -quat.y();
 
     Eigen::Vector3d xyz = cam_to_local.translation();
-    double x = xyz(0);
-    double y = xyz(1);
-    double z = xyz(2);
+    double x = xyz(2);
+    double y = -xyz(0);
+    double z = -xyz(1);
 
     tf::Quaternion tf_odom_quat = tf::Quaternion(qx,qy,qz,w);
     geometry_msgs::Quaternion gm_odom_quat;
@@ -131,8 +131,8 @@ int main(int argc, char **argv)
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and
     // the origin is located at the focal point of the RGB camera.
-    std::cout << isometryToString(cam_to_local) << " " << 
-      isometryToString(motion_estimate) << "\n";
+    //std::cout << isometryToString(cam_to_local) << " " << 
+    //  isometryToString(motion_estimate) << "\n";
   }
 
   printf("Shutting down\n");
