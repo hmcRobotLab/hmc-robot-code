@@ -89,24 +89,26 @@ int main(int argc, char **argv)
     Eigen::Quaternion<double> quat = Eigen::Quaternion<double>(cam_to_local.rotation());
 
     double w = quat.w();
-    double qx = quat.x();
-    double qy = quat.y();
-    double qz = quat.z();
+    double qx = quat.z();
+    double qy = -quat.x();
+    double qz = -quat.y();
 
     Eigen::Vector3d xyz = cam_to_local.translation();
-    double x = xyz(0);
-    double y = xyz(1);
-    double z = xyz(2);
+    double x = xyz(2);
+    double y = -xyz(0);
+    double z = -xyz(1);
 
     tf::Quaternion tf_odom_quat = tf::Quaternion(qx,qy,qz,w);
     geometry_msgs::Quaternion gm_odom_quat;
     tf::quaternionTFToMsg(tf_odom_quat, gm_odom_quat);
 
     //first, we'll publish the transform over tf
+    std::string odomName = "visOdom";
+    std::string baseName = "vis_base_link";
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = ros::Time::now();;
-    odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base_link";
+    odom_trans.header.frame_id = odomName;
+    odom_trans.child_frame_id = baseName;
 
     odom_trans.transform.translation.x = x;
     odom_trans.transform.translation.y = y;
@@ -119,7 +121,7 @@ int main(int argc, char **argv)
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom_msg;
     odom_msg.header.stamp = ros::Time::now();
-    odom_msg.header.frame_id = "odom";
+    odom_msg.header.frame_id = odomName;
 
     //set the position
     odom_msg.pose.pose.position.x = x;
@@ -128,7 +130,7 @@ int main(int argc, char **argv)
     odom_msg.pose.pose.orientation = gm_odom_quat;
 
     //set the velocity
-    odom_msg.child_frame_id = "base_link";
+    odom_msg.child_frame_id = baseName;
     //odom_msg.twist.twist.linear.x = vx;
     //odom_msg.twist.twist.linear.y = vy;
     //odom_msg.twist.twist.angular.z = vth;
@@ -144,8 +146,8 @@ int main(int argc, char **argv)
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and
     // the origin is located at the focal point of the RGB camera.
-    std::cout << isometryToString(cam_to_local) << " " << 
-      isometryToString(motion_estimate) << "\n";
+    //std::cout << isometryToString(cam_to_local) << " " << 
+    //  isometryToString(motion_estimate) << "\n";
   }
 
   printf("Shutting down\n");
