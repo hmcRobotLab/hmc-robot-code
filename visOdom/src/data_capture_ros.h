@@ -15,7 +15,7 @@ class DataCapture
     DataCapture();
     ~DataCapture();
 
-    bool initialize(ros::NodeHandle nh);
+    bool initialize(ros::NodeHandle &nh);
 
     bool startDataCapture();
 

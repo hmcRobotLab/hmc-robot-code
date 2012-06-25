@@ -24,16 +24,17 @@ isometryToString(const Eigen::Isometry3d& m)
   return std::string(result);
 }
 
-ros::NodeHandle nh;
 int main(int argc, char **argv)
 {
   // initialize the node and various publishers
   ros::init(argc, argv, "fovis_odom");
+  ros::NodeHandle nh;
   ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
   tf::TransformBroadcaster odom_broadcaster;
 
   // initialize the device
   fovis_ros_kinect::DataCapture* cap = new fovis_ros_kinect::DataCapture();
+  cap -> initialize(nh);
   //if(!cap->initialize()) {
   //  fprintf(stderr, "Unable to initialize OpenNI sensor\n");
   //  return 1;
@@ -64,11 +65,6 @@ int main(int argc, char **argv)
   sigaction(SIGHUP, &new_action, NULL);
 
   while(!shutdown_flag) {
-    if(!cap->captureOne()) {
-      fprintf(stderr, "Capture failed\n");
-      break;
-    }
-
     odom->processFrame(cap->getGrayImage(), cap->getDepthImage());
 
     // get the integrated pose estimate.
@@ -131,12 +127,11 @@ int main(int argc, char **argv)
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and
     // the origin is located at the focal point of the RGB camera.
-    //std::cout << isometryToString(cam_to_local) << " " << 
-    //  isometryToString(motion_estimate) << "\n";
+    std::cout << isometryToString(cam_to_local) << " " << 
+      isometryToString(motion_estimate) << "\n";
   }
 
   printf("Shutting down\n");
-  cap->stopDataCapture();
   delete odom;
   delete cap;
   return 0;

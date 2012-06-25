@@ -36,7 +36,7 @@ DataCapture::~DataCapture()
   delete[] gray_buf;
 }
 
-bool DataCapture::initialize(ros::NodeHandle nh)
+bool DataCapture::initialize(ros::NodeHandle &nh)
 {
   // TODO make the params not hardcoded
   printf("Connecting to ROS services !!! ");
@@ -46,38 +46,22 @@ bool DataCapture::initialize(ros::NodeHandle nh)
   depthSub = itnh->subscribe("/camera/depth/image_raw",1,&DataCapture::processDepth,this);
   //depthSub = itnh->subscribe("/camera/depth/image_raw",1,processDepth);
 
+  //ros::topic::waitForMessage("/camera/rgb/image_raw");
+  printf("Connected");
   return true;
-}
-
-bool DataCapture::startDataCapture()
-{
-  capturing = true;
-  return true;
-}
-
-bool DataCapture::stopDataCapture()
-{
-  capturing = false;
-  return true;
-}
-
-bool DataCapture::captureOne()
-{
-  return capturing;
 }
 
 void DataCapture::processGray(const sensor_msgs::ImageConstPtr& msg)
 {
-  if (capturing)
-    memcpy(gray_buf,&(msg->data),width*height);
+  printf("processgray");
+  memcpy(gray_buf,&(msg->data),width*height);
 }
 
 void DataCapture::processDepth(const sensor_msgs::ImageConstPtr& msg)
 {
-  if (capturing) {
-    memcpy(depth_data,&(msg->data),width*height);
-    depth_image->setDepthImage(depth_data);
-  }
+  printf("processdepth");
+  memcpy(depth_data,&(msg->data),width*height);
+  depth_image->setDepthImage(depth_data);
 }
 
 }
