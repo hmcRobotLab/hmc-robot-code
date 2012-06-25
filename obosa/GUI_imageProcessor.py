@@ -30,7 +30,7 @@ class ImageProcessor:
     cv.NamedWindow('threshold')
     cv.MoveWindow('threshold',0,320)
     cv.SetMouseCallback('threshold', self.onMouse, None)
-    self.make_control_window()
+    #self.make_control_window()
     self.bridge = cv_bridge.CvBridge()
     self.image = None             # the image from the drone
     self.new_image = False              # did we just receive a new image?
@@ -49,7 +49,7 @@ class ImageProcessor:
       f.close()
       self.thresholds = eval(data)
       print "Thresholds loaded from data.txt"
-      self.make_control_window()
+      #self.make_control_window()
     except:
       print "An error occurred in loading data.txt"
       print "Check if it's there and if it contains"
@@ -229,7 +229,7 @@ class ImageProcessor:
     # this is OpenCV's call to find all of the contours:
     contours = cv.FindContours(self.copy, self.storage, cv.CV_RETR_EXTERNAL,
                                cv.CV_CHAIN_APPROX_SIMPLE)
-
+    
     # Next we want to find the *largest* contour
     if len(contours)>0:
       biggest = contours
@@ -253,8 +253,10 @@ class ImageProcessor:
       #Draw a contour around the bounding box.
       cv.PolyLine(self.image,[[(xl,yt),(xl,yb),(xr,yb),(xr,yt)]],10, cv.RGB(0, 0, 255))
 
-      #Publish the bounding box, in clockwise order.
-      self.publisher.publish("%i %i %i %i" % (xl, yt, xr, yb))
+      #Publish the bounding box, in clockwise order, as well as the biggest area found
+      self.publisher.publish("%i %i %i %i %i" % (xl, yt, xr, yb, biggestArea))
+
+    else: self.publisher.publish("None") # If nothing is found, send the string "None"
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):
@@ -287,5 +289,12 @@ class ImageProcessor:
 
     if c == ord('&'):  # ampersand loads thresholds from data.txt
         self.load_thresholds()
+
+    # changing cameras
+    if c == ord('1'): # press 1 to use forward camera
+        self.publisher.publish("ChangeCamera 1")
+
+    if c == ord('2'): # press 2 to use bottom camera
+        self.publisher.publish("ChangeCamera 2")
 
 

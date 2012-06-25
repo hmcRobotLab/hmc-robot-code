@@ -16,18 +16,22 @@ class Ardrone():
     print "\r Connecting to navData service"
     rospy.Subscriber(navPubName, navData, self.navDataUpdate, queue_size=1)
     print "\r Connected to drone services"
+    '''
     print """
     Keyboard Controls:
     h: quit
-    t: takeoff              r: reset    spacebar: land
+    t: takeoff              r: reset    enter/return: land
 
     q: forward left strafe  w: forward  e: forward right strafe
-    a: strafe left          s: hover:   d: strafe right
+    a: strafe left          s: hover    d: strafe right
     z: backward left strafe x: backward e: backward right strafe
 
     f: spin left
     g: spin right
+    r: up
+    v: down
     """
+    '''
 
     self.lastSent = "None"
     self.airborne = False
@@ -43,7 +47,7 @@ class Ardrone():
     self.batLevel  = 0 
     self.ctrlState = 0
 
-    self.keyPower = .15
+    self.keyPower = .07
 
     # Reset the drone !!
     self.send("reset")
@@ -92,6 +96,12 @@ class Ardrone():
   def backward(self,power):
     self.send(self.makeHeliStr(1,0,power,0,0))
 
+  def up(self,power):
+    self.send(self.makeHeliStr(0,0,0,power,0))
+
+  def down(self,power):
+    self.send(self.makeHeliStr(0,0,0,-power,0))
+
   def takeoff(self):
     if not airborne:
       self.airborne = True
@@ -132,6 +142,10 @@ class Ardrone():
         self.airborne = True
         self.send("heli 0 0 0 0 0")
         helistr = "takeoff"
+    elif char == '1':
+        helistr = "camera 0"
+    elif char == '2':
+        helistr = "camera 1"
     elif self.airborne:
         if char == 'w':
             sflag = 1
@@ -161,14 +175,18 @@ class Ardrone():
             sflag = 1
             stheta = math.sqrt(self.keyPower/2)
             sphi = math.sqrt(self.keyPower/2)  
-        elif char == 's':
-            self.send("heli 1 0 0 0 0")
-            rospy.sleep(.05)
+        elif char == 's': #Self-adjusting hover
             sflag = 0
+        elif char == '3': #Non-adjusting hover
+            sflag = 1
         elif char == 'g':
             syaw = self.keyPower
         elif char == 'f':
             syaw = -self.keyPower
+        elif char == 'v':
+            sgaz = self.keyPower
+        elif char == 'b':
+            sgaz = -self.keyPower
         else:
             print "else"
             self.send(lastsent)
