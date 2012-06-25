@@ -1,1 +1,0 @@
-/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/refine-motion-estimate-tester.dir/refine_motion_estimate_tester.cpp.o  -o ../../bin/refine-motion-estimate-tester -rdynamic -L/home/robotics/ros_workspace/hmc-robot-code/visOdom/build/lib -L/usr/local/lib -lm -L/usr/local/lib -lfovis -Wl,-rpath,/home/robotics/ros_workspace/hmc-robot-code/visOdom/build/lib:/usr/local/lib 
