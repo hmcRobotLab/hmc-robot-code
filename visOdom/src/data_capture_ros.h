@@ -15,7 +15,7 @@ class DataCapture
     DataCapture();
     ~DataCapture();
 
-    bool initialize(ros::NodeHandle nh);
+    bool initialize(ros::NodeHandle *nh);
 
     bool startDataCapture();
 
@@ -34,6 +34,10 @@ class DataCapture
     const uint8_t* getGrayImage() {
       return gray_buf;
     }
+    bool capturing;
+
+    void processGray(const sensor_msgs::ImageConstPtr& msg);
+    void processDepth(const sensor_msgs::ImageConstPtr& msg);
 
   private:
     fovis::DepthImage* depth_image;
@@ -46,9 +50,6 @@ class DataCapture
     image_transport::ImageTransport *itnh;
     image_transport::Subscriber graySub;
     image_transport::Subscriber depthSub;
-    bool capturing;
-    void processGray(const sensor_msgs::ImageConstPtr& msg);
-    void processDepth(const sensor_msgs::ImageConstPtr& msg);
 
     float* depth_data;
 

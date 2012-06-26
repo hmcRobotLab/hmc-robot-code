@@ -1,12 +1,10 @@
 #include "data_capture_ros.h"
 #include "odomPubRos.h"
 
-#define CHECK_STATUS(rc, msg) if((rc) != XN_STATUS_OK) { \
-  fprintf(stderr, "%s: %s\n", (msg), xnGetStatusString(rc)); return false; }
-
 namespace fovis_ros_kinect
 {
 
+  const std::string rstring = "/camera/rgb/image_raw";
 DataCapture::DataCapture()
 {
   capturing = false;
@@ -32,8 +30,10 @@ DataCapture::DataCapture()
 
 DataCapture::~DataCapture()
 {
+  printf("deleting cap\n");
   delete[] depth_data;
   delete[] gray_buf;
+<<<<<<< HEAD
 }
 
 bool DataCapture::initialize(ros::NodeHandle nh)
@@ -64,21 +64,29 @@ bool DataCapture::stopDataCapture()
 bool DataCapture::captureOne()
 {
   return capturing;
+=======
+  delete itnh;
+>>>>>>> 4308c46f19062ce4e01f7d7b311ff8b2f4e2c18c
 }
 
 void DataCapture::processGray(const sensor_msgs::ImageConstPtr& msg)
 {
+<<<<<<< HEAD
   printf("capturing");
   if (capturing)
     memcpy(gray_buf,&(msg->data),width*height);
+=======
+  capturing=true;
+  //printf("processgray\n");
+  memcpy(gray_buf,&(msg->data),width*height);
+>>>>>>> 4308c46f19062ce4e01f7d7b311ff8b2f4e2c18c
 }
 
 void DataCapture::processDepth(const sensor_msgs::ImageConstPtr& msg)
 {
-  if (capturing) {
-    memcpy(depth_data,&(msg->data),width*height);
-    depth_image->setDepthImage(depth_data);
-  }
+  //printf("processdepth\n");
+  memcpy(depth_data,&(msg->data),width*height);
+  depth_image->setDepthImage(depth_data);
 }
 
 }

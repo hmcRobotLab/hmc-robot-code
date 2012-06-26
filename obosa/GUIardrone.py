@@ -188,9 +188,8 @@ class Ardrone():
         elif char == 'b':
             sgaz = -self.keyPower
         else:
-            print "else"
-            self.send(lastsent)
-            return;
+            self.send(self.lastsent)
+            return
 
         helistr = "heli %i %.3f %.3f %.3f %.3f" \
                 % (sflag,sphi,stheta,sgaz,syaw)
