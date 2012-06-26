@@ -1,0 +1,15 @@
+<launch>
+  <!-- static tf -->
+  <node name="mb_odom_to_odom" pkg="tf" type="static_transform_publisher" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 odom mb_odom 40"/>
+
+  <!-- fovis -->
+  <node name="fovis" pkg="visOdom" type="odomPub" output="screen"/>
+
+  <!-- MuddBot -->
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
+  <node name="muddbotJoy" pkg="irobot_mudd" type="joy.py"/>
+
+  <!-- rviz -->
+  <node name="rviz" pkg="rviz" type="rviz"/>
+</launch>
