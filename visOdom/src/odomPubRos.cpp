@@ -1,8 +1,6 @@
 #include "odomPubRos.h"
 #include "data_capture_ros.h"
 
-#define dbg(...) fprintf(stderr, __VA_ARGS__)
-
 sig_atomic_t shutdown_flag = 0;
 static void
 sig_action(int signal, siginfo_t *s, void *user)
@@ -24,16 +22,23 @@ isometryToString(const Eigen::Isometry3d& m)
   return std::string(result);
 }
 
-ros::NodeHandle nh;
+void test(const sensor_msgs::ImageConstPtr& msg)
+{
+  printf ("arg\n");
+}
 int main(int argc, char **argv)
 {
   // initialize the node and various publishers
   ros::init(argc, argv, "fovis_odom");
+  ros::NodeHandle nh;
   ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
   tf::TransformBroadcaster odom_broadcaster;
 
   // initialize the device
   fovis_ros_kinect::DataCapture* cap = new fovis_ros_kinect::DataCapture();
+  image_transport::ImageTransport it(nh);
+  image_transport::Subscriber graySub = it.subscribe("/camera/rgb/image_mono",1,&fovis_ros_kinect::DataCapture::processGray,cap);
+  image_transport::Subscriber depthSub = it.subscribe("/camera/depth/image",1,&fovis_ros_kinect::DataCapture::processDepth,cap);
   //if(!cap->initialize()) {
   //  fprintf(stderr, "Unable to initialize OpenNI sensor\n");
   //  return 1;
@@ -63,12 +68,13 @@ int main(int argc, char **argv)
   sigaction(SIGTERM, &new_action, NULL);
   sigaction(SIGHUP, &new_action, NULL);
 
-  while(!shutdown_flag) {
-    if(!cap->captureOne()) {
-      fprintf(stderr, "Capture failed\n");
-      break;
-    }
+  while(!(cap->capturing))
+  {
+    ros::spinOnce();
+  }
 
+  while(!shutdown_flag) {
+    ros::spinOnce();
     odom->processFrame(cap->getGrayImage(), cap->getDepthImage());
 
     // get the integrated pose estimate.
@@ -131,13 +137,12 @@ int main(int argc, char **argv)
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and
     // the origin is located at the focal point of the RGB camera.
-    //std::cout << isometryToString(cam_to_local) << " " << 
-    //  isometryToString(motion_estimate) << "\n";
+    std::cout << isometryToString(cam_to_local) << " " << 
+      isometryToString(motion_estimate) << "\n";
   }
 
   printf("Shutting down\n");
-  cap->stopDataCapture();
-  delete odom;
   delete cap;
+  delete odom;
   return 0;
 }

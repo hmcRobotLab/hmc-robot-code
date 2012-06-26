@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from GUIardrone import *
-from sliderImageProcessor import *
+from GUI_imageProcessor import *
 from FSMs import *
 import time
 from PyQt4 import QtGui, QtCore
@@ -496,14 +496,13 @@ Esc (exit) </font></center><br>")
 
     def keyPressEvent(self, e):
         '''If a keyboard key is pressed, then respond accordingly'''
-        char = ''
         try: char = chr(e.key()).lower()
-        except ValueError: char == e.key()
-        if e.key() == QtCore.Qt.Key_Escape: #if the escape key is pressed, then exit
+        except ValueError: char = e.key()
+        if char == QtCore.Qt.Key_Escape: #if the escape key is pressed, then exit
             self.close()
             return
 
-        if e.key() == QtCore.Qt.Key_Return: #If the space key is pressed, then send the spacebar keypress
+        if char == QtCore.Qt.Key_Return: #If the enter key is pressed, then land
             drone.keyCmd(' ')
             return
 
