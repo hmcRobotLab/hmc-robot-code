@@ -30,7 +30,7 @@ class ImageProcessor:
     cv.NamedWindow('threshold')
     cv.MoveWindow('threshold',0,320)
     cv.SetMouseCallback('threshold', self.onMouse, None)
-    #self.make_control_window()
+    #self.make_control_window() #Commented out because I'm using the GUI
     self.bridge = cv_bridge.CvBridge()
     self.image = None             # the image from the drone
     self.new_image = False              # did we just receive a new image?
@@ -56,7 +56,8 @@ class ImageProcessor:
       print " a dictionary of thresholds..."
 
   def make_control_window(self):
-    """ a method to make a window full of sliders """
+    """ a method to make a window full of sliders 
+        (not necessary if using the GUI)"""
     
     #Create slider window
     cv.NamedWindow('sliders')
@@ -159,7 +160,7 @@ class ImageProcessor:
       self.change_high_sat(hsvTuple[1][1])
       self.change_low_val(hsvTuple[2][0])
       self.change_high_val(hsvTuple[2][1])
-      #self.make_control_window()
+      #self.make_control_window() #Commented out because I'm using the GUI
       print "Type '$' to save."
     elif event == cv.CV_EVENT_LBUTTONDOWN:
       print "r: %s, g: %s, b: %s" % self.image[y,x]
@@ -260,7 +261,7 @@ class ImageProcessor:
 
   # the keyboard thread is the "main" thread for this program
   def keyboardLoop(self):
-    """ the main keypress-handling thread to control the drone """
+    """ the main keypress-handling thread to control the drone from the CV windows """
 
     # handle the image processing if we have a new Kinect image
     if (self.new_image):
@@ -276,7 +277,7 @@ class ImageProcessor:
     c = cv.WaitKey(25)&255
 
     # handle the keypress to quit...
-    if c == ord('q') or c == 27: # the Esc key is 27
+    if c == 27: # the Esc key is 27
         rospy.sleep(1.42) # wait a bit for everything to finish...
         # it's important that the FSM not re-schedule itself further than
         # 1 second in the future, so that a thread won't be left running
