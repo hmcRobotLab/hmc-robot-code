@@ -38,8 +38,8 @@ int main(int argc, char **argv)
   // initialize the device
   fovis_ros_kinect::DataCapture* cap = new fovis_ros_kinect::DataCapture();
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber graySub = it.subscribe("/camera/rgb/image_mono",1,&fovis_ros_kinect::DataCapture::processGray,cap);
-  image_transport::Subscriber depthSub = it.subscribe("/camera/depth/image",1,&fovis_ros_kinect::DataCapture::processDepth,cap);
+  image_transport::Subscriber graySub = it.subscribe("/camera/rgb/image_mono",5,&fovis_ros_kinect::DataCapture::processGray,cap);
+  image_transport::Subscriber depthSub = it.subscribe("/camera/depth/image",5,&fovis_ros_kinect::DataCapture::processDepth,cap);
   //if(!cap->initialize()) {
   //  fprintf(stderr, "Unable to initialize OpenNI sensor\n");
   //  return 1;
