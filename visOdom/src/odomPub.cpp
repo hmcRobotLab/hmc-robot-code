@@ -103,8 +103,8 @@ int main(int argc, char **argv)
     tf::quaternionTFToMsg(tf_odom_quat, gm_odom_quat);
 
     //first, we'll publish the transform over tf
-    std::string odomName = "visOdom";
-    std::string baseName = "vis_base_link";
+    std::string odomName = "odom";
+    std::string baseName = "base_link";
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = ros::Time::now();;
     odom_trans.header.frame_id = odomName;
