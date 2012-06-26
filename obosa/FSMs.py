@@ -66,9 +66,9 @@ class FSM:
         elif self.state == "Start":
             self.end = False
             print "Starting the state machine!"
-            if self.airborne == True:
+            if self.airborne == True: #If already airborne, then hover
                 self.state = "Hover"
-            else: 
+            else: #If not airborne, then takeoff first
                 self.airborne = True
                 self.state = "Takeoff"
             self.publisher.publish(self.state)
@@ -80,7 +80,7 @@ class FSM:
             self.publisher.publish(self.state)
 
         elif self.state == "Forward":
-            self.publisher.publish(self.state + " w")
+            self.publisher.publish(self.state + " w") #Publish the state and keypress
             rospy.sleep(0.01)
             self.state = "Hover"
 
@@ -138,7 +138,7 @@ class FSM:
 
 
 
-    def FSM02(self, timer_event=None):
+    def FSM0_version2(self, timer_event=None):
         '''Same as FSM0, but uses strafes instead of turns for centering the target'''
         
         self.publisher.publish("ChangeCamera 1") #Use the forward camera
@@ -164,7 +164,7 @@ class FSM:
                 else: #If the object is centered and close, then land
                     self.state = "Landing"
                
-        rospy.Timer( rospy.Duration(0.1), self.FSM0, oneshot=True )
+        rospy.Timer( rospy.Duration(0.1), self.FSM0_version2, oneshot=True )
 
 
 
@@ -197,7 +197,7 @@ class FSM:
                 elif self.area > 1800: #If the target is centered but too close, move backward
                     self.state = "Backward"
                 else: #Otherwise, try to hover in place
-                    self.publisher.publish(self.state + " s")   
+                    self.state = "Hover"  
 
         rospy.Timer( rospy.Duration(0.1), self.FSM1, oneshot=True )
 
@@ -253,11 +253,11 @@ class FSM:
                 #If something is found, then enter the "landing on top of a target" FSM
                 print "Landing on Box..."
                 return self.FSM2()
-            #If something isn't found, then we'll just keep looping back to this "Follow" state
+            #If something isn't found, then we'll just keep looping back to this "Search" state,
+            # so as to keep the image captured for the self-adjusting hover that the FSM caught
+            # on its first loop through.
 
         rospy.Timer( rospy.Duration(0.1), self.FSM3, oneshot=True )
-
-
 
 
     def handle_image_data(self, data):
@@ -270,7 +270,7 @@ class FSM:
             imageData = [int(x) for x in packet[0:4]] #Set the image data to be the data given by the imageProcessor
             self.center = [(imageData[0] + imageData[2])/2, \
                     (imageData[1] + imageData[3])/2] #Find the center of the bounding box
-            self.area = int(packet[4]) #Set the area of the bounding box
+            self.area = int(packet[4]) #Get the area of the bounding box
             if self.area < 300: 
                 #If the biggest area is negligble (i.e., probably noise), then set self.search as True
                 self.search = True
@@ -286,8 +286,7 @@ class FSM:
         if packet[0] == "Landing":
             self.airborne = False
             self.state = packet[0]
-        if packet[0] == "Keyboard":
-            self.state = packet[0]
+        if packet[0] == "Keyboard": self.state = packet[0]
         
         
     
