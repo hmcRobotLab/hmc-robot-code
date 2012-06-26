@@ -6,6 +6,7 @@ static void
 sig_action(int signal, siginfo_t *s, void *user)
 {
   fprintf(stderr,"Shutting Down!\n");
+  ros::requestShutdown();
   shutdown_flag = 1;
 }
 
