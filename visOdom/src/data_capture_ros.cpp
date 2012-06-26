@@ -40,13 +40,31 @@ void DataCapture::processGray(const sensor_msgs::ImageConstPtr& msg)
 {
   capturing=true;
   //printf("processgray\n");
-  memcpy(gray_buf,&(msg->data),width*height);
+  //memcpy(gray_buf,&(msg->data),width*height);
+  for(int i = 0;i<width*height;++i)
+  {
+    gray_buf[i] = msg->data[i];
+    //std::cout << gray_buf[i] << " " ;
+  }
 }
 
 void DataCapture::processDepth(const sensor_msgs::ImageConstPtr& msg)
 {
   //printf("processdepth\n");
-  memcpy(depth_data,&(msg->data),width*height);
+  //memcpy(depth_data,&(msg->data),width*height);
+
+  int num_depth_pixels = width * height;
+  for(int i=0; i<num_depth_pixels; i++) {
+    uint16_t d = msg->data[i];
+    if(d != 0) {
+      depth_data[i] = d * 1e-3;
+    } else {
+      depth_data[i] = NAN;
+    }
+  }
+
+
+
   depth_image->setDepthImage(depth_data);
 }
 
