@@ -1,18 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
-
-#include <iostream>
-#include <string>
-
-#include <fovis.hpp>
-#include <ros/ros.h>
-#include <tf/transform_listener.h>
-#include <tf/transform_broadcaster.h>
-#include <nav_msgs/Odometry.h>
-
-#include "data_capture.hpp"
+#include "odomPubRos.h"
+#include "data_capture_ros.h"
 
 #define dbg(...) fprintf(stderr, __VA_ARGS__)
 
@@ -37,24 +24,24 @@ isometryToString(const Eigen::Isometry3d& m)
   return std::string(result);
 }
 
+ros::NodeHandle nh;
 int main(int argc, char **argv)
 {
   // initialize the node and various publishers
   ros::init(argc, argv, "fovis_odom");
-  ros::NodeHandle n;
-  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom", 50);
+  ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
   tf::TransformBroadcaster odom_broadcaster;
 
   // initialize the device
-  fovis_example::DataCapture* cap = new fovis_example::DataCapture();
-  if(!cap->initialize()) {
-    fprintf(stderr, "Unable to initialize OpenNI sensor\n");
-    return 1;
-  }
-  if(!cap->startDataCapture()) {
-    fprintf(stderr, "Unable to start data capture\n");
-    return 1;
-  }
+  fovis_ros_kinect::DataCapture* cap = new fovis_ros_kinect::DataCapture();
+  //if(!cap->initialize()) {
+  //  fprintf(stderr, "Unable to initialize OpenNI sensor\n");
+  //  return 1;
+  //}
+  //if(!cap->startDataCapture()) {
+  //  fprintf(stderr, "Unable to start data capture\n");
+  //  return 1;
+  //}
 
   // get the RGB camera parameters of our device
   fovis::Rectification rect(cap->getRgbParameters());
@@ -103,12 +90,10 @@ int main(int argc, char **argv)
     tf::quaternionTFToMsg(tf_odom_quat, gm_odom_quat);
 
     //first, we'll publish the transform over tf
-    std::string odomName = "visOdom";
-    std::string baseName = "vis_base_link";
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = ros::Time::now();;
-    odom_trans.header.frame_id = odomName;
-    odom_trans.child_frame_id = baseName;
+    odom_trans.header.frame_id = "odom";
+    odom_trans.child_frame_id = "base_link";
 
     odom_trans.transform.translation.x = x;
     odom_trans.transform.translation.y = y;
@@ -121,7 +106,7 @@ int main(int argc, char **argv)
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom_msg;
     odom_msg.header.stamp = ros::Time::now();
-    odom_msg.header.frame_id = odomName;
+    odom_msg.header.frame_id = "odom";
 
     //set the position
     odom_msg.pose.pose.position.x = x;
@@ -130,7 +115,7 @@ int main(int argc, char **argv)
     odom_msg.pose.pose.orientation = gm_odom_quat;
 
     //set the velocity
-    odom_msg.child_frame_id = baseName;
+    odom_msg.child_frame_id = "base_link";
     //odom_msg.twist.twist.linear.x = vx;
     //odom_msg.twist.twist.linear.y = vy;
     //odom_msg.twist.twist.angular.z = vth;

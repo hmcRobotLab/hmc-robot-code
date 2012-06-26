@@ -11,6 +11,7 @@
   <depend package="geometry_msgs"/>
   <depend package="common_rosdeps"/>
   <depend package="openni_camera"/>
+  <depend package="image_transport"/>
   <rosdep name="eigen"/>
   <author>robotics</author>
   <license>BSD</license>
