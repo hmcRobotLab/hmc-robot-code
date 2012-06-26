@@ -4,7 +4,7 @@
     args="0.0 0.0 0.0 0.0 0.0 0.0 base_link openni_camera 40" />
 
   <node pkg="tf" type="static_transform_publisher" name="mbOdom_to_odom"
-    args="0.0 0.0 0.0 0.0 0.0 0.0 mbOdom odom 40" />
+    args="0.0 0.0 0.0 0.0 0.0 0.0 odom mb_odom 40" />
 
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
