@@ -138,8 +138,8 @@ int main(int argc, char **argv)
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and
     // the origin is located at the focal point of the RGB camera.
-    std::cout << isometryToString(cam_to_local) << " " << 
-      isometryToString(motion_estimate) << "\n";
+    //std::cout << isometryToString(cam_to_local) << " " << 
+    //  isometryToString(motion_estimate) << "\n";
   }
 
   printf("Shutting down\n");
