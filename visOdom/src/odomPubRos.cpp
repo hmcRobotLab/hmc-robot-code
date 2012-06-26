@@ -27,6 +27,7 @@ void test(const sensor_msgs::ImageConstPtr& msg)
 {
   printf ("arg\n");
 }
+
 int main(int argc, char **argv)
 {
   // initialize the node and various publishers
@@ -56,6 +57,7 @@ int main(int argc, char **argv)
       fovis::VisualOdometry::getDefaultOptions();
   // If we wanted to play around with the different VO parameters, we could set
   // them here in the "options" variable.
+  options["update-target-features-with-refined"]="true";
 
   // setup the visual odometry
   fovis::VisualOdometry* odom = new fovis::VisualOdometry(&rect, options);
@@ -73,6 +75,14 @@ int main(int argc, char **argv)
   {
     ros::spinOnce();
   }
+
+  //We need this to calculate velocity
+  ros::Time current_time, last_time;
+  current_time = ros::Time::now();
+  last_time = ros::Time::now();
+
+  //A check to avoid divison by zero errors
+  bool pastFirstLoop = false;
 
   while(!shutdown_flag) {
     ros::spinOnce();
@@ -98,7 +108,7 @@ int main(int argc, char **argv)
 
     //first, we'll publish the transform over tf
     geometry_msgs::TransformStamped odom_trans;
-    odom_trans.header.stamp = ros::Time::now();;
+    odom_trans.header.stamp = current_time;
     odom_trans.header.frame_id = "odom";
     odom_trans.child_frame_id = "base_link";
 
@@ -112,7 +122,7 @@ int main(int argc, char **argv)
 
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom_msg;
-    odom_msg.header.stamp = ros::Time::now();
+    odom_msg.header.stamp = current_time;
     odom_msg.header.frame_id = "odom";
 
     //set the position
@@ -121,19 +131,50 @@ int main(int argc, char **argv)
     odom_msg.pose.pose.position.z = z;
     odom_msg.pose.pose.orientation = gm_odom_quat;
 
-    //set the velocity
-    odom_msg.child_frame_id = "base_link";
-    //odom_msg.twist.twist.linear.x = vx;
-    //odom_msg.twist.twist.linear.y = vy;
-    //odom_msg.twist.twist.angular.z = vth;
+    // Now get the motion estimate for this frame to the previous frame.
+    Eigen::Isometry3d motion_estimate = odom->getMotionEstimate();
+
+    if (pastFirstLoop) {
+      Eigen::Vector3d rpy = motion_estimate.rotation().eulerAngles(0, 1, 2);
+      double dr = rpy(0) * 180/M_PI;
+      double dp = rpy(1) * 180/M_PI;
+      double dyaw = rpy(2) * 180/M_PI;
+
+      Eigen::Vector3d vxyz = motion_estimate.translation();
+      double dx = vxyz(2);
+      double dy = -vxyz(0);
+      double dz = -vxyz(1);
+
+      // Now get the time differential between the two frames
+      double dt = (current_time - last_time).toSec();
+
+      double vx = dx/dt;
+      double vy = dy/dt;
+      double vz = dz/dt;
+
+      double vr = dr/dt;
+      double vp = dp/dt;
+      double vyaw = dy/dt;
+
+      //set the velocity
+      odom_msg.child_frame_id = "base_link";
+      odom_msg.twist.twist.linear.x = vx;
+      odom_msg.twist.twist.linear.y = vy;
+      odom_msg.twist.twist.linear.z = vz;
+      //odom_msg.twist.twist.angular.w = vw;
+      odom_msg.twist.twist.angular.x = vr;
+      odom_msg.twist.twist.angular.y = vp;
+      odom_msg.twist.twist.angular.z = vyaw;
+    }
 
     //publish the message
     odom_pub.publish(odom_msg);
 
-       
-
-    // get the motion estimate for this frame to the previous frame.
-    Eigen::Isometry3d motion_estimate = odom->getMotionEstimate();
+    //Set the time:
+    last_time = current_time;
+    current_time = ros::Time::now();  
+    if (!pastFirstLoop)
+      pastFirstLoop = true;
 
     // display the motion estimate.  These values are all given in the RGB
     // camera frame, where +Z is forward, +X points right, +Y points down, and

@@ -37,8 +37,7 @@ DataCapture::~DataCapture()
 
 void DataCapture::processGray(const sensor_msgs::ImageConstPtr& msg)
 {
-  capturing=true;
-  //printf("processgray\n");
+  capturing = true;
   //memcpy(gray_buf,&(msg->data),width*height);
   for(int i = 0;i<width*height;++i)
   {
