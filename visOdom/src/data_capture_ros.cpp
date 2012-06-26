@@ -39,7 +39,7 @@ DataCapture::~DataCapture()
 bool DataCapture::initialize(ros::NodeHandle nh)
 {
   // TODO make the params not hardcoded
-  printf("Connecting to ROS services !!! ");
+  printf("Connecting to ROS services !!!\n ");
 
   itnh = new image_transport::ImageTransport(nh);
   graySub = itnh->subscribe("/camera/rgb/image_raw",1,&DataCapture::processGray,this);
@@ -68,6 +68,7 @@ bool DataCapture::captureOne()
 
 void DataCapture::processGray(const sensor_msgs::ImageConstPtr& msg)
 {
+  printf("capturing");
   if (capturing)
     memcpy(gray_buf,&(msg->data),width*height);
 }
