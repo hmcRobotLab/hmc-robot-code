@@ -1,2 +1,2 @@
 NavfnROS:
-  transform_tolerance: 0.3
+  transform_tolerance: 1.0

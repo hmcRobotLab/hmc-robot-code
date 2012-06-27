@@ -1,6 +1,6 @@
 #Independent settings for the local planner's costmap
 local_costmap: 
-  global_frame: odom
+  global_frame: mbOdom
   robot_base_frame: mb_base_link
   update_frequency: 1.0
   publish_frequency: 0.5

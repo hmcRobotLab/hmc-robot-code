@@ -1,9 +1,9 @@
 <launch>
   <node pkg="explore" type="explore" respawn="false" name="explore" output="screen" >
-    <rosparam file="footprint.yaml" command="load" />
+    <rosparam file="explore/footprint.yaml" command="load" />
 
-    <rosparam file="costmap_common.yaml" command="load" ns="explore_costmap" />
-    <rosparam file="explore_costmap.yaml" command="load" />
+    <rosparam file="explore/costmap_common.yaml" command="load" ns="explore_costmap" />
+    <rosparam file="explore/explore_costmap.yaml" command="load" />
 
     <param name="potential_scale" value="0.005"/>
     <param name="orientation_scale" value="0.0"/>
