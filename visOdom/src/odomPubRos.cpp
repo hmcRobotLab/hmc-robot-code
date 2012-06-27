@@ -66,7 +66,7 @@ int main(int argc, char **argv)
   options["use-subpixel-refinement"] = "true";
   options["feature-search-window"] = "25";
   options["target-pixels-per-feature"] = "250";
-  options["update-target-features-with-refined"] = "true";
+  options["update-target-features-with-refined"] = "false";
 
   // setup the visual odometry
   fovis::VisualOdometry* odom = new fovis::VisualOdometry(&rect, options);
