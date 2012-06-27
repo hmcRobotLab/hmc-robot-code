@@ -57,7 +57,16 @@ int main(int argc, char **argv)
       fovis::VisualOdometry::getDefaultOptions();
   // If we wanted to play around with the different VO parameters, we could set
   // them here in the "options" variable.
-  options["update-target-features-with-refined"]="true";
+  options["feature-window-size"] = "9";
+  options["max-pyramid-level"] = "3";
+  options["inlier-max-reprojection-error"] = "1.5";
+  options["clique-inlier-threshold"] = "0.1";
+  options["min-features-for-estimate"] = "10";
+  options["max-mean-reprojection-error"] = "10.0";
+  options["use-subpixel-refinement"] = "true";
+  options["feature-search-window"] = "25";
+  options["target-pixels-per-feature"] = "250";
+  options["update-target-features-with-refined"] = "true";
 
   // setup the visual odometry
   fovis::VisualOdometry* odom = new fovis::VisualOdometry(&rect, options);
