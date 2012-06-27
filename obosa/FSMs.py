@@ -17,6 +17,7 @@ class FSM:
         self.x_threshold = 55
         rospy.Subscriber('imageData', String, self.handle_image_data)
         rospy.Subscriber('GUI', String, self.handle_GUI_data)
+        rospy.Subscriber('Odometry', String, self.handle_irobot_data)
 
     def YCoordinate_too_low(self):
         '''Returns whether or not the Y Coordinate is below the lower threshold'''
@@ -81,22 +82,42 @@ class FSM:
 
         elif self.state == "Forward":
             self.publisher.publish(self.state + " w") #Publish the state and keypress
-            rospy.sleep(0.01)
+            rospy.sleep(0.25)
             self.state = "Hover"
 
         elif self.state == "Backward":
             self.publisher.publish(self.state + " x")
-            rospy.sleep(0.01)
+            rospy.sleep(0.25)
             self.state = "Hover"
 
         elif self.state == "Left":
             self.publisher.publish(self.state + " a")
-            rospy.sleep(0.01)
+            rospy.sleep(0.25)
             self.state = "Hover"
 
         elif self.state == "Right":
             self.publisher.publish(self.state + " d")
-            rospy.sleep(0.01)
+            rospy.sleep(0.25)
+            self.state = "Hover"
+
+        elif self.state == "ForwardRight":
+            self.publisher.publish(self.state + " e")
+            rospy.sleep(0.25)
+            self.state = "Hover"
+
+        elif self.state == "ForwardLeft":
+            self.publisher.publish(self.state + " q")
+            rospy.sleep(0.25)
+            self.state = "Hover"
+
+        elif self.state == "BackwardRight":
+            self.publisher.publish(self.state + " c")
+            rospy.sleep(0.25)
+            self.state = "Hover"
+
+        elif self.state == "BackwardLeft":
+            self.publisher.publish(self.state + " z")
+            rospy.sleep(0.25)
             self.state = "Hover"
 
         elif self.state == "Hover":
@@ -219,12 +240,20 @@ class FSM:
                 self.publisher.publish(self.state + " v")
             elif self.XCoordinate_too_low(): #If the target is too far to the left, then strafe left
                 self.state = "Left"
-            elif self.XCoordinate_too_high(): #If the target is too far to the right, then strafe right
-                self.state = "Right"
+                if self.YCoordinate_too_low(): self.state = "ForwardLeft"
+                if self.YCoordinate_too_high(): self.state = "BackwardLeft"
             elif self.YCoordinate_too_low(): #If the target is too far ahead, then move forward
                 self.state = "Forward"
+                if self.XCoordinate_too_low(): self.state = "ForwardLeft"
+                if self.XCoordinate_too_high(): self.state = "ForwardRight"
+            elif self.XCoordinate_too_high(): #If the target is too far to the right, then strafe right
+                self.state = "Right"
+                if self.YCoordinate_too_low(): self.state = "ForwardRight"
+                if self.YCoordinate_too_high(): self.state = "BackwardRight"
             elif self.YCoordinate_too_high(): #If the target is too far behind, then move backward
                 self.state = "Backward"
+                if self.XCoordinate_too_low(): self.state = "BackwardLeft"
+                if self.XCoordinate_too_high(): self.state = "BackwardRight"
             else:
                 if self.area < 20000: #If the target is centered but too far below the drone, then descend
                     self.publisher.publish(self.state + " b")
@@ -259,6 +288,8 @@ class FSM:
 
         rospy.Timer( rospy.Duration(0.1), self.FSM3, oneshot=True )
 
+    def FSM4(self, timer_event=None):
+        '''I'LL MAKE IT WORK EVENTUALLY'''
 
     def handle_image_data(self, data):
         '''Function for handling the data from the imageProcessor'''
@@ -276,7 +307,8 @@ class FSM:
                 self.search = True
             else: self.search = False
             
-
+    def handle_irobot_data(self, data):
+        packet = data.data.split()
 
 
     def handle_GUI_data(self, data):
@@ -285,9 +317,11 @@ class FSM:
         if packet[0] == "Airborne": self.airborne = True
         if packet[0] == "Landing":
             self.airborne = False
+            self.end = True
             self.state = packet[0]
-        if packet[0] == "Keyboard": self.state = packet[0]
-        
+        if packet[0] == "Keyboard": 
+            self.state = packet[0]
+            self.end = True        
         
     
 
