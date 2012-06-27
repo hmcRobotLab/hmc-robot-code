@@ -3,8 +3,7 @@
   <include file="$(find openni_camera)/launch/openni_node.launch"/>
 
   <!-- MuddBot -->
-  <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
-  <node name="muddbotJoy" pkg="irobot_mudd" type="joy.py"/>
+   <node name="muddbot" pkg="irobot_mudd" type="driver.py"/> 
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
