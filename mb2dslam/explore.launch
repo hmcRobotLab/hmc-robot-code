@@ -15,7 +15,4 @@
     <remap from="cloud" to="camera/depth/points"/>
   </node>
 
-  <!-- nav -->
-  <include file="explore/explore.xml" />
-  <include file="explore/move_base.xml" />
 </launch>

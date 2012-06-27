@@ -9,6 +9,6 @@
     <param name="orientation_scale" value="0.0"/>
     <param name="gain_scale" value="1.0"/>
     <param name="close_loops" value="true"/>
-    <remap from="slam_entropy" to="gmapping/entropy"/>
+    <remap from="slam_entropy" to="slam_gmapping/entropy"/>
   </node>
 </launch>

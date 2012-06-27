@@ -26,4 +26,8 @@
     <param name="maxUrange" value="8"/>
     <param name="maxRange" value="10"/>
   </node>
+
+  <!-- nav -->
+  <include file="explore/explore_slam.xml" />
+  <include file="$(find mb2dnav)/move_base.launch" />
 </launch>
