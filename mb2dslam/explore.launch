@@ -16,6 +16,6 @@
   </node>
 
   <!-- nav -->
-  <include file="explore/explore.xml" />
-  <include file="explore/move_base.xml" />
+  <include file="explore/explore_slam.xml" />
+  <include file="explore/move.xml" />
 </launch>
