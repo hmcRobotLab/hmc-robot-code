@@ -1,6 +1,4 @@
 <launch>
-  <master auto="start"/>
-
   <!-- Run the map server -->
   <!--<node name="map_server" pkg="map_server" type="map_server" args="$(find mb2dnav)/beck2.yaml"/>-->
 
