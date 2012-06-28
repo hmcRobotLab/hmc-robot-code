@@ -14,5 +14,4 @@
     <param name="scan_time" value="1/30.0"/>
     <remap from="cloud" to="camera/depth/points"/>
   </node>
-
 </launch>
