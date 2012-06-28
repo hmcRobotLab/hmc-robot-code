@@ -1,0 +1,14 @@
+<package>
+  <description brief="mb3dslam">
+
+     mb3dslam
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mb3dslam</url>
+
+</package>
+
+
