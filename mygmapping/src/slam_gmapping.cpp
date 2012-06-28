@@ -156,7 +156,7 @@ SlamGMapping::SlamGMapping():
   double transform_publish_period;
   private_nh_.param("transform_publish_period", transform_publish_period, 0.05);
   double posearray_publish_period;
-  private_nh_.param("posearray_publish_period", posearray_publish_period, 5.0);
+  private_nh_.param("posearray_publish_period", posearray_publish_period, 0.1);
 
   double tmp;
   if(!private_nh_.getParam("map_update_interval", tmp))
@@ -228,7 +228,7 @@ SlamGMapping::SlamGMapping():
   scan_filter_ = new tf::MessageFilter<sensor_msgs::LaserScan>(*scan_filter_sub_, tf_, odom_frame_, 5);
   scan_filter_->registerCallback(boost::bind(&SlamGMapping::laserCallback, this, _1));
 
-  paB_ = node_.advertise<geometry_msgs::PoseArray>("cPoseHistory",1,true);
+  paB_ = node_.advertise<geometry_msgs::PoseArray>("cPoseHistory",1);
   transform_thread_ = new boost::thread(boost::bind(&SlamGMapping::publishLoop, this, transform_publish_period));
   posearray_thread_ = new boost::thread(boost::bind(&SlamGMapping::PApublishLoop, this, posearray_publish_period));
 }
@@ -248,10 +248,11 @@ void SlamGMapping::PApublishLoop(double posearray_publish_period){
   if(posearray_publish_period == 0)
     return;
 
-  ros::Rate r(1.0 / posearray_publish_period);
+  ros::Rate r(1.0);
   while(ros::ok()){
     publishPoseArray();
-    r.sleep();
+    //r.sleep();
+    ros::WallDuration(5).sleep();
   }
 }
 
@@ -297,7 +298,8 @@ SlamGMapping::getOdomPose(GMapping::OrientedPoint& gmap_pose, const ros::Time& t
 
   gmap_pose = GMapping::OrientedPoint(odom_pose.getOrigin().x(),
                                       odom_pose.getOrigin().y(),
-                                      yaw);
+                                      yaw
+                                      );
   return true;
 }
 
@@ -686,30 +688,34 @@ SlamGMapping::mapCallback(nav_msgs::GetMap::Request  &req,
 
 void SlamGMapping::publishPoseArray()
 {
-  geometry_msgs::PoseArray pose_msg;
-  pose_msg.header.stamp = ros::Time::now();
-  pose_msg.header.frame_id = base_frame_;
-
-  std::vector<geometry_msgs::Pose> poses;
-  GMapping::GridSlamProcessor::Particle best =
-          gsp_->getParticles()[gsp_->getBestParticleIndex()];
-  for(GMapping::GridSlamProcessor::TNode* n = best.node;
-      n;
-      n = n->parent)
+  if(got_map_)
   {
-    geometry_msgs::Pose next_pose;
-    next_pose.position.x     = n->pose.x;
-    next_pose.position.y     = n->pose.y;
-    next_pose.orientation.z = n->pose.theta;
+    geometry_msgs::PoseArray pose_msg;
+    pose_msg.header.stamp = ros::Time::now();
+    pose_msg.header.frame_id = map_frame_;
 
-    poses.push_back(next_pose);
-    if(!n->reading)
+    std::vector<geometry_msgs::Pose> poses;
+    GMapping::GridSlamProcessor::Particle best =
+      gsp_->getParticles()[gsp_->getBestParticleIndex()];
+    for(GMapping::GridSlamProcessor::TNode* n = best.node;
+        n;
+        n = n->parent)
     {
-      continue;
+      geometry_msgs::Pose next_pose;
+      next_pose.position.x     = n->pose.x;
+      next_pose.position.y     = n->pose.y;
+      next_pose.orientation.z = sin(n->pose.theta/2);
+      next_pose.orientation.w = cos(n->pose.theta/2);
+
+      poses.push_back(next_pose);
+      if(!n->reading)
+      {
+        continue;
+      }
     }
+    pose_msg.poses = poses;
+    paB_.publish(pose_msg);
   }
-  pose_msg.poses = poses;
-  paB_.publish(pose_msg);
 }
 
 void SlamGMapping::publishTransform()
