@@ -157,6 +157,10 @@ SlamGMapping::SlamGMapping():
   private_nh_.param("transform_publish_period", transform_publish_period, 0.05);
   double posearray_publish_period;
   private_nh_.param("posearray_publish_period", posearray_publish_period, 0.1);
+  std::string path_topic;
+  if(!private_nh_.getParam("path_publish_topic", path_topic))
+      path_topic = "slam_path";
+
 
   double tmp;
   if(!private_nh_.getParam("map_update_interval", tmp))
@@ -228,7 +232,7 @@ SlamGMapping::SlamGMapping():
   scan_filter_ = new tf::MessageFilter<sensor_msgs::LaserScan>(*scan_filter_sub_, tf_, odom_frame_, 5);
   scan_filter_->registerCallback(boost::bind(&SlamGMapping::laserCallback, this, _1));
 
-  paB_ = node_.advertise<geometry_msgs::PoseArray>("cPoseHistory",1);
+  paB_ = node_.advertise<nav_msgs::Path>(path_topic,1,true);
   transform_thread_ = new boost::thread(boost::bind(&SlamGMapping::publishLoop, this, transform_publish_period));
   posearray_thread_ = new boost::thread(boost::bind(&SlamGMapping::PApublishLoop, this, posearray_publish_period));
 }
@@ -298,8 +302,7 @@ SlamGMapping::getOdomPose(GMapping::OrientedPoint& gmap_pose, const ros::Time& t
 
   gmap_pose = GMapping::OrientedPoint(odom_pose.getOrigin().x(),
                                       odom_pose.getOrigin().y(),
-                                      yaw
-                                      );
+                                      yaw);
   return true;
 }
 
@@ -328,6 +331,7 @@ SlamGMapping::initMapper(const sensor_msgs::LaserScan& scan)
   GMapping::OrientedPoint gmap_pose(laser_pose.getOrigin().x(),
                                     laser_pose.getOrigin().y(),
                                     yaw);
+                                    //scan.header.stamp.toNSec());
   ROS_DEBUG("laser's pose wrt base: %.3f %.3f %.3f",
             laser_pose.getOrigin().x(),
             laser_pose.getOrigin().y(),
@@ -392,7 +396,7 @@ SlamGMapping::initMapper(const sensor_msgs::LaserScan& scan)
   /// @todo Expose setting an initial pose
   GMapping::OrientedPoint initialPose;
   if(!getOdomPose(initialPose, scan.header.stamp))
-    initialPose = GMapping::OrientedPoint(0.0, 0.0, 0.0);
+    initialPose = GMapping::OrientedPoint(0.0, 0.0, 0.0);//,scan.header.stamp.toNSec());
 
   gsp_->setMatchingParameters(maxUrange_, maxRange_, sigma_,
                               kernelSize_, lstep_, astep_, iterations_,
@@ -466,6 +470,7 @@ SlamGMapping::addScan(const sensor_msgs::LaserScan& scan, GMapping::OrientedPoin
   // need to keep our array around.
   delete[] ranges_double;
 
+  //gmap_pose.tStamp = scan.header.stamp.toNSec();
   reading.setPose(gmap_pose);
 
   /*
@@ -690,31 +695,33 @@ void SlamGMapping::publishPoseArray()
 {
   if(got_map_)
   {
-    geometry_msgs::PoseArray pose_msg;
-    pose_msg.header.stamp = ros::Time::now();
-    pose_msg.header.frame_id = map_frame_;
+    nav_msgs::Path path_msg;
+    path_msg.header.stamp = ros::Time::now();
+    path_msg.header.frame_id = map_frame_;
 
-    std::vector<geometry_msgs::Pose> poses;
+    std::vector<geometry_msgs::PoseStamped> poses;
     GMapping::GridSlamProcessor::Particle best =
       gsp_->getParticles()[gsp_->getBestParticleIndex()];
     for(GMapping::GridSlamProcessor::TNode* n = best.node;
         n;
         n = n->parent)
     {
-      geometry_msgs::Pose next_pose;
-      next_pose.position.x     = n->pose.x;
-      next_pose.position.y     = n->pose.y;
-      next_pose.orientation.z = sin(n->pose.theta/2);
-      next_pose.orientation.w = cos(n->pose.theta/2);
+      geometry_msgs::PoseStamped next_pose;
+      next_pose.header.frame_id = map_frame_;
+      next_pose.pose.position.x     = n->pose.x;
+      next_pose.pose.position.y     = n->pose.y;
+      next_pose.pose.orientation.z = sin(n->pose.theta/2);
+      next_pose.pose.orientation.w = cos(n->pose.theta/2);
 
       poses.push_back(next_pose);
       if(!n->reading)
       {
         continue;
       }
+      next_pose.header.stamp = ros::Time(n->reading->getTime());
     }
-    pose_msg.poses = poses;
-    paB_.publish(pose_msg);
+    path_msg.poses = poses;
+    paB_.publish(path_msg);
   }
 }
 
