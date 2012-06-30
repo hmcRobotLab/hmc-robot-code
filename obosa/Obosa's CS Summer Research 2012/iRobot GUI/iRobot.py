@@ -126,6 +126,7 @@ class iRobot():
             self.keyboardMovement()             
 
         elif self.state == "Code": #Runs the user-typed code if possible
+            print "Running user-inputted code:", self.code
             try: eval(self.code)
             except NameError: print "Invalid code."
             except SyntaxError: print "Invalid code."
