@@ -2,7 +2,7 @@
 from GUIardrone import *
 from GUI_imageProcessor import *
 from FSMs import *
-from iRobotFinal import *
+from iRobot import *
 import time
 from PyQt4 import QtGui, QtCore
 
