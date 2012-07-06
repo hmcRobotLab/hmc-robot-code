@@ -1,0 +1,16 @@
+<launch>
+  <!-- static tf -->
+  <node name="vis_odom_to_odom" pkg="tf" type="static_transform_publisher" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 odom vis_odom 40"/>
+  <node name="odom_comb_out_to_odom" pkg="tf" type="static_transform_publisher"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 odom odom_comb_out 40"/>
+
+  <!-- MuddBot -->
+  <node name="muddbotJoy" pkg="irobot_mudd" type="joy.py"/>
+
+  <!-- odomCombiner -->
+  <node name="odomComb" pkg="odomComb" type="odomComb"/>
+
+  <!-- rviz -->
+  <node name="rviz" pkg="rviz" type="rviz"/>
+</launch>
