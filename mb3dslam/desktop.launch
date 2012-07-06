@@ -1,7 +1,7 @@
 <launch>
   <!-- Hardcoded tfs -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-    args="0.0 0.0 0.0 0.0 0.0 0.0 mb_base_link openni_camera 40" />
+    args="0.0 0.0 0.0 0.0 0.0 0.0 base_link openni_camera 40" />
 
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
@@ -10,9 +10,9 @@
   <!-- gmapping params -->
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="scan" value="scan" />
-    <param name="base_frame" value="mb_base_link"/>
+    <param name="base_frame" value="base_link"/>
     <param name="map_frame" value="map"/>
-    <param name="odom_frame" value="mb_odom"/>
+    <param name="odom_frame" value="odom"/>
     <param name="iterations" value="7"/>
     <param name="linearUpdate" value="0.25"/>
     <param name="angularUpdate" value="0.262"/>
@@ -27,7 +27,4 @@
     <param name="maxRange" value="10"/>
   </node>
 
-  <!-- nav -->
-  <include file="explore/explore_slam.xml" />
-  <include file="$(find mb2dnav)/move_base.launch" />
 </launch>

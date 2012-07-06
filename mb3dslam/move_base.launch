@@ -1,23 +1,23 @@
 <launch>
   <!-- Hardcoded tfs -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-    args="0.0 0.0 0.0 0.0 0.0 0.0 mb_base_link openni_camera 40" />
+    args="0.0 0.0 0.0 0.0 0.0 0.0 base_link openni_camera 40" />
 
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
     args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/camera.vcg"/>
 
   <!-- Run the map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="./bigMapEdit.yaml"/>-->
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/robotics/ros_workspace/hmc-robot-code/mb3dslam/bigMapEdit.yaml"/>
 
   <!--- Run AMCL -->
-  <include file="./amcl_mudd.launch" />
+  <include file="amcl_mudd.launch" />
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find mb2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find mb2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find mb2dnav)/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find mb2dnav)/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find mb2dnav)/base_local_planner_params.yaml" command="load" />
+    <rosparam file="costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="local_costmap_params.yaml" command="load" />
+    <rosparam file="global_costmap_params.yaml" command="load" />
+    <rosparam file="base_local_planner_params.yaml" command="load" />
   </node>
 </launch>
