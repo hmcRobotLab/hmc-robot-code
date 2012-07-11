@@ -39,7 +39,6 @@ CMakeFiles/bin/slam_gmapping.dir/src/main.o
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Point32.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PointStamped.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Pose.h
- /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PoseArray.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PoseStamped.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Quaternion.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/QuaternionStamped.h
@@ -51,6 +50,7 @@ CMakeFiles/bin/slam_gmapping.dir/src/main.o
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/MapMetaData.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/OccupancyGrid.h
+ /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/Path.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/srv_gen/cpp/include/nav_msgs/GetMap.h
  /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/ChannelFloat32.h
  /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/LaserScan.h
@@ -166,7 +166,6 @@ CMakeFiles/bin/slam_gmapping.dir/src/slam_gmapping.o
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Point32.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PointStamped.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Pose.h
- /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PoseArray.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/PoseStamped.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Quaternion.h
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/QuaternionStamped.h
@@ -178,6 +177,7 @@ CMakeFiles/bin/slam_gmapping.dir/src/slam_gmapping.o
  /opt/ros/electric/stacks/common_msgs/geometry_msgs/msg_gen/cpp/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/MapMetaData.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/OccupancyGrid.h
+ /opt/ros/electric/stacks/common_msgs/nav_msgs/msg_gen/cpp/include/nav_msgs/Path.h
  /opt/ros/electric/stacks/common_msgs/nav_msgs/srv_gen/cpp/include/nav_msgs/GetMap.h
  /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/ChannelFloat32.h
  /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/LaserScan.h

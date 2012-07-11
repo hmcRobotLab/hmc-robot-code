@@ -21,7 +21,7 @@
   </node>
 -->
 
-  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+  <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="scan" value="scan" />
     <param name="base_frame" value="base_link"/>
     <param name="map_frame" value="map"/>

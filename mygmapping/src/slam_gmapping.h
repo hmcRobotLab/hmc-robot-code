@@ -25,7 +25,6 @@
 #include "tf/transform_broadcaster.h"
 #include "message_filters/subscriber.h"
 #include "tf/message_filter.h"
-#include "geometry_msgs/PoseArray.h"
 
 #include "gmapping/gridfastslam/gridslamprocessor.h"
 #include "gmapping/sensor/sensor_base/sensor.h"
@@ -39,13 +38,13 @@ class SlamGMapping
     ~SlamGMapping();
 
     void publishTransform();
-    void publishPoseArray();
+    void publishPath();
   
     void laserCallback(const sensor_msgs::LaserScan::ConstPtr& scan);
     bool mapCallback(nav_msgs::GetMap::Request  &req,
                      nav_msgs::GetMap::Response &res);
     void publishLoop(double transform_publish_period);
-    void PApublishLoop(double posearray_publish_period);
+    void pathPublishLoop(double path_publish_period);
 
   private:
     ros::NodeHandle node_;
@@ -79,7 +78,7 @@ class SlamGMapping
     int throttle_scans_;
 
     boost::thread* transform_thread_;
-    boost::thread* posearray_thread_;
+    boost::thread* path_thread_;
 
     std::string base_frame_;
     std::string laser_frame_;

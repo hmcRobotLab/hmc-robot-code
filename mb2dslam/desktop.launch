@@ -1,16 +1,16 @@
 <launch>
   <!-- Hardcoded tfs -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-    args="0.0 0.0 0.0 0.0 0.0 0.0 base_link openni_camera 40" />
+    args="-.1143 0.0 .4191 0.0 0.0 0.0 base_link pan_base 100" />
 
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
     args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/camera.vcg"/>
   
   <!-- gmapping params -->
-  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+  <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="scan" value="scan" />
-    <param name="base_frame" value="base_link"/>
+    <param name="base_frame" value="openni_camera"/> 
     <param name="map_frame" value="map"/>
     <param name="odom_frame" value="odom"/>
     <param name="iterations" value="7"/>
