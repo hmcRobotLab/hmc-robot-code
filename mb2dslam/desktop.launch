@@ -1,8 +1,9 @@
 <launch>
   <!-- Hardcoded tfs -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-    args="-.1143 0.0 .4191 0.0 0.0 0.0 base_link pan_base 100" />
+    args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />
 
+  <param name="robot_description" textfile="$(find irobot_mudd)/description/testurdf.xml"/>
   <!-- rviz config -->
   <node pkg="rviz" type="rviz" name="rviz" 
     args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/camera.vcg"/>
@@ -13,12 +14,12 @@
     <param name="base_frame" value="openni_camera"/> 
     <param name="map_frame" value="map"/>
     <param name="odom_frame" value="odom"/>
-    <param name="iterations" value="7"/>
+    <param name="iterations" value="6"/>
     <param name="linearUpdate" value="0.25"/>
-    <param name="angularUpdate" value="0.262"/>
+    <param name="angularUpdate" value="0.4"/>
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="particles" value="75" />
+    <param name="particles" value="55" />
     <param name="stt" value=".3"/>
     <param name="str" value=".2"/>
     <param name="srt" value=".3"/>
