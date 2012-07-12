@@ -122,7 +122,7 @@ Initial map dimensions and resolution:
 
 SlamGMapping::SlamGMapping():
   map_to_odom_(tf::Transform(tf::createQuaternionFromRPY( 0, 0, 0 ), tf::Point(0, 0, 0 ))),
-  laser_count_(0), transform_thread_(NULL), posearray_thread_(NULL)
+  laser_count_(0), transform_thread_(NULL), path_thread_(NULL)
 {
   // log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->setLevel(ros::console::g_level_lookup[ros::console::levels::Debug]);
 
@@ -155,8 +155,8 @@ SlamGMapping::SlamGMapping():
 
   double transform_publish_period;
   private_nh_.param("transform_publish_period", transform_publish_period, 0.05);
-  double posearray_publish_period;
-  private_nh_.param("posearray_publish_period", posearray_publish_period, 0.1);
+  double path_publish_period;
+  private_nh_.param("path_publish_period", path_publish_period, 0.1);
   std::string path_topic;
   if(!private_nh_.getParam("path_publish_topic", path_topic))
       path_topic = "slam_path";
@@ -234,7 +234,7 @@ SlamGMapping::SlamGMapping():
 
   paB_ = node_.advertise<nav_msgs::Path>(path_topic,1,true);
   transform_thread_ = new boost::thread(boost::bind(&SlamGMapping::publishLoop, this, transform_publish_period));
-  posearray_thread_ = new boost::thread(boost::bind(&SlamGMapping::PApublishLoop, this, posearray_publish_period));
+  path_thread_ = new boost::thread(boost::bind(&SlamGMapping::pathPublishLoop, this, path_publish_period));
 }
 
 void SlamGMapping::publishLoop(double transform_publish_period){
@@ -248,15 +248,15 @@ void SlamGMapping::publishLoop(double transform_publish_period){
   }
 }
 
-void SlamGMapping::PApublishLoop(double posearray_publish_period){
-  if(posearray_publish_period == 0)
+void SlamGMapping::pathPublishLoop(double path_publish_period){
+  if(path_publish_period == 0)
     return;
 
-  ros::Rate r(1.0);
+  ros::Rate r(1.0/ path_publish_period);
   while(ros::ok()){
-    publishPoseArray();
-    //r.sleep();
-    ros::WallDuration(5).sleep();
+    publishPath();
+    r.sleep();
+    //ros::WallDuration(5).sleep();
   }
 }
 
@@ -266,9 +266,9 @@ SlamGMapping::~SlamGMapping()
     transform_thread_->join();
     delete transform_thread_;
   }
-  if(posearray_thread_){
-    posearray_thread_->join();
-    delete posearray_thread_;
+  if(path_thread_){
+    path_thread_->join();
+    delete path_thread_;
   }
 
   delete gsp_;
@@ -331,7 +331,6 @@ SlamGMapping::initMapper(const sensor_msgs::LaserScan& scan)
   GMapping::OrientedPoint gmap_pose(laser_pose.getOrigin().x(),
                                     laser_pose.getOrigin().y(),
                                     yaw);
-                                    //scan.header.stamp.toNSec());
   ROS_DEBUG("laser's pose wrt base: %.3f %.3f %.3f",
             laser_pose.getOrigin().x(),
             laser_pose.getOrigin().y(),
@@ -396,7 +395,7 @@ SlamGMapping::initMapper(const sensor_msgs::LaserScan& scan)
   /// @todo Expose setting an initial pose
   GMapping::OrientedPoint initialPose;
   if(!getOdomPose(initialPose, scan.header.stamp))
-    initialPose = GMapping::OrientedPoint(0.0, 0.0, 0.0);//,scan.header.stamp.toNSec());
+    initialPose = GMapping::OrientedPoint(0.0, 0.0, 0.0);
 
   gsp_->setMatchingParameters(maxUrange_, maxRange_, sigma_,
                               kernelSize_, lstep_, astep_, iterations_,
@@ -470,7 +469,6 @@ SlamGMapping::addScan(const sensor_msgs::LaserScan& scan, GMapping::OrientedPoin
   // need to keep our array around.
   delete[] ranges_double;
 
-  //gmap_pose.tStamp = scan.header.stamp.toNSec();
   reading.setPose(gmap_pose);
 
   /*
@@ -691,7 +689,7 @@ SlamGMapping::mapCallback(nav_msgs::GetMap::Request  &req,
     return false;
 }
 
-void SlamGMapping::publishPoseArray()
+void SlamGMapping::publishPath()
 {
   if(got_map_)
   {
