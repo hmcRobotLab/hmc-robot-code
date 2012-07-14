@@ -1,0 +1,17 @@
+<package>
+  <description brief="mappath">
+
+     mappath
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mappath</url>
+  <depend package="nav_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="map_server"/>
+
+</package>
+
+

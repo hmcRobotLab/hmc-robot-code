@@ -3,7 +3,6 @@
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/clean-test-results.dir
-/home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/convert.dir
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/rosbuild_precompile.dir
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/rosbuild_premsgsrvgen.dir
 /home/robotics/ros_workspace/hmc-robot-code/mbpcl/build/CMakeFiles/rospack_genmsg.dir

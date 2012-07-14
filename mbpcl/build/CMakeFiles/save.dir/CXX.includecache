@@ -17,6 +17,10 @@ opencv/highgui.h
 -
 cv_bridge/CvBridge.h
 -
+boost/filesystem.hpp
+-
+sstream
+-
 
 /opt/ros/electric/stacks/common_msgs/sensor_msgs/msg_gen/cpp/include/sensor_msgs/CameraInfo.h
 string

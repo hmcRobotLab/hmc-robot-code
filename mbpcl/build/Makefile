@@ -164,19 +164,6 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
-# Target rules for targets named convert
-
-# Build rule for target.
-convert: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 convert
-.PHONY : convert
-
-# fast build rule for target.
-convert/fast:
-	$(MAKE) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/build
-.PHONY : convert/fast
-
-#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -320,21 +307,6 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
-src/example.o:
-	$(MAKE) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/src/example.o
-.PHONY : src/example.o
-
-# target to preprocess a source file
-src/example.i:
-	$(MAKE) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/src/example.i
-.PHONY : src/example.i
-
-# target to generate assembly for a file
-src/example.s:
-	$(MAKE) -f CMakeFiles/convert.dir/build.make CMakeFiles/convert.dir/src/example.s
-.PHONY : src/example.s
-
-# target to build an object file
 src/imcap.o:
 	$(MAKE) -f CMakeFiles/save.dir/build.make CMakeFiles/save.dir/src/imcap.o
 .PHONY : src/imcap.o
@@ -360,7 +332,6 @@ help:
 	@echo "... ROSBUILD_gensrv_cpp"
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
-	@echo "... convert"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
@@ -374,9 +345,6 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
-	@echo "... src/example.o"
-	@echo "... src/example.i"
-	@echo "... src/example.s"
 	@echo "... src/imcap.o"
 	@echo "... src/imcap.i"
 	@echo "... src/imcap.s"
