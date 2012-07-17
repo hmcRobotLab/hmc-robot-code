@@ -4,7 +4,7 @@
   <include file="$(find mb_nav)/launch/laserScan.launch" />
 
   <!-- Run the Robot -->
-  <include file="(find mb_nav)/launch/muddBot.launch" />
+  <include file="$(find mb_nav)/launch/muddBot.launch" />
 
   <!-- Rviz -->
   <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find mb_nav)/config/rvizLaptopSettings.vcg" />
