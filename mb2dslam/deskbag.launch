@@ -29,7 +29,7 @@
     <param name="delta" value="0.05"/>
   </node>
 
-  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/13w.bag -r 0.3 -s 500"/>
+  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/13w.bag -r 0.8 -s 500"/>
   <!--- Run Move Base -->
   <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
 </launch>
