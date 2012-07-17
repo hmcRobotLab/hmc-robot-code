@@ -1,4 +1,8 @@
 <launch>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />
+
   <!-- kinect -->
   <include file="$(find openni_camera)/launch/openni_node.launch"/>
 
@@ -7,6 +11,8 @@
   <!-- MuddBot -->
   <node name="muddbot" pkg="irobot_mudd" type="driver.py">
     <param name="port" value="/dev/ttyUSB1"/>
+  </node> 
+  <node name="muddbot" pkg="irobot_mudd" type="joy.py">
   </node> 
 
   <!-- openni_manager -->
@@ -25,8 +31,5 @@
     <remap from="cloud" to="cloud_throttled"/>
   </node>
 
-  <node name="sdplay" pkg="sound_play" type="soundplay_node.py"/>
-  <node name="record" pkg="audio_capture" type="audio_capture" output="screen">
-    <param name="bitrate" value="128"/>
-  </node>
+  <node pkg="rosbag" type="record" name="rb" args="odom tf scan /camera/rgb/image_color /camera/depth/image"/>
 </launch>

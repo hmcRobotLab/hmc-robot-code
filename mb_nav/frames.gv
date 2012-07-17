@@ -1,0 +1,9 @@
+digraph G {
+"/base_link" -> "/pan_base"[label="Broadcaster: /base_link_to_laser\nAverage rate: 25.010 Hz\nMost recent transform: -0.032 sec old \nBuffer length: 4.878 sec\n"];
+"/odom" -> "/base_link"[label="Broadcaster: /muddBot\nAverage rate: 24.876 Hz\nMost recent transform: 0.019 sec old \nBuffer length: 4.864 sec\n"];
+"/pan_base" -> "/openni_camera"[label="Broadcaster: /pantf\nAverage rate: 20.203 Hz\nMost recent transform: 0.009 sec old \nBuffer length: 4.851 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1342565306.966"[ shape=plaintext ] ;
+ }->"/odom";
+}

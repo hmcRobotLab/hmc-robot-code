@@ -6,7 +6,7 @@
   <node name="muddbot" pkg="irobot_mudd" type="driver.py"/>
 
   <!-- visOdom -->
-  <node name="fovis" pkg="visOdom" type="odomPub" output="screen"/>
+  <node name="fovis" pkg="visOdom" type="odomPubRos" output="screen"/>
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>

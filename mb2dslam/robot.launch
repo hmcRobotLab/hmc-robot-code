@@ -2,16 +2,28 @@
   <!-- kinect -->
   <include file="$(find openni_camera)/launch/openni_node.launch"/>
 
+  <include file="$(find kinect_pan)/controller_manager.launch"/>
+  <node name="pantf" pkg="kinect_pan" type="kinecttf.py"/>
   <!-- MuddBot -->
-   <node name="muddbot" pkg="irobot_mudd" type="driver.py"/> 
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py">
+    <param name="port" value="/dev/ttyUSB1"/>
+  </node> 
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
+
+  <node pkg="nodelet" type="nodelet" name="cloud_throttle" args="load pointcloud_to_laserscan/CloudThrottle openni_manager">
+    <param name="max_rate" value="15"/>
+    <remap from="cloud_in" to="/camera/depth/points"/>
+    <remap from="cloud_out" to="cloud_throttled"/>
+  </node>
   
   <!-- pointcloud_to_laserscan -->
   <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager">
     <param name="output_frame_id" value="/openni_depth_frame"/>
-    <param name="scan_time" value="1/30.0"/>
-    <remap from="cloud" to="camera/depth/points"/>
+    <param name="scan_time" value="1/15.0"/>
+    <remap from="cloud" to="cloud_throttled"/>
+    <param name="min_height" value="-.2"/>
+    <param name="max_height" value=".2"/>
   </node>
 </launch>

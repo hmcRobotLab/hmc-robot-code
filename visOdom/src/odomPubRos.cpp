@@ -30,10 +30,12 @@ void test(const sensor_msgs::ImageConstPtr& msg)
 
 int main(int argc, char **argv)
 {
+  std::string odomFrameName = "visOdom";
+  std::string baseFrameName = "vis_base_link";
   // initialize the node and various publishers
   ros::init(argc, argv, "fovis_odom");
   ros::NodeHandle nh;
-  ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 50);
+  ros::Publisher odom_pub = nh.advertise<nav_msgs::Odometry>(odomFrameName, 50);
   tf::TransformBroadcaster odom_broadcaster;
 
   // initialize the device
@@ -118,8 +120,8 @@ int main(int argc, char **argv)
     //first, we'll publish the transform over tf
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = current_time;
-    odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base_link";
+    odom_trans.header.frame_id = odomFrameName;
+    odom_trans.child_frame_id = baseFrameName;
 
     odom_trans.transform.translation.x = x;
     odom_trans.transform.translation.y = y;
@@ -132,7 +134,7 @@ int main(int argc, char **argv)
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom_msg;
     odom_msg.header.stamp = current_time;
-    odom_msg.header.frame_id = "odom";
+    odom_msg.header.frame_id = odomFrameName;
 
     //set the position
     odom_msg.pose.pose.position.x = x;
@@ -166,7 +168,7 @@ int main(int argc, char **argv)
       double vyaw = dy/dt;
 
       //set the velocity
-      odom_msg.child_frame_id = "base_link";
+      odom_msg.child_frame_id = baseFrameName;
       odom_msg.twist.twist.linear.x = vx;
       odom_msg.twist.twist.linear.y = vy;
       odom_msg.twist.twist.linear.z = vz;

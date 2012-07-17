@@ -1,0 +1,8 @@
+digraph G {
+"/odom" -> "/base_link"[label="Broadcaster: /muddBot\nAverage rate: 24.996 Hz\nMost recent transform: 0.032 sec old \nBuffer length: 4.881 sec\n"];
+"/base_link" -> "/pan_base"[label="Broadcaster: /base_link_to_laser\nAverage rate: 24.995 Hz\nMost recent transform: -0.012 sec old \nBuffer length: 4.881 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1342564849.963"[ shape=plaintext ] ;
+ }->"/odom";
+}
