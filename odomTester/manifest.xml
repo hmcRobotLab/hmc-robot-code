@@ -8,6 +8,13 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/odomTester</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="geometry_msgs"/>
+  <depend package="tf"/>
+  <depend package="nav_msgs"/>
+  <depend package="irobot_mudd"/>
+  <depend package="visOdom"/>
 
 </package>
 
