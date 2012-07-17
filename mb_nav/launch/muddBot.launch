@@ -1,0 +1,12 @@
+<launch>
+  <!-- Run the robot -->
+  <node name="muddBot" pkg="irobot_mudd" type="driver.py">
+    <param name="port" value="/dev/ttyUSB1"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
+    args="-.1143 0.0 .4728 0.0 0.0 0.0 base_link pan_base 40" />
+
+  <include file="$(find kinect_pan)/controller_manager.launch"/>
+  <node name="pantf" pkg="kinect_pan" type="kinecttf.py"/>
+</launch>
