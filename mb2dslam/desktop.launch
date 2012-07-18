@@ -28,7 +28,6 @@
     <param name="maxRange" value="10"/>
   </node>
 
-  <!-- nav -->
-  <!-- <include file="explore/explore_slam.xml" /> -->
-  <!-- <include file="explore/move.xml" /> -->
+  <!--- Run Move Base -->
+  <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
 </launch>
