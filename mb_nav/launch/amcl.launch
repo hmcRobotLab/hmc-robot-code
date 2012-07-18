@@ -3,8 +3,8 @@
   <arg name="use_map_topic" default="false"/>
   <arg name="scan_topic" default="scan" />
 
-  <n ode pkg="amcl" type="amcl" name="amcl">
-    <param name="initial_cov_aa" value=".3"
+  <node pkg="amcl" type="amcl" name="amcl">
+    <param name="initial_cov_aa" value=".3"/>
     <param name="odom_alpha1" value="1.0"/>
     <param name="odom_alpha2" value="1.0"/>
     <!-- translation std dev, m -->
