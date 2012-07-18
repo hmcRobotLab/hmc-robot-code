@@ -1,0 +1,29 @@
+The files included:
+Ardrone2.py - The updated version of the Ardrone Class which Alistair and Matt 
+wrote.
+
+Ardrone2_Sliders.py - Similar to the regular class with the exception that 
+sliders are also present to edit specifics.
+
+data.txt and data2.tx have dictionaries for the threshing of colors. Note: The 
+heli2.py depends on these.
+
+heli2.py is similar to heli.py written by Alistair and Matt - it's simply 
+adapted for the second drivers. It is basically the original one they wrote with
+little to no changes by me (Daisy).
+
+Drone2_Demos.py is where the FSM of Drone2 are. This relies on the new version 2
+drivers. This code pretty much works with both drivers.
+
+---How To Run Demos ---
+-connect to the drone's wifi
+-(new terminal window) "roscore"
+-(new terminal window) "rosrun ardrone2_mudd driver"
+-(new terminal window) "python heli2.py"
+-(new terminal window) "python Drone2_Demos.py"
+
+Note: Make sure to edit the top of the Drone2_Demos.py if you're using the
+roomba and if you're using the original ARDrone. The only reason for this is so
+that the numbers are accurate for each task.
+
+
