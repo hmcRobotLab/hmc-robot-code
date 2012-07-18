@@ -53,7 +53,7 @@ Laser\ Scan..IntensityMin\ ColorB=0
 Laser\ Scan..IntensityMin\ Intensity=0
 Laser\ Scan..IntensityUse\ full\ RGB\ spectrum=0
 Map.Alpha=0.7
-Map.Draw\ Behind=0
+Map.Draw\ Behind=1
 Map.Enabled=1
 Map.Topic=/map
 Pose\ Array.ColorR=0.0156863
@@ -72,8 +72,8 @@ TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::XYOrbitViewController
-Camera\ Config=0.5854 0.9654 27.1556 12.3507 -1.34962e-06 61.9897
-Property\ Grid\ State=selection=Inflated Obstacles.Enabled;expanded=.Global Options,TF./base_link/base_link,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./map/map,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Map.Enabled,Laser Scan.Enabled.Laser Scan.StatusTopStatus,Pose Array.Enabled,Inflated Obstacles.Enabled;scrollpos=0,9;splitterpos=144,288;ispageselected=1
+Camera\ Config=0.001 2.6904 96.4883 -3.64385 9.74566e-06 51.5707
+Property\ Grid\ State=selection=Map.Enabled.Map.Draw Behind;expanded=.Global Options,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./base_link/base_link,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./odom/odom,TF./map/map,TF.Enabled.TF.Tree,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,TF./mapTree/map,TF./odomTree/odom,Map.Enabled,Pose Array.Enabled;scrollpos=0,0;splitterpos=207,430;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
