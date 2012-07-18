@@ -4,11 +4,18 @@
 
   <!-- openni_manager -->
   <node pkg="nodelet" type="nodelet" name="openni_manager" output="screen" respawn="true" args="manager"/>
+
+  <node pkg="nodelet" type="nodelet" name="cloud_throttle" args="load pointcloud_to_laserscan/CloudThrottle openni_manager">
+    <param name="max_rate" value="10"/>
+    <remap from="cloud_in" to="/camera/depth/points"/>
+    <remap from="cloud_out" to="cloud_throttled"/>
+  </node>
   
   <!-- pointcloud_to_laserscan -->
   <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager">
     <param name="output_frame_id" value="/openni_depth_frame"/>
     <param name="scan_time" value="1/10.0"/>
-    <remap from="cloud" to="camera/depth/points"/>
+    <remap from="cloud" to="cloud_throttled"/>
   </node>
+  
 </launch>
