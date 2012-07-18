@@ -68,11 +68,28 @@ Map.Alpha=0.7
 Map.Draw\ Behind=1
 Map.Enabled=1
 Map.Topic=/map
+Path.Alpha=1
+Path.ColorR=0.1
+Path.ColorG=1
+Path.ColorB=0
+Path.Enabled=1
+Path.Topic=/move_base/NavfnROS/plan
 Pose\ Array.ColorR=0.0156863
 Pose\ Array.ColorG=0
 Pose\ Array.ColorB=1
 Pose\ Array.Enabled=1
 Pose\ Array.Topic=/particlecloud
+Pose.Alpha=1
+Pose.ColorR=1
+Pose.ColorG=0.1
+Pose.ColorB=0
+Pose.Enabled=1
+Pose.Head\ Length=0.3
+Pose.Head\ Radius=0.2
+Pose.Shaft\ Length=1
+Pose.Shaft\ Radius=0.1
+Pose.Shape=0
+Pose.Topic=/move_base/current_goal
 TF.All\ Enabled=0
 TF.Enabled=1
 TF.Frame\ Timeout=15
@@ -84,8 +101,8 @@ TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::XYOrbitViewController
-Camera\ Config=0.036 2.7304 22.514 91.4746 7.83831e-06 58.7573
-Property\ Grid\ State=selection=Global Plan.Enabled;expanded=.Global Options,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./base_link/base_link,TF./pan_base/pan_base,TF./odom/odom,TF./map/map,TF.Enabled.TF.Tree,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,TF./mapTree/map,TF./odomTree/odom,Pose Array.Enabled,Local Plan.Enabled,Global Plan.Enabled;scrollpos=0,0;splitterpos=207,430;ispageselected=1
+Camera\ Config=0.051 2.8004 13.0844 71.7814 1.48422e-05 56.4338
+Property\ Grid\ State=selection=;expanded=.Global Options,TF./base_link/base_link,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./map/map,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Path.Enabled,Path.Enabled.Path.StatusTopStatus;scrollpos=0,0;splitterpos=207,430;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
@@ -118,13 +135,21 @@ ClassName=rviz::PathDisplay
 Name=Global Plan
 Package=rviz
 ClassName=rviz::PathDisplay
+[Display8]
+Name=Path
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display9]
+Name=Pose
+Package=rviz
+ClassName=rviz::PoseDisplay
 [TF.]
 base_linkEnabled=1
 mapEnabled=1
 odomEnabled=1
-openni_cameraEnabled=1
-openni_depth_frameEnabled=1
-openni_depth_optical_frameEnabled=1
-openni_rgb_frameEnabled=1
-openni_rgb_optical_frameEnabled=1
+openni_cameraEnabled=0
+openni_depth_frameEnabled=0
+openni_depth_optical_frameEnabled=0
+openni_rgb_frameEnabled=0
+openni_rgb_optical_frameEnabled=0
 pan_baseEnabled=1
