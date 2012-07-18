@@ -1,0 +1,8 @@
+<launch>
+
+  <!--- Run the kinect -->
+  <include file="$(find mb_nav)/launch/laserScan.launch" />
+
+  <!-- Run the Robot -->
+  <include file="$(find mb_nav)/launch/muddBot.launch" />
+</launch>
