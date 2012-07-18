@@ -1,0 +1,19 @@
+heliImages.py was written by Alistair and Matt. These were built for the first
+ARDrone. They display and image and publish the data for the thresholding box.
+
+data.txt and data2.tx are color dictionaries that hold the slider values
+neccessary to threshold into specific colors. Note: heliImages.py depends on 
+these threshold values.
+
+Drone_Demos.py is where the FSMs are located. These subscribes to heliImages.py
+in order to aquire the information needed to complete it's tasks.
+
+---How To Run Demos ---
+-connect to the drone's wifi
+-(new terminal window) "roscore"
+-(new terminal window) "rosrun ardrone_mudd driver"
+-(new terminal window) "python heliImages.py"
+-(new terminal window) "python Drone_Demos.py"
+
+Note: Make sure to edit the top of the Drone_Demos.py if you're using the
+roomba.
