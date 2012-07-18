@@ -3,6 +3,12 @@ Background\ ColorG=0
 Background\ ColorB=0
 Fixed\ Frame=/map
 Target\ Frame=<Fixed Frame>
+Global\ Plan.Alpha=1
+Global\ Plan.ColorR=1
+Global\ Plan.ColorG=0
+Global\ Plan.ColorB=0.945098
+Global\ Plan.Enabled=1
+Global\ Plan.Topic=/move_base/TrajectoryPlannerROS/global_plan
 Grid.Alpha=0.2
 Grid.Cell\ Size=1
 Grid.ColorR=1
@@ -18,6 +24,12 @@ Grid.OffsetZ=0
 Grid.Plane=0
 Grid.Plane\ Cell\ Count=80
 Grid.Reference\ Frame=<Fixed Frame>
+Inflated\ Obstacles.Alpha=1
+Inflated\ Obstacles.ColorR=0.1
+Inflated\ Obstacles.ColorG=1
+Inflated\ Obstacles.ColorB=0
+Inflated\ Obstacles.Enabled=1
+Inflated\ Obstacles.Topic=/move_base/local_costmap/inflated_obstacles
 Laser\ Scan.Alpha=1
 Laser\ Scan.Billboard\ Size=0.01
 Laser\ Scan.Color\ Transformer=Flat Color
@@ -46,6 +58,12 @@ Laser\ Scan..IntensityMin\ ColorG=0
 Laser\ Scan..IntensityMin\ ColorB=0
 Laser\ Scan..IntensityMin\ Intensity=0
 Laser\ Scan..IntensityUse\ full\ RGB\ spectrum=0
+Local\ Plan.Alpha=1
+Local\ Plan.ColorR=1
+Local\ Plan.ColorG=0.627451
+Local\ Plan.ColorB=0
+Local\ Plan.Enabled=1
+Local\ Plan.Topic=/move_base/TrajectoryPlannerROS/local_plan
 Map.Alpha=0.7
 Map.Draw\ Behind=1
 Map.Enabled=1
@@ -66,8 +84,8 @@ TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::XYOrbitViewController
-Camera\ Config=0.001 2.6904 96.4883 -3.64385 9.74566e-06 51.5707
-Property\ Grid\ State=selection=Map.Enabled.Map.Draw Behind;expanded=.Global Options,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./base_link/base_link,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./odom/odom,TF./map/map,TF.Enabled.TF.Tree,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,TF./mapTree/map,TF./odomTree/odom,Map.Enabled,Pose Array.Enabled;scrollpos=0,0;splitterpos=207,430;ispageselected=1
+Camera\ Config=0.036 2.7304 22.514 91.4746 7.83831e-06 58.7573
+Property\ Grid\ State=selection=Global Plan.Enabled;expanded=.Global Options,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./base_link/base_link,TF./pan_base/pan_base,TF./odom/odom,TF./map/map,TF.Enabled.TF.Tree,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,TF./mapTree/map,TF./odomTree/odom,Pose Array.Enabled,Local Plan.Enabled,Global Plan.Enabled;scrollpos=0,0;splitterpos=207,430;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
@@ -88,6 +106,18 @@ ClassName=rviz::LaserScanDisplay
 Name=Pose Array
 Package=rviz
 ClassName=rviz::PoseArrayDisplay
+[Display5]
+Name=Inflated Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
+[Display6]
+Name=Local Plan
+Package=rviz
+ClassName=rviz::PathDisplay
+[Display7]
+Name=Global Plan
+Package=rviz
+ClassName=rviz::PathDisplay
 [TF.]
 base_linkEnabled=1
 mapEnabled=1
