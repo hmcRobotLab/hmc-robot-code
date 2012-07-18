@@ -18,6 +18,12 @@ Grid.OffsetZ=0
 Grid.Plane=0
 Grid.Plane\ Cell\ Count=80
 Grid.Reference\ Frame=<Fixed Frame>
+Inflated\ Obstacles.Alpha=1
+Inflated\ Obstacles.ColorR=0.1
+Inflated\ Obstacles.ColorG=1
+Inflated\ Obstacles.ColorB=0
+Inflated\ Obstacles.Enabled=1
+Inflated\ Obstacles.Topic=/move_base/local_costmap/inflated_obstacles
 Laser\ Scan.Alpha=1
 Laser\ Scan.Billboard\ Size=0.01
 Laser\ Scan.Color\ Transformer=Flat Color
@@ -66,8 +72,8 @@ TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=/move_base_simple/goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
 Camera\ Type=rviz::XYOrbitViewController
-Camera\ Config=0.5854 0.9654 10.5754 8.77754 6.62642e-06 51.1554
-Property\ Grid\ State=selection=Pose Array.Enabled.Pose Array.Topic;expanded=.Global Options,TF./base_link/base_link,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./map/map,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Map.Enabled,Pose Array.Enabled;scrollpos=0,4;splitterpos=144,288;ispageselected=1
+Camera\ Config=0.5854 0.9654 27.1556 12.3507 -1.34962e-06 61.9897
+Property\ Grid\ State=selection=Inflated Obstacles.Enabled;expanded=.Global Options,TF./base_link/base_link,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./map/map,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Map.Enabled,Laser Scan.Enabled.Laser Scan.StatusTopStatus,Pose Array.Enabled,Inflated Obstacles.Enabled;scrollpos=0,9;splitterpos=144,288;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
@@ -88,6 +94,10 @@ ClassName=rviz::LaserScanDisplay
 Name=Pose Array
 Package=rviz
 ClassName=rviz::PoseArrayDisplay
+[Display5]
+Name=Inflated Obstacles
+Package=rviz
+ClassName=rviz::GridCellsDisplay
 [TF.]
 base_linkEnabled=1
 mapEnabled=1
