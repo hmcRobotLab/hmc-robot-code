@@ -82,6 +82,7 @@ CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/common_msgs/nav
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/bullet/manifest.xml
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/common/yaml_cpp/manifest.xml
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/navigation/map_server/manifest.xml
+CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/vision_opencv/opencv2/manifest.xml
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/ros_comm/messages/std_msgs/msg_gen/generated
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/ros_comm/messages/rosgraph_msgs/msg_gen/generated
 CMakeFiles/map_path.dir/src/map_path.o: /opt/ros/electric/stacks/ros_comm/clients/cpp/roscpp/msg_gen/generated
