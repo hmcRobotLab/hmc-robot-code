@@ -1,6 +1,7 @@
 USE_DRONE = True
 USE_ROOMBA = False
 USE_FIRST_DRONE = False
+USE_720P = False
 
 ## For ROOMBA
 # sudo rm /dev/rfcomm0
@@ -131,8 +132,6 @@ class DroneController:
 	self.tank = 0
 	self.speed = 80
 	
-
-
 	if(USE_FIRST_DRONE):
           self.tarX = 160
           self.tarY = 120
@@ -140,9 +139,16 @@ class DroneController:
           self.tarGY = 120
           self.tarHeight = 45
           self.image_size_thresh = 200
+
+        if(USE_720P):
+          self.tarX = 640
+          self.tarY = 360
+          self.tarGX = 640
+          self.tarGY = 360
+          self.tarHeight = 200
+          self.image_size_thresh = 800
           
         
-
         self.last_image_time = time.time()
         # last time an image was grabbed
         # images and other data for the images/windows
