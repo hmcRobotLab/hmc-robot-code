@@ -37,6 +37,8 @@ SET(CMAKE_C_INCLUDE_PATH
   "/opt/ros/electric/ros/tools/rospack/include"
   "/opt/ros/electric/stacks/bullet/include"
   "/usr/include/yaml-cpp"
+  "/usr/include/opencv-2.3.1/opencv"
+  "/usr/include/opencv-2.3.1"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
 SET(CMAKE_Fortran_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})

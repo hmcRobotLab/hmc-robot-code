@@ -37,9 +37,11 @@
 #include "LinearMath/btMatrix3x3.h"
 #include "geometry_msgs/Quaternion.h"
 
-#include <boost/gil/gil_all.hpp>
-#include <boost/gil/extension/io/png_dynamic_io.hpp>
-#include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
+//#include <boost/gil/gil_all.hpp>
+//#include <boost/gil/extension/io/png_dynamic_io.hpp>
+//#include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 using namespace std;
  
@@ -55,6 +57,7 @@ class MapGenerator
     MapGenerator(const std::string& mapname) : mapname_(mapname), saved_map_(false)
     {
       gotPath=false;
+      saving=false;
       ros::NodeHandle n;
       ROS_INFO("Waiting for the map");
       map_sub_ = n.subscribe("map", 1, &MapGenerator::mapCallback, this);
@@ -69,8 +72,52 @@ class MapGenerator
       }
     }
 
+    //void drawLine(int x1, int y1, int x2, int y2, boost::gil::rgb8_pixel_t color, boost::gil::rgb8_image_t img)
+    //{
+    //  const bool steep = (abs(y2-y1)>abs(x2-x1));
+    //  if (steep)
+    //  {
+    //    std::swap(x1,y1);
+    //    std::swap(x2,y2);
+    //  }
+
+    //  if (x1>x2)
+    //  {
+    //    std::swap(x1,x2);
+    //    std::swap(y1,y2);
+    //  }
+    //  const int dx = x2-x1;
+    //  const int dy = abs(y2-y1);
+
+    //  float error = dx / 2.0f;
+    //  const int ystep = (y1 < y2) ? 1 : -1;
+    //  int y = (int)y1;
+
+    //  const int maxX = (int)x2;
+
+    //  for(int x=(int)x1; x<maxX; x++)
+    //  {
+    //    if(steep)
+    //      boost::gil::view(img)(y,x) = color;
+    //    else
+    //    {
+    //      std::cout << x << " " << y << std::endl;
+    //      boost::gil::view(img)(x,y) = color;
+    //    }
+    //    error -= dy;
+    //    if (error < 0)
+    //    {
+    //      y+= ystep;
+    //      error += dx;
+    //    }
+    //  }
+    //}
+    
+
     void mapCallback(const nav_msgs::OccupancyGridConstPtr& map)
     {
+      if(!saving) {
+        saving=true;
       ROS_INFO("Received a %d X %d map @ %.3f m/pix",
                map->info.width,
                map->info.height,
@@ -87,11 +134,15 @@ class MapGenerator
       }
 
 
-      boost::gil::rgb8_image_t img(map->info.width,map->info.height);
-      boost::gil::rgb8_pixel_t black(0,0,0);
-      boost::gil::rgb8_pixel_t white(255,255,255);
-      boost::gil::rgb8_pixel_t gray(205,205,205);
-      boost::gil::rgb8_pixel_t green(0,255,0);
+      //boost::gil::rgb8_image_t img(map->info.width,map->info.height);
+      //boost::gil::rgb8_pixel_t black(0,0,0);
+      //boost::gil::rgb8_pixel_t white(255,255,255);
+      //boost::gil::rgb8_pixel_t gray(205,205,205);
+      //boost::gil::rgb8_pixel_t green(0,255,0);
+      cv::Mat_<cv::Vec3b> img(map->info.height,map->info.width, cv::Vec3b(100,100,200));//CV_8UC3);// = cv::Mat::zeroes( map->info.width, map->info.height, cv::CV_8UC3);
+      cv::Scalar black(0,0,0);
+      cv::Scalar white(255,255,255);
+      cv::Scalar gray(205,205,205);
 
       fprintf(out, "P5\n# CREATOR: Map_generator.cpp %.3f m/pix\n%d %d\n255\n",
               map->info.resolution, map->info.width, map->info.height);
@@ -100,13 +151,19 @@ class MapGenerator
           unsigned int i = x + (map->info.height - y - 1) * map->info.width;
 
           if (map->data[i] == 0) { //occ [0,0.1)
-            boost::gil::view(img)(x,y) = white;
+            //boost::gil::view(img)(x,y) = white;
+            //img.at<uchar>(255,255,255);//cv::Scalar>(cv::Point(x,y))=white;
+            img(y,x)=cv::Vec3b(255,255,255);
             fputc(254, out);
           } else if (map->data[i] == +100) { //occ (0.65,1]
-            boost::gil::view(img)(x,y) = black;
+            //img.at<cv::Scalar>(cv::Point(x,y))=black;
+            img(y,x)=cv::Vec3b(0,0,0);
+            //boost::gil::view(img)(x,y) = black;
             fputc(000, out);
           } else { //occ [0.1,0.65]
-            boost::gil::view(img)(x,y) = gray;
+            //img.at<cv::Scalar>(cv::Point(x,y))=gray;
+            img(y,x)=cv::Vec3b(155,155,155);
+            //boost::gil::view(img)(x,y) = gray;
             fputc(205, out);
           }
 
@@ -116,17 +173,84 @@ class MapGenerator
 
       fclose(out);
 
+      //cv::Point lp(map->info.width/2,map->info.height/2);
+      cv::Point lp(0,0);
+      
+      //cv::Point lp(poses.front().pose.position.x+2000,poses.front().pose.position.y+2000);//   map->info.width/2,map->info.height/2);
+      int r = 100;
+      int g = 0;
+      int b = 250;
+      int x = -1;
+
+
+      double dist = 0;
+      double lastx = 0;
+      double lasty = 0;
       for( std::vector<geometry_msgs::PoseStamped>::iterator it = poses.begin();
           it < poses.end();
           ++it) {
-            boost::gil::view(img)( (int) (it->pose.position.x / 0.05)+2000 , (-(int)(it->pose.position.y/ 0.05))+2000 ) = green;
+        int cx = (int) (it->pose.position.x / map->info.resolution)+map->info.width/2 + (map->info.width - 4002)/2;
+        int cy = (-(int)(it->pose.position.y/ map->info.resolution))+map->info.height/2 + (map->info.height- 4000)/2;
+        cv::Point cp(cx,cy);
+        double dd= sqrt ( pow( lastx- (it->pose.position.x),2) + pow(lasty-(it->pose.position.y),2));
+        double ddb = sqrt ( pow( (cx) -lp.x,2) + pow( (cy) -lp.y,2));
+        if(lp.x !=0 && lp.y!=0)
+        {
+          if (dd > 1)
+            std::cout << " ! " << dd << std::endl;
+          if (lastx != 0)
+            dist += dd;
+          cv::line(img, lp, cp, cv::Scalar(b,g,r), 2, 8);
+        }
+        if (g == 255)
+          x = -1;
+        if (g==0)
+          x=1;
+        lastx=it->pose.position.x;
+        lasty=it->pose.position.y;
+        g+=x;
+        lp = cp;
       }
-      boost::gil::png_write_view( mapname_ + ".png",const_view(img));
+      double temp;
+      std::stringstream ss;
+      ss << "Distance: " << dist;
+      cv::putText(img,ss.str(),cv::Point(50,50),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+      ss.str("");
+      ss << "Time: " << poses.front().header.stamp - poses.back().header.stamp ;
+      cv::putText(img,ss.str(),cv::Point(50,90),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+
+      ss.str("");
+      ros::param::get("/slam_gmapping/stt",temp);
+      ss << "stt: " << temp;
+      std::cout << " >> " << temp << std::endl;
+      cv::putText(img,ss.str(),cv::Point(50,130),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+
+      ss.str("");
+      ros::param::get("/slam_gmapping/str",temp);
+      ss << "str: " << temp;
+      cv::putText(img,ss.str(),cv::Point(50,170),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+
+      ss.str("");
+      ros::param::get("/slam_gmapping/srt",temp);
+      ss << "srt: " << temp;
+      cv::putText(img,ss.str(),cv::Point(50,210),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+
+      ss.str("");
+      ros::param::get("/slam_gmapping/srr",temp);
+      ss << "srr: " << temp;
+      cv::putText(img,ss.str(),cv::Point(50,250),cv::FONT_HERSHEY_PLAIN,3,cv::Scalar(0,0,0),4,8,false);
+
+
+
+      std::string cvname = mapname_ + ".png";
+      ROS_INFO("Writing bitmap to %s", cvname.c_str());
+      cv::imwrite(cvname,img);
 
       std::string mapmetadatafile = mapname_ + ".yaml";
       ROS_INFO("Writing map occupancy data to %s", mapmetadatafile.c_str());
       FILE* yaml = fopen(mapmetadatafile.c_str(), "w");
 
+      std::cout << "Distance traveled: "<< dist << " meters" << std::endl;
 
       /*
 resolution: 0.100000
@@ -150,12 +274,14 @@ free_thresh: 0.196
 
       ROS_INFO("Done\n");
       saved_map_ = true;
+      }
     }
 
     std::string mapname_;
     ros::Subscriber map_sub_;
     ros::Subscriber path_sub_;
     bool saved_map_;
+    bool saving;
 
 };
 
@@ -199,5 +325,4 @@ int main(int argc, char** argv)
 
   return 0;
 }
-
 
