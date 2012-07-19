@@ -57,6 +57,7 @@ class MapGenerator
     MapGenerator(const std::string& mapname) : mapname_(mapname), saved_map_(false)
     {
       gotPath=false;
+      saving=false;
       ros::NodeHandle n;
       ROS_INFO("Waiting for the map");
       map_sub_ = n.subscribe("map", 1, &MapGenerator::mapCallback, this);
@@ -115,6 +116,8 @@ class MapGenerator
 
     void mapCallback(const nav_msgs::OccupancyGridConstPtr& map)
     {
+      if(!saving) {
+        saving=true;
       ROS_INFO("Received a %d X %d map @ %.3f m/pix",
                map->info.width,
                map->info.height,
@@ -271,12 +274,14 @@ free_thresh: 0.196
 
       ROS_INFO("Done\n");
       saved_map_ = true;
+      }
     }
 
     std::string mapname_;
     ros::Subscriber map_sub_;
     ros::Subscriber path_sub_;
     bool saved_map_;
+    bool saving;
 
 };
 
