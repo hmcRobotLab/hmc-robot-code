@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- Run the drivers -->
+  <include file="$(find turtlebot_bringup)/minimal.launch" />
+
+  <!--- Run the kinect -->
+  <include file="$(find turtlebot_bringup)/kinect.launch" />
+
+</launch>
