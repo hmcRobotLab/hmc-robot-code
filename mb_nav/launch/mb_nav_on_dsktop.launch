@@ -1,6 +1,6 @@
 <launch>
   <!-- Run the map server -->
-  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
+  <arg name="map_file" default="$(find mb_nav)/maps/hotCocoaMap.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--- Run AMCL -->
@@ -8,4 +8,8 @@
 
   <!--- Run Move Base -->
   <include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" />
+
+  <!-- Run Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_navigation)/nav_rviz.vcg"/>
+
 </launch>
