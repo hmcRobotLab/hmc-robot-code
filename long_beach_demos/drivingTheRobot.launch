@@ -1,0 +1,3 @@
+<launch>
+  <node name="muddbot" pkg="irobot_mudd" type="driver.py" />
+</launch>
