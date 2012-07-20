@@ -111,18 +111,21 @@ class Ardrone():
   def down(self,power):
     self.send(0,0,0,-power,0)
 
+  def hover(self):
+    self.send(1,0,0,0,0)
+
   def takeoff(self):
-    if not airborne:
+    if not self.airborne:
       self.airborne = True
-      send("takeoff")
+      self.send(3,0,0,0,0)
 
   def land(self):
     self.airborne = False
-    send("land")
+    self.send(2,0,0,0,0)
     
   def reset(self):
     self.airborne = False
-    send("reset")
+    self.send(4,0,0,0,0)
 
   def getKeyPress(self):
     char = chr(cv.WaitKey() % 255)
@@ -151,6 +154,7 @@ class Ardrone():
         helistr = 4,0,0,0,0
         # Resetting
     elif char == 't':
+        print "takeoff"
         self.airborne = True
         self.send(0,0,0,0,0)
         helistr = 3,0,0,0,0
@@ -160,6 +164,8 @@ class Ardrone():
         helistr = "camera 0"
     elif char == '2':
         helistr = "camera 1"
+    elif char == "3":
+          print "Battery Level", self.batLevel
     elif self.airborne:
         if char == 'w':
             sflag = 1
@@ -219,5 +225,4 @@ if __name__ == "__main__":
   controller = Ardrone()
   while True:
     controller.getKeyPress()
-
   

@@ -1,6 +1,7 @@
 USE_DRONE = True
 USE_ROOMBA = False
 USE_FIRST_DRONE = False
+USE_720P = True
 
 ## For ROOMBA
 # sudo rm /dev/rfcomm0
@@ -125,14 +126,13 @@ class DroneController:
         # Data goals for both thresholds
         self.tarHeight = 100
         self.image_size_thresh = 400
+        self.buffer_range  = 40 
 
         # Data for the Roomba
         self.roomba_bumped = False
 	self.tank = 0
 	self.speed = 80
 	
-
-
 	if(USE_FIRST_DRONE):
           self.tarX = 160
           self.tarY = 120
@@ -140,9 +140,19 @@ class DroneController:
           self.tarGY = 120
           self.tarHeight = 45
           self.image_size_thresh = 200
+
+
+        if(USE_720P):
+          self.tarX = 640
+          self.tarY = 360
+          self.tarGX = 640
+          self.tarGY = 360
+          self.tarHeight = 235
+          self.image_size_thresh = 600
+	  self.buffer_range = 60
+	  print '720 P Settings Set'
           
         
-
         self.last_image_time = time.time()
         # last time an image was grabbed
         # images and other data for the images/windows
@@ -308,24 +318,25 @@ class DroneController:
         rospy.sleep(1.0)
         self.state = "looking"
       elif self.state == "looking":
-        if abs(self.tarX-self.boxX) < 40:
+        if abs(self.tarX-self.boxX) <self.buffer_range:
           self.state = "approach"
         elif self.boxX < self.tarX:
           self.send(0,0,0,0,-.15)
         else:
           self.send (0,0,0,0,.15)
       elif self.state == "approach":
-        if abs(self.boxX - self.tarX) > 30:
+        if abs(self.boxX - self.tarX) > self.buffer_range:
           self.state = "looking"
         elif self.tarHeight - self.boxHeight > 20:
           print self.tarHeight - self.boxHeight
-          if abs(self.tarY-self.boxY) < 40:
+          if abs(self.tarY-self.boxY) < self.buffer_range:
             self.send(1,0,-.2,0,0)
-            rospy.sleep(.02)
+            #rospy.sleep(.02)
             self.state = "looking"
           else:
-            self.send(1,0,-.2,0.15,0)
-            rospy.sleep(.02)
+	    print 'STRAIT AND UP'
+            self.send(1,0,-.2,.1,0)
+            #rospy.sleep(.02)
             self.state = "looking"
         else:
           print self.tarHeight - self.boxHeight

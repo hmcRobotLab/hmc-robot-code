@@ -1,0 +1,19 @@
+<launch>
+
+  <!-- Run the Robot -->
+  <include file="$(find irobot_mudd)/launch/robotmb1.launch" />
+
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find mb_nav)/config/rvizLaptopSettings.vcg" />
+
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find mb_nav)/maps/hotCocoaMap.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--- Run AMCL -->
+  <include file="$(find mb_nav)/launch/amcl.launch" />
+
+  <!--- Run Move Base -->
+  <include file="$(find mb_nav)/launch/move_base.launch" />
+
+</launch>
