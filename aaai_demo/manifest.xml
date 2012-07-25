@@ -1,0 +1,14 @@
+<package>
+  <description brief="aaai_demo">
+
+     aaai_demo
+
+  </description>
+  <author>Matt McDermott</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/aaai_demo</url>
+
+</package>
+
+

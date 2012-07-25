@@ -1,0 +1,18 @@
+<launch>
+  <param name="use_sim_time" value="true"/>
+  <node pkg="rosbag" type="play" name="rb" args="--clock /home/matt/ros_workspace/data/8thFloor.bag -r 1"/>
+  <arg name="debug" default="true"/>
+  <node pkg="rgbdslam" type="rgbdslam" name="rgbdslam" required="false" output="log" > 
+    <!-- see rgbslam_sample_config.launch for all available parameters and their default values -->
+      <param name="config/topic_image_mono"              value="/camera/rgb/image_color"/>
+
+      <param name="config/topic_image_depth"             value="/camera/depth/image"/>
+      <param name="config/topic_points"                  value=""/> <!--if empty, poincloud will be reconstructed from image and depth -->
+      <param name="config/camera_info_topic"             value="/camera/rgb/camera_info"/>
+      <param name="config/start_paused"                  value="true"/>
+  	  <param name="config/subscriber_queue_size"         value="2000"/>
+      <param name="config/drop_async_frames"             value="true"/> <!-- Check association of depth and visual image, reject if not in sync -->
+      <param name="config/optimizer_skip_step"           value="10"/><!-- optimize every n-th frame. Set high for offline operation -->
+
+  </node>
+</launch>
