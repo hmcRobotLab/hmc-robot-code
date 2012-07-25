@@ -1,0 +1,14 @@
+<package>
+  <description brief="long_beach_demos">
+
+     long_beach_demos
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/long_beach_demos</url>
+
+</package>
+
+

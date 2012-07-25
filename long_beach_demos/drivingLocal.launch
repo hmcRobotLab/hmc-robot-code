@@ -1,0 +1,4 @@
+<launch>
+  <node name="joystick" pkg="irobot_mudd" type="joy.py" />
+  <node name="rviz" pkg="rviz" type="rviz" />
+</launch>
