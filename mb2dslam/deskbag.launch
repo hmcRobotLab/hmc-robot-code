@@ -17,19 +17,11 @@
     <param name="angularUpdate" value="0.15"/>
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.5"/>
-<<<<<<< Updated upstream
-    <param name="particles" value="200"/>
-    <param name="stt" value=".085"/>
-    <param name="str" value=".085"/>
-    <param name="srt" value=".085"/>
-    <param name="srr" value=".073"/>
-=======
     <param name="particles" value="50" />
     <param name="stt" value=".158"/>
     <param name="str" value=".13"/>
     <param name="srt" value=".15"/>
     <param name="srr" value=".13"/>
->>>>>>> Stashed changes
     <param name="maxUrange" value="9"/>
     <param name="maxRange" value="10.9"/>
     <param name="kernelSize" value="1"/>
@@ -39,11 +31,7 @@
     <param name="astep" value="0.1"/>
   </node>
 
-<<<<<<< Updated upstream
-  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/13w.bag -r 0.8 -s 500"/>
-=======
   <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/13w.bag -r 2 -s 500"/> 
->>>>>>> Stashed changes
   <!--- Run Move Base -->
   <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
 </launch>
