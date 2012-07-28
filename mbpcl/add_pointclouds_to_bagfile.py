@@ -6,6 +6,7 @@
 import argparse
 import sys
 import os
+import math
 
 if __name__ == '__main__':
     
@@ -49,15 +50,12 @@ if __name__ == '__main__':
     print "  skipping %s blocks"%(args.skip)
 
     inbag = rosbag.Bag(args.inputbag,'r')
+    print " starting "
     if args.compress:
         param_compression = rosbag.bag.Compression.BZ2
     else:
         param_compression = rosbag.bag.Compression.NONE
         
-    outbag = rosbag.Bag(args.outputbag, 'w', compression=param_compression)
-    
-    depth_camera_info = None
-    rgb_camera_info = None
     depth_image = None
     rgb_image_color = None
     cortex = None
@@ -77,7 +75,7 @@ if __name__ == '__main__':
             continue
         if args.duration and (t - time_start > rospy.Duration.from_sec(float(args.start) + float(args.duration))):
             break
-        print "t=%f\r"%(t-time_start).to_sec(),
+        #print "t=%f\r"%(t-time_start).to_sec(),
         if topic == "/tf":
             for transform in msg.transforms:
                 tft.setTransform(transform)
@@ -97,31 +95,32 @@ if __name__ == '__main__':
                 if args.skip > 0:
                     args.skip -= 1
                 else:
-                    filename = "out/%03i"
+                    # store messages
+                    trans = 0
+                    try: 
+                      trans = tft.lookupTransform('/openni_depth_frame','/odom',t)
+                    except:
+                      print "miss transform"
+                      continue
+                    print "!! !!! !!!"
+                    print trans
+                    x = trans[1][0]
+                    y = trans[1][1]
+                    z = trans[1][2]
+                    w = trans[1][3]
+
+                    filename = "out/%03i" % written
+                    written += 1
                     f3d = open(filename+".3d",'w')
                     fpose = open(filename+".pose",'w')
-                    # store messages
-                    trans = tft.lookupTransform('openni_depth_frame','odom')
-                    fpose.write("%f %f %f\n0 0 %f" % (trans[0][0],trans[0][1],trans[0][2], math.asin(2*   ) ) )
 
-                    centerX = depth_camera_info.K[2]
-                    centerY = depth_camera_info.K[5]
-                    depthFocalLength = depth_camera_info.K[0]
-                    rgb_points = sensor_msgs.msg.PointCloud2()
-                    rgb_points.header = rgb_image_color.header
-                    rgb_points.width = depth_image.width
-                    rgb_points.height  = depth_image.height
-                    rgb_points.fields.append(sensor_msgs.msg.PointField(
-                        name = "x",offset = 0,datatype = sensor_msgs.msg.PointField.FLOAT32,count = 1 ))
-                    rgb_points.fields.append(sensor_msgs.msg.PointField(
-                        name = "y",offset = 4,datatype = sensor_msgs.msg.PointField.FLOAT32,count = 1 ))
-                    rgb_points.fields.append(sensor_msgs.msg.PointField(
-                        name = "z",offset = 8,datatype = sensor_msgs.msg.PointField.FLOAT32,count = 1 ))
-                    rgb_points.fields.append(sensor_msgs.msg.PointField(
-                        name = "rgb",offset = 16,datatype = sensor_msgs.msg.PointField.FLOAT32,count = 1 ))
-                    rgb_points.point_step = 32 
-                    rgb_points.row_step = rgb_points.point_step * rgb_points.width
-                    buffer = []
+
+                    fpose.write("%f %f %f\n0 0 %f" % (trans[0][0],trans[0][1],trans[0][2], math.asin(-2 (x*z - w*y))))
+
+                    centerX = 319.5
+                    centerY = 525.5
+                    depthFocalLength = 525.0
+                    f3d.write("%i x %i" % (depth_image.height,depth_image.width))
                     for v in range(depth_image.height):
                         for u in range(depth_image.width):
                             d = cv_depth_image[v,u]
@@ -129,22 +128,19 @@ if __name__ == '__main__':
                             ptx = (u - centerX) * d / depthFocalLength;
                             pty = (v - centerY) * d / depthFocalLength;
                             ptz = d;
+                            if math.isnan(ptx) or math.isnan(pty) or math.isnan(ptz):
+                              ptx=pty=ptz=0
+                            f3d.write("%f %f %f %i %i %i" % (ptx,pty,ptz,rgb[0],rgb[1],rgb[2]))
                             buffer.append(struct.pack('ffffBBBBIII',
                                 ptx,pty,ptz,1.0,
                                 rgb[0],rgb[1],rgb[2],0,
                                 0,0,0))
                     rgb_points.data = "".join(buffer)
                     outbag.write("/camera/rgb/points", rgb_points, t)                
+                    f3d.close()
+                    fpose.close()
             # consume the images
-            imu = None
             depth_image = None
             rgb_image_color = None
             continue
-        if topic not in ["/tf","/imu",
-                         "/camera/depth/camera_info","/camera/rgb/camera_info",
-                         "/camera/rgb/image_color","/camera/depth/image"]:
-            # anything else: pass thru
-            outbag.write(topic,msg,t)
-                
-    outbag.close()
     print
