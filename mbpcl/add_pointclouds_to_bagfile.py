@@ -29,6 +29,11 @@ if __name__ == '__main__':
     import rospy
     import rosbag
     import sensor_msgs.msg
+<<<<<<< Updated upstream
+=======
+    from geometry_msgs.msg import TransformStamped
+    from geometry_msgs.msg import Quaternion
+>>>>>>> Stashed changes
     import cv
     from cv_bridge import CvBridge, CvBridgeError
     import struct
@@ -76,7 +81,48 @@ if __name__ == '__main__':
         if args.duration and (t - time_start > rospy.Duration.from_sec(float(args.start) + float(args.duration))):
             break
         #print "t=%f\r"%(t-time_start).to_sec(),
+<<<<<<< Updated upstream
         if topic == "/tf":
+=======
+        if topic == "odom":
+            faket = TransformStamped()
+            faket.header.stamp = t
+            faket.header.frame_id = "/odom"
+            faket.child_frame_id = "/base_link"
+            #print msg.pose.pose.position.x
+            faket.transform.translation.y = msg.pose.pose.position.x
+            faket.transform.translation.z = msg.pose.pose.position.z
+            faket.transform.rotation.x = msg.pose.pose.orientation.x
+            faket.transform.rotation.y = msg.pose.pose.orientation.y
+            faket.transform.rotation.z = msg.pose.pose.orientation.z
+            faket.transform.rotation.w = msg.pose.pose.orientation.w
+            #tft.setTransform(faket)
+        if topic == "tf":
+            faket = TransformStamped()
+            faket.header.stamp = msg.transforms[0].header.stamp
+            faket.header.frame_id = "/base_link"
+            faket.child_frame_id = "/pan_base"
+            faket.transform.translation.x = -.1143
+            faket.transform.translation.y = 0
+            faket.transform.translation.z = .4728
+            faket.transform.rotation.x=0
+            faket.transform.rotation.y=0
+            faket.transform.rotation.z=0
+            faket.transform.rotation.w=1
+            tft.setTransform(faket)
+            #faket = TransformStamped()
+            #faket.header.stamp = msg.transforms[0].header.stamp
+            #faket.header.frame_id = "/pan_base"
+            #faket.child_frame_id = "/openni_camera"
+            #faket.transform.translation.x = 0
+            #faket.transform.translation.y = 0
+            #faket.transform.translation.z = .02
+            #faket.transform.rotation.x=0
+            #faket.transform.rotation.y=0
+            #faket.transform.rotation.z=0
+            #faket.transform.rotation.w=1
+            #tft.setTransform(faket)
+>>>>>>> Stashed changes
             for transform in msg.transforms:
                 tft.setTransform(transform)
             continue
@@ -87,7 +133,7 @@ if __name__ == '__main__':
             depth_image = msg
             # now process frame
             
-            if depth_image.header.stamp - rgb_image_color.header.stamp > rospy.Duration.from_sec(1/30.0):
+            if depth_image.header.stamp - rgb_image_color.header.stamp > rospy.Duration.from_sec(5.0/30.0):
                 continue
             
             frame += 1
@@ -97,46 +143,86 @@ if __name__ == '__main__':
                 else:
                     # store messages
                     trans = 0
-                    try: 
-                      trans = tft.lookupTransform('/openni_depth_frame','/odom',t)
-                    except:
-                      print "miss transform"
-                      continue
-                    print "!! !!! !!!"
-                    print trans
-                    x = trans[1][0]
-                    y = trans[1][1]
-                    z = trans[1][2]
-                    w = trans[1][3]
+                    trans2 = 0
 
-                    filename = "out/%03i" % written
+                    #ct = [('/odom','/base_link'),('/base_link','/pan_base'),('/pan_base','/openni_camera'),('/openni_camera','/openni_depth_frame')]
+                    #for x in ct:
+                    #  try: 
+                    #    trans = tft.lookupTransform(x[0],x[1],t)
+                    #  except:
+                    #    print "miss transform " + x[0] + " " + x[1] + str((t-time_start).to_sec())
+                    #    continue
+                    #print
+
+                    ##trans = tft.lookupTransform('/openni_depth_frame','/odom',tft.getLatestCommonTime("/openni_depth_frame","base_link"))
+                    #try: 
+                    #  print "\t" + "odom base" + str(tft.lookupTransform('/base_link','/odom', rospy.Time()))
+                    #except Exception as e:
+                    #  print e
+                    #  continue
+                    #try: 
+                    #  print "\t" + "odom pan" + str(tft.lookupTransform('/pan_base','/odom', rospy.Time()))
+                    #except Exception as e:
+                    #  print e
+                    #  continue
+                    #try: 
+                    #  print "\t" + "odom camera" + str(tft.lookupTransform('/openni_camera','/odom', rospy.Time()))
+                    #except Exception as e:
+                    #  print e
+                    #  continue
+                    #try: 
+                    #  print "\t" + "base pan" + str(tft.lookupTransform('/pan_base','/base_link', rospy.Time()))
+                    #except Exception as e:
+                    #  print e
+                    #  continue
+                    #try: 
+                    #  trans = tft.lookupTransform('/openni_depth_frame','/odom', rospy.Time())
+                    #  trans2 = tft.lookupTransform('/odom','/openni_depth_frame', rospy.Time())
+                    #except Exception as e:
+                    #  print e
+                    #  print "overall error"
+                    #  continue
+
+                    try: 
+                      trans = tft.lookupTransform('/odom','/openni_depth_frame', rospy.Time())
+                    except Exception as e:
+                      print e
+                      continue
+                    print
+                    #print "!! !!! !!!"
+                    eq= tf.transformations.euler_from_quaternion(trans[1])
+                    #filename = "out%i/scan%03i" % (written / 1000, written % 1000)
+                    filename = "out/scan%03i" % (written)
+                    
                     written += 1
                     f3d = open(filename+".3d",'w')
                     fpose = open(filename+".pose",'w')
 
-
-                    fpose.write("%f %f %f\n0 0 %f" % (trans[0][0],trans[0][1],trans[0][2], math.asin(-2 (x*z - w*y))))
+                    fpose.write("%f %f %f\n0 0 %f" % (trans[0][0],trans[0][1],trans[0][2], eq[2]))
+                    print (t-time_start).to_sec()
+                    print  "%f %f %f\n0 0 %f" % (trans[0][0],trans[0][1],trans[0][2], eq[2])
+                    
+                    #print  "%f %f %f" % (trans2[0][0],trans2[0][1],trans2[0][2])
 
                     centerX = 319.5
                     centerY = 525.5
                     depthFocalLength = 525.0
-                    f3d.write("%i x %i" % (depth_image.height,depth_image.width))
+                    f3d.write("%i x %i\n" % (depth_image.height,depth_image.width))
+
+                    cv_depth_image = bridge.imgmsg_to_cv(depth_image,"passthrough")
+                    cv_rgb_image_color = bridge.imgmsg_to_cv(rgb_image_color,"bgr8")
                     for v in range(depth_image.height):
                         for u in range(depth_image.width):
-                            d = cv_depth_image[v,u]
+                            d = cv_depth_image[v,u] 
                             rgb = cv_rgb_image_color[v,u]
                             ptx = (u - centerX) * d / depthFocalLength;
                             pty = (v - centerY) * d / depthFocalLength;
                             ptz = d;
                             if math.isnan(ptx) or math.isnan(pty) or math.isnan(ptz):
+                              continue
                               ptx=pty=ptz=0
-                            f3d.write("%f %f %f %i %i %i" % (ptx,pty,ptz,rgb[0],rgb[1],rgb[2]))
-                            buffer.append(struct.pack('ffffBBBBIII',
-                                ptx,pty,ptz,1.0,
-                                rgb[0],rgb[1],rgb[2],0,
-                                0,0,0))
-                    rgb_points.data = "".join(buffer)
-                    outbag.write("/camera/rgb/points", rgb_points, t)                
+                            #f3d.write("%f %f %f %i %i %i\n" % (ptx,pty,ptz,rgb[0],rgb[1],rgb[2]))
+                            f3d.write("%f %f %f\n" % (ptx,pty,ptz))
                     f3d.close()
                     fpose.close()
             # consume the images

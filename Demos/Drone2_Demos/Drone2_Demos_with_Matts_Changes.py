@@ -213,8 +213,7 @@ class DroneController:
       if self.height > 1 or self.height <= 0:
         self.speed_factor = 1
       else:
-        #think of more appropriate proportionality.
-        self.speed_factor = 1 
+        self.speed_factor = 1 - self.height
         
 
     #########################################

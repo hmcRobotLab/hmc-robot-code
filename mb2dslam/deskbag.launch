@@ -3,8 +3,6 @@
 
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" --> 
     <!--   args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />            -->
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
-    args="-.112 0.0 .4756 0.0 0.0 0.0 base_link pan_base 40" />
 
   <!-- gmapping params -->
   <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
@@ -16,21 +14,16 @@
     <param name="linearUpdate" value="0.25"/>
     <param name="angularUpdate" value="0.15"/>
     <param name="temporalUpdate" value="-1.0"/>
+<<<<<<< Updated upstream
     <param name="resampleThreshold" value="0.85"/>
     <param name="particles" value="200"/>
     <param name="stt" value=".00000015"/>
     <param name="str" value=".0075"/>
     <param name="srt" value=".0075"/>
     <param name="srr" value=".0065"/>
-    <param name="maxUrange" value="9"/>
-    <param name="maxRange" value="10.9"/>
-    <param name="kernelSize" value="1"/>
-    <param name="max_update_interval" value="60.0"/>
-    <param name="delta" value="0.05"/>
-    <param name="lstep" value="0.1"/>
-    <param name="astep" value="0.1"/>
-  </node>
-
+=======
+    <param name="resampleThreshold" value="0.7"/>
+    <param name="particles" value="120" />
   <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/beckCorridor.bag -r 1"/> 
   <node pkg="rviz" type="rviz" name="rviz" />
   <!--- Run Move Base -->
