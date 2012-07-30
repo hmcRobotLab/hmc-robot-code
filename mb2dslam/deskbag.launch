@@ -16,12 +16,12 @@
     <param name="linearUpdate" value="0.25"/>
     <param name="angularUpdate" value="0.15"/>
     <param name="temporalUpdate" value="-1.0"/>
-    <param name="resampleThreshold" value="0.7"/>
-    <param name="particles" value="120" />
-    <param name="stt" value=".088"/>
-    <param name="str" value=".083"/>
-    <param name="srt" value=".075"/>
-    <param name="srr" value=".065"/>
+    <param name="resampleThreshold" value="0.85"/>
+    <param name="particles" value="200"/>
+    <param name="stt" value=".00000015"/>
+    <param name="str" value=".0075"/>
+    <param name="srt" value=".0075"/>
+    <param name="srr" value=".0065"/>
     <param name="maxUrange" value="9"/>
     <param name="maxRange" value="10.9"/>
     <param name="kernelSize" value="1"/>
