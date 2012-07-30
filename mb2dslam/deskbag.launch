@@ -31,7 +31,7 @@
     <param name="astep" value="0.1"/>
   </node>
 
-  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/13w.bag -r 1 -s 1800"/> 
+  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/beckCorridor.bag -r 1"/> 
   <node pkg="rviz" type="rviz" name="rviz" />
   <!--- Run Move Base -->
   <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
