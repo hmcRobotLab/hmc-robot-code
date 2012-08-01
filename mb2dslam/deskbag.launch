@@ -14,18 +14,21 @@
     <param name="linearUpdate" value="0.25"/>
     <param name="angularUpdate" value="0.15"/>
     <param name="temporalUpdate" value="-1.0"/>
-<<<<<<< Updated upstream
-    <param name="resampleThreshold" value="0.85"/>
-    <param name="particles" value="200"/>
+    <param name="resampleThreshold" value="0.70"/>
+    <param name="particles" value="110"/>
     <param name="stt" value=".00000015"/>
-    <param name="str" value=".0075"/>
-    <param name="srt" value=".0075"/>
-    <param name="srr" value=".0065"/>
-=======
-    <param name="resampleThreshold" value="0.7"/>
-    <param name="particles" value="120" />
-  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/beckCorridor.bag -r 1"/> 
-  <node pkg="rviz" type="rviz" name="rviz" />
-  <!--- Run Move Base -->
-  <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
+    <param name="str" value=".015"/>
+    <param name="srt" value=".015"/>
+    <param name="srr" value=".005"/>
+    <param name="maxUrange" value="9"/>
+    <param name="maxRange" value="10.9"/>
+    <param name="kernelSize" value="1"/>
+    <param name="max_update_interval" value="60.0"/>
+    <param name="delta" value="0.05"/>
+    <param name="lstep" value="0.1"/>
+    <param name="astep" value="0.1"/>
+  </node>
+
+ <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/bl09_small.bag -r 1.0 -s 0"/>
+ <node pkg="rviz" type="rviz" name="rviz" args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/wocamera.vcg"/>
 </launch>

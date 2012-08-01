@@ -1,33 +1,31 @@
 <launch>
-  <!-- Hardcoded tfs -->
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
-    args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" --> 
+    <!--   args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />            -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
+    args="0.0 0.0 .4756 0.0 0.0 0.0 base_link pan_base 40" />
 
-  <param name="robot_description" textfile="$(find irobot_mudd)/description/testurdf.xml"/>
-  <!-- rviz config -->
-  <node pkg="rviz" type="rviz" name="rviz" 
-    args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/camera.vcg"/>
-  
   <!-- gmapping params -->
-  <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
-    <param name="scan" value="scan" />
-    <param name="base_frame" value="openni_camera"/> 
-    <param name="map_frame" value="map"/>
-    <param name="odom_frame" value="odom"/>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <param name="scan" value="/scan" />
+    <param name="base_frame" value="/openni_camera"/> 
+    <param name="map_frame" value="/map"/>
+    <param name="odom_frame" value="/odom"/>
     <param name="iterations" value="6"/>
     <param name="linearUpdate" value="0.25"/>
-    <param name="angularUpdate" value="0.4"/>
+    <param name="angularUpdate" value="0.15"/>
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="particles" value="55" />
-    <param name="stt" value=".3"/>
-    <param name="str" value=".2"/>
-    <param name="srt" value=".3"/>
-    <param name="srr" value=".1"/>
-    <param name="maxUrange" value="8"/>
-    <param name="maxRange" value="10"/>
+    <param name="particles" value="50" />
+    <param name="stt" value=".158"/>
+    <param name="str" value=".13"/>
+    <param name="srt" value=".15"/>
+    <param name="srr" value=".13"/>
+    <param name="maxUrange" value="9"/>
+    <param name="maxRange" value="10.9"/>
+    <param name="kernelSize" value="1"/>
+    <param name="max_update_interval" value="5.0"/>
+    <param name="delta" value="0.05"/>
+    <param name="lstep" value="0.1"/>
+    <param name="astep" value="0.1"/>
   </node>
-
-  <!--- Run Move Base -->
-  <!--<include file="$(find turtlebot_navigation)/config/move_base_turtlebot.launch" /> -->
 </launch>
