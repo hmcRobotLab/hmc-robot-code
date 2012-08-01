@@ -14,14 +14,19 @@ import sys
 #############################################
 
 class Ardrone():
-  def __init__(self,controlName="ardrone2/heli", navPubName="ardrone2/navData"):
+  def __init__(self,controlName="ardrone2/heli", navPubName="ardrone2/navData", configName="ardrone2/config"):
     rospy.init_node("ArdroneBase")
     print "Connecting to droneControl service"
     rospy.wait_for_service(controlName)
     self.heli = rospy.ServiceProxy(controlName, Control, persistent=True)
-    print "\r Connecting to navData service"
+    print "\r Connecting to config service"
+    rospy.wait_for_service('ardrone2/config')
+    self.config = rospy.ServiceProxy(self.configSource, Config)
+    print "\r Connected to services"
+
+    print "\r Subscribing to navData"
     rospy.Subscriber(navPubName, navData, self.navDataUpdate, queue_size=1)
-    print "\r Connected to drone services"
+    print "\r Subscribed to navData"
     
     print """
     Keyboard Controls:
@@ -42,6 +47,9 @@ class Ardrone():
 
     self.lastSent = "None"
     self.airborne = False
+
+    # Camera Sources
+    self.cameraSources = {0: "front camera", 1: "ground camera"}
 
     # Navdata fields (partial)
     self.altitude  = 0 
@@ -81,6 +89,14 @@ class Ardrone():
     print "\t [alt: %i] \t [phi: %i psi: %i theta: %i] \t [vx: %i vy: %i vz: %i] \t [bat: %i  state: %i]" \
       % (self.altitude,self.phi,self.psi,self.theta,self.vx,self.vy,self.vz,self.batLevel,self.ctrlState)
     print "\t Last sent: %s" % (self.lastsent)
+
+  def configSend(self, configStr):
+    self.lastConfigSent = configStr
+    self.config(configStr)
+
+  def setCam(self):
+    print "Setting camera source to %s " % self.cameraSources[self.cameraNumber]
+    self.configSend("camera %i" % self.camera_number)
 
   def send(self,flag,phi,theta,gaz,yaw):
     self.lastsent = flag,phi,theta,gaz,yaw
@@ -161,9 +177,11 @@ class Ardrone():
         # Take Off
         # Why is the above there...why hover then take off?
     elif char == '1':
-        helistr = "camera 0"
+        self.camera_number = 0
+        self.setCam()
     elif char == '2':
-        helistr = "camera 1"
+        self.camera_number = 1
+        self.setCam()
     elif char == "3":
           print "Battery Level", self.batLevel
     elif self.airborne:
@@ -209,6 +227,18 @@ class Ardrone():
             sgaz = self.keyPower
         elif char == 'b':
             sgaz = -self.keyPower
+        elif c == '4':
+            self.configSend("anim 16")
+            self.send(0,0,0,0,0)
+        elif c == '5':
+            self.configSend("anim 17")
+            self.send(0,0,0,0,0)
+        elif c == '6':
+            self.configSend("anim 18")
+            self.send(0,0,0,0,0)
+        elif c == '7':
+            self.configSend("anim 19")
+            self.send(0,0,0,0,0)            
         else:
             #self.send(self.lastsent)
             # The part above might now work because
