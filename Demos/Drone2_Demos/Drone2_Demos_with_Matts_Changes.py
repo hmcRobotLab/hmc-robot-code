@@ -203,9 +203,8 @@ class DroneController:
       self.centerX = centerX
       self.centerY = centerY
       self.area = area
-      self.height = top-bottom
-      
-        
+      self.height = bottom - top
+      self.width = right - left
 
       if self.area <= 0.1 or self.area >1:
           # TEST ALERT -- 10 percent of the image or less means insignificant.
@@ -213,8 +212,8 @@ class DroneController:
 
       if self.height > 1 or self.height <= 0:
         self.speed_factor = 1
-
-      self.speed_factor = 1 
+      else:
+        self.speed_factor = 1 - self.height
         
 
     #########################################

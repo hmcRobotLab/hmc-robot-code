@@ -1,7 +1,7 @@
 USE_DRONE = True
 USE_ROOMBA = False
-USE_FIRST_DRONE = False
-USE_720P = True
+USE_FIRST_DRONE = True
+USE_720P = False
 
 ## For ROOMBA
 # sudo rm /dev/rfcomm0
@@ -90,15 +90,6 @@ class DroneController:
         # To check if we're using the drone.
         self.use_drone = use_drone
         
-        if self.use_drone:
-            self.navDataSource = NAV_DATA_SOURCE
-            self.boundingDataSource = BOUNDING_DATA_SOURCE
-            self.boundingDataSource2 = BOUNDING_DATA_SOURCE2
-            self.droneControlSource = DRONE_CONTROL_SOURCE
-            self.configSource = 'ardrone2/config'
-            self.init_drone_parameters()
-        else:
-            print "Not Using Drone"
 
 
         # Initial Values!
@@ -161,6 +152,15 @@ class DroneController:
         # variables for state machine
         self.state = "Keyboard"
 
+        if self.use_drone:
+            self.navDataSource = NAV_DATA_SOURCE
+            self.boundingDataSource = BOUNDING_DATA_SOURCE
+            self.boundingDataSource2 = BOUNDING_DATA_SOURCE2
+            self.droneControlSource = DRONE_CONTROL_SOURCE
+            self.configSource = 'ardrone2/config'
+            self.init_drone_parameters()
+        else:
+            print "Not Using Drone"
 
         
     #########################################
@@ -318,6 +318,7 @@ class DroneController:
         rospy.sleep(1.0)
         self.state = "looking"
       elif self.state == "looking":
+        print self.boxX
         if abs(self.tarX-self.boxX) <self.buffer_range:
           self.state = "approach"
         elif self.boxX < self.tarX:
@@ -490,6 +491,53 @@ class DroneController:
         self.state = "Keyboard"
         print "No Roomba Connected!"
 
+    def FSM5(self, timer_event=None):
+      """ the finite-state machine that looks around and then centers"""
+      print "Now in state (FSM1)", self.state
+
+      if self.state == "Keyboard":
+        # user stopped our state machine!
+        self.send(2,0,0,0,0)
+        rospy.sleep(1.0)
+        return
+      elif self.state == "takeoff":
+        rospy.sleep(1.0)
+        self.send(3,0,0,0,0)
+        rospy.sleep(4.0)
+        self.state = "hover"
+      elif self.state == "hover":
+        self.send(0,0,0,0,0)
+        rospy.sleep(1.0)
+        self.state = "looking"
+      elif self.state == "looking":
+        print self.boxX
+        if abs(self.tarX-self.boxX) <self.buffer_range:
+          self.state = "approach"
+        elif self.boxX < self.tarX:
+          self.send(0,0,0,0,-.15)
+        else:
+          self.send (0,0,0,0,.15)
+      elif self.state == "approach":
+        if abs(self.boxX - self.tarX) > self.buffer_range:
+          self.state = "looking"
+        elif self.tarHeight - self.boxHeight > 20:
+          print self.tarHeight - self.boxHeight
+          if abs(self.tarY-self.boxY) < self.buffer_range:
+            self.send(1,0,-.2,0,0)
+            #rospy.sleep(.02)
+            self.state = "looking"
+          else:
+	    print 'STRAIT AND UP'
+            self.send(1,0,-.2,.1,0)
+            #rospy.sleep(.02)
+            self.state = "looking"
+        else:
+          print self.tarHeight - self.boxHeight
+          self.send(0,0,0,0,0)
+          rospy.sleep(.25)
+          self.state = "Keyboard"
+      rospy.Timer( rospy.Duration(0.05), self.FSM5, oneshot=True)
+
           
     # the keyboard thread is the "main" thread for this program
     def keyboardLoop(self):
@@ -582,11 +630,16 @@ class DroneController:
             print "hover w/o downward concern"
             helistr = 1,0,0,0,0
 
-          elif c == '0':
-            print "hover w/ downward concern"
-            helistr = 0,0,0,0,0
+          if USE_ROOMBA:
+            if c == '0':
+              print "hover w/ downward concern"
+              helistr = 0,0,0,0,0
+          else:
+            if c == ' ':
+              print "hover w/ downward concern"
+              helistr = 0,0,0,0,0
 
-          elif c == 'b':
+          if c == 'b':
             print self.battery_level
 
           elif c == 'f':

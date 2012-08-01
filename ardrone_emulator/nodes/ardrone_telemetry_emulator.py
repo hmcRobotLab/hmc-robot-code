@@ -72,7 +72,7 @@ class DroneEmulator:
         self.groundVel[0] = self.internalVel[0]*cos(self.location[3])
         self.groundVel[1] = self.internalVel[1]*cos(self.location[3])
         self.groundVel[0] += self.internalVel[1]*sin(self.location[3])
-        self.groundVel[1] += self.internalVel[1]*sin(self.location[3])
+        self.groundVel[1] += self.internalVel[1]*sin(self.location[3]) # should be 0???
         if self.debug:
             print "Ground veolcity set to",self.groundVel
 

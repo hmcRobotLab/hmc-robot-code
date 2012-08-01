@@ -3,8 +3,6 @@
 
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" --> 
     <!--   args="-.1143 0.0 .4891 0.0 0.0 0.0 base_link pan_base 40" />            -->
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
-    args="-.112 0.0 .4756 0.0 0.0 0.0 base_link pan_base 40" />
 
   <!-- gmapping params -->
   <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
@@ -32,5 +30,5 @@
   </node>
 
  <node pkg="rosbag" type="play" name="rb" args="--clock /home/robotics/ros_workspace/data/bl09_small.bag -r 1.0 -s 0"/>
- <node pkg="rviz" type="rviz" name="rviz" />
+ <node pkg="rviz" type="rviz" name="rviz" args="-d /home/robotics/ros_workspace/hmc-robot-code/mb2dslam/wocamera.vcg"/>
 </launch>
