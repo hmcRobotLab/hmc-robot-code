@@ -16,10 +16,10 @@
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.70"/>
     <param name="particles" value="110"/>
-    <param name="stt" value=".00000015"/>
-    <param name="str" value=".015"/>
-    <param name="srt" value=".015"/>
-    <param name="srr" value=".005"/>
+    <param name="stt" value=".0000000015"/>
+    <param name="str" value=".0015"/>
+    <param name="srt" value=".0015"/>
+    <param name="srr" value=".0004444"/>
     <param name="maxUrange" value="9"/>
     <param name="maxRange" value="10.9"/>
     <param name="kernelSize" value="1"/>
