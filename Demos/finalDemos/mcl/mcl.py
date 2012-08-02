@@ -1,3 +1,6 @@
+import roslib; roslib.load_manifest("irobot_mudd")
+import rospy
+import cv2
 from random import random
 from math import pi,cos,sin
 import itertools
@@ -11,13 +14,7 @@ TRACESTEP = 1
 HIT_THRES = 210
 
 class Particle:
-  def __init__():
-    self.x = 0
-    self.y = 0
-    self.theta = 0
-    self.score = 0
-
-  def __init__(x,y,theta,score = 0):
+  def __init__(self,x,y,theta,score = 0):
     self.x = x
     self.y = y
     self.theta = theta
@@ -31,39 +28,40 @@ class Particle:
 
   
 class Mcl:
-  def __init__(mapName,mapRes,initPose = [0,0,0],numParticles = 1000,mapBounds=[25,25],numRays = 10,fov=pi):
+  def __init__(self,mapName,mapRes,initPose = [0,0,0],numParticles = 1000,mapBounds=[25,25],numRays = 10,fov=pi):
     self.lastRPose = initPose
-    self.numPartices = numPartices
+    self.numParticles = numParticles
     self.particles = []
     self.maxWeight = 0
     self.boundX = mapBounds[0]
     self.boundY = mapBounds[1]
-    self.gMap = cv.LoadImageM(mapName)
+    self.gMap = cv2.imread(mapName)
     self.mapRes = mapRes
     self.numRays = numRays
     self.fov = fov
     # start with random particles
-    for x in range self.numParticles:
-      self.partices.append(Particle(random.random()*MAPBOUNDX,random.random()*MAPBOUNDY,random.random()*2*pi))
+    for x in range( self.numParticles ):
+      self.particles.append(Particle(random()*self.boundX,random()*self.boundY,random()*2*pi))
 
   def rayTrace(self,x,y,theta):
     rays = []
     angStep = self.fov / self.numRays
-    for x in range self.numRays:
+    for x in range( self.numRays) :
       rays.append(self.getDist(x,y,theta-self.fov/2+angStep * x))
     return rays
-
-
 
   def getDist(self,x,y,theta):
     # returns distance measured starting from global x y heading
     r = 0
     maxPixels = MAXLASER / self.mapRes
     while r < maxPixels:
-      mapX = float(r * cos(theta) + x)
-      mapY = float(r * sin(theta) + y)
-      if self.gMap[mapX][mapY] > HIT_THRES:
+      mapX = int(r * cos(theta) + x)
+      mapY = int(r * sin(theta) + y)
+      print mapX
+      print mapY
+      if self.gMap[mapX,mapY].sum() > HIT_THRES:
         return self.mapRes
+      self.gMap[mapX,mapY] = (0,255,0)
       r += TRACESTEP
 
     return r * self.mapRes
@@ -87,17 +85,17 @@ class Mcl:
   def scoreParticles(self,currScan):
     self.maxWeight = 0
     for particle in self.particles:
-      particle.score = self.score(self.rayTrace(particle.x,particle,y,particle.theta,),currScan)
+      particle.score = self.score(self.rayTrace(particle.x,particle.y,particle.theta,),currScan)
       if particle.score > self.maxWeight:
         self.maxWeight = particle.score
 
   def cullParticles(self):
     # from Sebastian Thrun's CS373 on udacity.com
     newParticles = []
-    index = int(random.random() * numParticles)
+    index = int(random() * self.numParticles)
     beta = 0.0
-    for i in range(numParticles):
-      beta += random.random() * 2.0 * self.maxWeight
+    for i in range(self.numParticles):
+      beta += random() * 2.0 * self.maxWeight
       while beta > self.particles[i].score:
         beta -= self.particles[i].score
         index = (index + 1) % self.numParticles
@@ -133,21 +131,37 @@ def test():
   #       [225,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,225,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,225], \ 
   #       [225,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,225,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,225], \ 
   #       [255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255]]
-  fakeRobot = Particle(5.0,5.0,pi)
-  mcl =  Mcl(testmap,0.05) # 0.05 meters per pixel
+  fakeRobot = Particle(75.0,75.0,pi)
+  mcl =  Mcl(testMap,0.05) # 0.05 meters per pixel
+  cv2.namedWindow("map")
+  cv2.waitKey()
+  mcl.gMap[150][150] = (255,0,0)
+  mcl.gMap[150][151] = (255,0,0)
+  mcl.gMap[151][150] = (255,0,0)
+  mcl.gMap[151][151] = (255,0,0)
+  cv2.imshow("map",mcl.gMap)
+  cv2.waitKey()
 
   scan = mcl.rayTrace(fakeRobot.x,fakeRobot.y,fakeRobot.theta)
-  print "Scoring particles"
-  mcl.scoreParticles(scan)
-  print "Culling particles"
-  mcl.cullParticles()
+  print scan
+  cv2.waitKey()
+  print "done"
+  cv2.waitKey()
+  print "done"
+  while True:
+    pass
 
-  fakeRobot.move(.123,.456,.1)
-  print "Moving particles"
-  mcl.moveParticles(.123,.456,.1)
-  scan = mcl.rayTrace(fakeRobot.x,fakeRobot.y,fakeRobot.theta)
-  print "Scoring particles"
-  mcl.scoreParticles(scan)
+  #print "Scoring particles"
+  #mcl.scoreParticles(scan)
+  #print "Culling particles"
+  #mcl.cullParticles()
+
+  #fakeRobot.move(.123,.456,.1)
+  #print "Moving particles"
+  #mcl.moveParticles(.123,.456,.1)
+  #scan = mcl.rayTrace(fakeRobot.x,fakeRobot.y,fakeRobot.theta)
+  #print "Scoring particles"
+  #mcl.scoreParticles(scan)
 
 
 if __name__ == "__main__":
