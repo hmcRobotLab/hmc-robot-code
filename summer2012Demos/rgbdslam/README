@@ -1,0 +1,14 @@
+This demo actually needs no additional packaging to run. Hence, this README is
+the only file in this directory. 
+
+To run rgbdslam best, you should use strelka. If strelka is unavailable, 
+arnold is the next best computer. On any of the others, you will likely have to
+capture frames individaully as opposed to continously. 
+
+To run the demo: 
+
+1. Plug in the kinect to the wall and the computer
+2. Open up a terminal (the directory doesn't matter)
+3. Run 'roslaunch rgbdslam kinect+rgbdslam.launch'
+4. Use the space key to start recording continously, or the enter key to grab a
+   single frame. 

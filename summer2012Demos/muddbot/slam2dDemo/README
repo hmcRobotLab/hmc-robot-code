@@ -1,0 +1,65 @@
+This ros package is used to demo 2-dimensional SLAM with a MuddBot via ROS's 
+gmapping package. gmapping is a gridslam algorithm that automatically closes
+loops and can produce good quality maps even with the noisy sensor data, 
+such as the data returned from the MuddBot's odometry sources and the kinect.
+
+Examples of previous, good maps produced can be seen in the examples/ directory.
+
+Examples: 
+   * commonError.png
+      This map illustrates a common problem gmapping the entire Libra complex 
+      encountered. Gmapping does well in long, straight, corridors whose sides
+      can be used as continous reference frames. In the Galileo foyer, however,
+      there are no such corridors. As such, gmapping often seems to think that
+      this hallway is actually curved.
+   * failure.pgm
+      This map shows what happens if the problem with the Galileo foyer
+      persists throughout the rest of the map (which it often did)
+   * goodStart.pgm
+      A map that did well through the foyer. Unfortunately, it fell apart soon
+      after this image was saved. 
+   * goodStartRviz.png
+      The control window during the production of the map shown in 
+      goodStart.pgm
+   * success.pgm
+      The best map produced to date. It is too scale, and rather accurate.
+
+To run the demo:
+
+This demo is run on two machines; The desktop machine doing all the heavy 
+processing (preferrably arnold or strelka) and the laptop riding on board the
+muddbot (preferrably zhuchka). If you are running like this, on two machines,
+they must both be connected to the same wireless network, either Claremont or
+Claremont-WPA. If you are using a sample bagged data set, only the desktop is
+needed, so you can ignore all of the zhuchka settings. Otherwise, however, you
+will need both computers, so these instructions will have two tracks.
+
+Desktop: 
+ If you're running from the sample bagged data set:
+   1. Run 'roslaunch irobot_mudd2 deskbag.launch' and ignore the Zhuchka steps
+ Else if you want to view the camera stream live*
+   1. Run 'roslaunch slam2dDemo destkopWithCam.launch'
+ Else if you do not want to view the camera stream live
+   1. Run 'roslaunch slam2dDemo desktopWithoutCam.launch'
+
+Zhuchka:
+ If you want to see the camera on the desktop and control the muddbot from there
+   1. Run 'roslaunch irobot_mudd2 robot.launch'.
+ Else if you wnat to not see the camera and control the muddbot locally
+   1. Run 'roslaunch irobot_mudd2 mobileRobot.launch'
+
+* The difference in the display code between these two launch files is the rviz
+  config file they load, so you can also change this live. The other difference
+  is that the display with the camera loads the joystick control on the desktop
+  while the display without the camera loads the joystick on the laptop.
+
+Note that running from bagged data will only work on a machine with the 
+bagged data in the specified directory 
+(/home/robotics/ros_workspace/data/bl09_small.bag).
+
+Note that these launch files will only work on a machine with the modified
+version of gmapping installed (known as svn gmapping). If svn gmapping is
+not installed, then change the 'pkg' option in the gmapping node to 
+'gmapping' as opposed to 'svngmap'
+
+Note that the terminal directory does not matter for any of these commands.
