@@ -57,17 +57,20 @@ Zhuchka:
   is that the display with the camera loads the joystick control on the desktop
   while the display without the camera loads the joystick on the laptop.
 
-Note that running from bagged data will only work on a machine with the 
-bagged data in the specified directory 
-(/home/robotics/ros_workspace/data/bl09_small.bag).
-
-Note that these launch files will only work on a machine with the modified
-version of gmapping installed (known as svn gmapping). If svn gmapping is
-not installed, then change the 'pkg' option in the gmapping node to 
-'gmapping' as opposed to 'svngmap'
-
-Note that the terminal directory does not matter for any of these commands.
-
+Notes: 
+   * The terminal directory does not matter for any of these commands.
+   * Running from bagged data will only work on a machine with the bagged data 
+     in the specified directory 
+     (/home/robotics/ros_workspace/data/bl09_small.bag). Both Arnold and Strelka
+     have this data. 
+   * These launch files will only work on a machine with the modified version of
+     gmapping installed (known as svn gmapping). If svn gmapping is not 
+     installed, then change the 'pkg' option in the gmapping node to 'gmapping' 
+     as opposed to 'svngmap' and it will work on any machine with gmapping
+     installed. 
+   * All relevant gmapping parameters are in the 'config/' directory in the 
+     'gmapping_params.yaml' file. Changing the parameters there will affect all
+     launch files.
 
 Common Problems: 
    * There is a lot of lag between using the joystick and seeing a movement
