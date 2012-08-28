@@ -26,21 +26,25 @@ Examples:
 
 To run the demo:
 
-This demo is run on two machines; The desktop machine doing all the heavy 
-processing (preferrably arnold or strelka) and the laptop riding on board the
-muddbot (preferrably zhuchka). If you are running like this, on two machines,
-they must both be connected to the same wireless network, either Claremont or
-Claremont-WPA. If you are using a sample bagged data set, only the desktop is
-needed, so you can ignore all of the zhuchka settings. Otherwise, however, you
-will need both computers, so these instructions will have two tracks.
+This demo is typically run on two machines; The desktop machine doing all the 
+heavy processing (preferrably arnold or strelka) and the laptop riding on board
+the muddbot (preferrably zhuchka). If you are running like this, on two 
+machines, they must both be connected to the same wireless network, either 
+Claremont or Claremont-WPA. Furthermore, the laptop must have the desktop's IP 
+set as its ROS_MASTER_URI. If you are using a sample bagged data set, only the 
+desktop is needed, so you can ignore all of the zhuchka settings. Otherwise, 
+however, you will need both computers, so these instructions will have two 
+tracks.
 
 Desktop: 
+ 1. Run 'roscore'
+ ## If appropriate, now follow zhuchka steps ##
  If you're running from the sample bagged data set:
-   1. Run 'roslaunch irobot_mudd2 deskbag.launch' and ignore the Zhuchka steps
+   2. Run 'roslaunch irobot_mudd2 deskbag.launch' and ignore the Zhuchka steps
  Else if you want to view the camera stream live*
-   1. Run 'roslaunch slam2dDemo destkopWithCam.launch'
+   2. Run 'roslaunch slam2dDemo destkopWithCam.launch'
  Else if you do not want to view the camera stream live
-   1. Run 'roslaunch slam2dDemo desktopWithoutCam.launch'
+   2. Run 'roslaunch slam2dDemo desktopWithoutCam.launch'
 
 Zhuchka:
  If you want to see the camera on the desktop and control the muddbot from there
@@ -63,3 +67,15 @@ not installed, then change the 'pkg' option in the gmapping node to
 'gmapping' as opposed to 'svngmap'
 
 Note that the terminal directory does not matter for any of these commands.
+
+
+Common Problems: 
+   * There is a lot of lag between using the joystick and seeing a movement
+     response in the muddbot. It is a nonuniform lag, and I'm not sure why
+     it happens. 
+   * Often the ports change depending on the USB setup. If ports need to be
+     changed, the relevant sections of code are in the following places:
+      * For the iRobot Create serial connection, check the main launch file
+        found in 'launch/'
+      * For the dynamixel controller, check the 'controller_manager.launch'
+        file found in 'launch/kinectpan/'

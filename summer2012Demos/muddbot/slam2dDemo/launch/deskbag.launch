@@ -4,27 +4,7 @@
 
   <!-- gmapping params -->
   <node pkg="svngmap" type="slam_gmapping" name="slam_gmapping" output="screen">
-    <param name="scan" value="scan" />
-    <param name="base_frame" value="openni_camera"/> 
-    <param name="map_frame" value="map"/>
-    <param name="odom_frame" value="odom"/>
-    <param name="iterations" value="6"/>
-    <param name="linearUpdate" value="0.25"/>
-    <param name="angularUpdate" value="0.15"/>
-    <param name="temporalUpdate" value="-1.0"/>
-    <param name="resampleThreshold" value="0.70"/>
-    <param name="particles" value="110"/>
-    <param name="stt" value=".0000000015"/>
-    <param name="str" value=".0015"/>
-    <param name="srt" value=".0015"/>
-    <param name="srr" value=".0004444"/>
-    <param name="maxUrange" value="9"/>
-    <param name="maxRange" value="10.9"/>
-    <param name="kernelSize" value="1"/>
-    <param name="max_update_interval" value="60.0"/>
-    <param name="delta" value="0.05"/>
-    <param name="lstep" value="0.1"/>
-    <param name="astep" value="0.1"/>
+    <rosparam command="load" file="$(find slam2dDemo)/config/gmapping_params.yaml"/>
   </node>
 
   <!-- Playing the bag file -->

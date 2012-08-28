@@ -56,6 +56,17 @@ Path.ColorG=1
 Path.ColorB=0
 Path.Enabled=1
 Path.Topic=/slam_path
+Robot\ Model.Alpha=1
+Robot\ Model.Collision\ Enabled=0
+Robot\ Model.Enabled=1
+Robot\ Model.Robot\ Description=robot_description
+Robot\ Model.TF\ Prefix=
+Robot\ Model.Update\ Interval=0
+Robot\ Model.Visual\ Enabled=1
+Robot\:\ Robot\ Model\ Link\ base_linkShow\ Axes=0
+Robot\:\ Robot\ Model\ Link\ base_linkShow\ Trail=0
+Robot\:\ Robot\ Model\ Link\ openni_cameraShow\ Axes=0
+Robot\:\ Robot\ Model\ Link\ openni_cameraShow\ Trail=0
 TF.All\ Enabled=0
 TF.Enabled=1
 TF.Frame\ Timeout=15
@@ -66,9 +77,9 @@ TF.Show\ Names=1
 TF.Update\ Interval=0
 Tool\ 2D\ Nav\ GoalTopic=goal
 Tool\ 2D\ Pose\ EstimateTopic=initialpose
-Camera\ Type=rviz::FixedOrientationOrthoViewController
-Camera\ Config=6.01712 7.00706 5.6511 -8.0036 0.353923 -0.612159 -0.612159 -0.353923
-Property\ Grid\ State=selection=Laser Scan.Enabled;expanded=.Global Options,TF./base_link/base_link,TF./map/map,TF./odom/odom,TF./openni_camera/openni_camera,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF.Enabled.TF.Tree,TF./mapTree/map,TF./odomTree/odom,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,Map.Enabled,Path.Enabled;scrollpos=0,0;splitterpos=293,602;ispageselected=1
+Camera\ Type=rviz::XYOrbitViewController
+Camera\ Config=1.2104 0.340398 2.16429 1.30118 -2.91323e-13 -0.0610071
+Property\ Grid\ State=selection=;expanded=.Global Options,TF.Enabled,TF./base_link/base_link,TF./openni_camera/openni_camera,TF./openni_rgb_frame/openni_rgb_frame,TF./openni_rgb_optical_frame/openni_rgb_optical_frame,TF./pan_base/pan_base,TF./map/map,TF./odom/odom,TF./openni_depth_frame/openni_depth_frame,TF./openni_depth_optical_frame/openni_depth_optical_frame,TF.Enabled.TF.Tree,TF./base_linkTree/base_link,TF./pan_baseTree/pan_base,TF./openni_cameraTree/openni_camera,TF./openni_depth_frameTree/openni_depth_frame,TF./openni_depth_optical_frameTree/openni_depth_optical_frame,TF./openni_rgb_frameTree/openni_rgb_frame,TF./openni_rgb_optical_frameTree/openni_rgb_optical_frame,TF./mapTree/map,TF./odomTree/odom,Path.Enabled,Robot Model.Enabled;scrollpos=0,3;splitterpos=229,462;ispageselected=1
 [Display0]
 Name=TF
 Package=rviz
@@ -89,13 +100,17 @@ ClassName=rviz::MapDisplay
 Name=Path
 Package=rviz
 ClassName=rviz::PathDisplay
+[Display5]
+Name=Robot Model
+Package=rviz
+ClassName=rviz::RobotModelDisplay
 [TF.]
 base_linkEnabled=1
 mapEnabled=1
 odomEnabled=1
 openni_cameraEnabled=1
-openni_depth_frameEnabled=1
-openni_depth_optical_frameEnabled=1
-openni_rgb_frameEnabled=1
-openni_rgb_optical_frameEnabled=1
-pan_baseEnabled=1
+openni_depth_frameEnabled=0
+openni_depth_optical_frameEnabled=0
+openni_rgb_frameEnabled=0
+openni_rgb_optical_frameEnabled=0
+pan_baseEnabled=0
