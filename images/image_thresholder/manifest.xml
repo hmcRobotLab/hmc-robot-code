@@ -1,0 +1,17 @@
+<package>
+  <description brief="image_thresholder">
+
+     image_thresholder
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/image_thresholder</url>
+  <depend package="roscpp"/>
+  <depend package="cv_bridge"/>
+  <depend package="image_transport"/>
+
+</package>
+
+

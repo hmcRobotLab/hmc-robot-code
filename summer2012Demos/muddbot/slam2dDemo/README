@@ -36,6 +36,14 @@ desktop is needed, so you can ignore all of the zhuchka settings. Otherwise,
 however, you will need both computers, so these instructions will have two 
 tracks.
 
+Note: Use replace robot with muddbot below if you are using the muddbot mapper
+      (the one with the servo). These steps have been tested on the robots
+      'sputnik 2' (a mapper) and 'korabl' (a standard muddbot). Furthermore,
+      append an 'R' to the end of the launch file name if you want to record
+      the data from this run to a bag file. i.e. 'muddbot.launch' becomes 
+      'muddbotR.launch'. The mobile launch files always record, so there is no
+      need to append the 'R' to those files. 
+
 Desktop: 
  1. Run 'roscore'
  ## If appropriate, now follow zhuchka steps ##

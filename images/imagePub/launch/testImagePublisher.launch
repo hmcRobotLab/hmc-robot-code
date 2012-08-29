@@ -1,0 +1,3 @@
+<launch> 
+  <node name="static_publisher" pkg="imagePub" type="static_publisher" args="$(find imagePub)/testImage.jpg" output="screen"/>
+</launch>

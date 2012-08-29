@@ -21,7 +21,7 @@ class Ardrone():
     self.heli = rospy.ServiceProxy(controlName, Control, persistent=True)
     print "\r Connecting to config service"
     rospy.wait_for_service('ardrone2/config')
-    self.config = rospy.ServiceProxy(self.configSource, Config)
+    self.config = rospy.ServiceProxy(configName, Config)
     print "\r Connected to services"
 
     print "\r Subscribing to navData"

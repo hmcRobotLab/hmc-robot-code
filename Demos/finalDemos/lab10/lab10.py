@@ -1,19 +1,21 @@
-import Ardrone2
+import ardrone2
 from std_msgs.msg import String
-from Ardrone2 import rospy
+from ardrone2 import rospy
 
-class myArdrone(Ardrone2.Ardrone):
+class myArdrone(ardrone2.Ardrone):
     def __init__(self):
-      Ardrone2.Ardrone.__init__(self)
-      self.state = "keyboard"
-      self.boxX = 0
-      self.boxHeight = 0
-      self.tarHeight = 35.0/240
-      self.tarX = .46
-      self.toleranceX = 40/320.0
-      self.toleranceHeight = 10/240.0
-      self.toleranceArea = .001
-      self.noBox = True
+      ardrone2.Ardrone.__init__(self)
+      self.state           = "keyboard"
+      self.boxX            = 0
+      self.boxHeight       = 0
+      self.tarHeight       = .20
+      self.tarX            = .46
+      self.toleranceX      = 40/320.0
+      self.toleranceHeight = .03
+      self.toleranceArea   = .001
+      self.noBox           = True
+      self.spinPower       = .4
+      self.forwardPower    = .4
 
     def loop(self):
       while True:
@@ -31,7 +33,7 @@ class myArdrone(Ardrone2.Ardrone):
         self.state = "searching"
       elif self.state == "searching":
         if self.noBox:
-          self.spinLeft(.3)
+          self.spinLeft(self.spinPower)
         else:
           self.state = "closing_in"
       elif self.state == "closing_in":
@@ -39,17 +41,17 @@ class myArdrone(Ardrone2.Ardrone):
           self.state = "approaching"
         elif self.boxX > self.tarX:
           print "right"
-          self.spinRight(.3)
+          self.spinRight(self.spinPower/2)
         else:
           print "left"
-          self.spinLeft(.3)
+          self.spinLeft(self.spinPower/2)
       elif self.state == "approaching":
         if self.noBox:
           self.state = "searching"
         elif abs(self.boxX - self.tarX) > self.toleranceX:
           self.state = "closing_in"
         elif self.tarHeight - self.boxHeight > self.toleranceHeight:
-          self.forward(.17)
+          self.forward(self.forwardPower)
         else:
           self.state = "landing"
       elif self.state == "landing":
