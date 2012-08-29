@@ -14,7 +14,7 @@ import threading
 #  Kinect (color): "openni_camera/rgb/image_color"
 #  Kinect (depth): "openni_camera/depth/image"
 
-IMAGE_SOURCE = "static_image"
+IMAGE_SOURCE = "ardrone2/camera/image"
 
 #TODO: Add in additional functionality from Lab4.5 Solution in this folder.
 
@@ -32,11 +32,13 @@ class ImageProcessor:
                        'low_val': 0, 'high_val': 0}
     self.load_thresholds()
 
-    cv.NamedWindow('image')
+    cv.NamedWindow('image', cv.CV_WINDOW_NORMAL)
     cv.MoveWindow('image', 0, 0)
+    cv.ResizeWindow('image',600, 300)
     cv.SetMouseCallback('image', self.onMouse2, None)
-    cv.NamedWindow('threshold')
+    cv.NamedWindow('threshold', cv.CV_WINDOW_NORMAL)
     cv.MoveWindow('threshold',0,480)
+    cv.ResizeWindow('threshold',600, 300)
     cv.SetMouseCallback('threshold', self.onMouse2, None)
     self.make_control_window()
     self.bridge         = cv_bridge.CvBridge()

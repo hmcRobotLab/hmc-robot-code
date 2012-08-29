@@ -1,0 +1,7 @@
+This demo is actually packaged up with the drivers as a launch file in the
+'ardrone2/launch' folder. It just gives you joystick control and a view from the
+camera's image. It currently *does not* support thresholding or anything, just
+viewing the image. To use, run the following commands (dir. does not matter).
+
+1. rosrun ardrone2_mudd driver
+2. roslaunch ardrone2_mudd pilot.launch

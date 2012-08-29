@@ -1,0 +1,16 @@
+<package>
+  <description brief="fsmTargetApproach">
+
+     fsmTargetApproach
+
+  </description>
+  <author>robotics</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/fsmTargetApproach</url>
+  <depend package="ardrone2_mudd"/>
+  <depend package="simple_image_thresholder"/>
+
+</package>
+
+

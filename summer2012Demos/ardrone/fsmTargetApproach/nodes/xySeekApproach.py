@@ -4,8 +4,8 @@ import sys
 sys.path = [get_pkg_dir('ardrone2_mudd')+"/nodes"]+sys.path
 
 import ardrone2
-from std_msgs.msg import String
 from ardrone2 import rospy
+from std_msgs.msg import String
 
 class myArdrone(ardrone2.Ardrone):
     def __init__(self):
@@ -13,7 +13,7 @@ class myArdrone(ardrone2.Ardrone):
       self.state           = "keyboard"
       self.boxX            = 0
       self.boxHeight       = 0
-      self.tarHeight       = .20
+      self.tarHeight       = .23
       self.tarX            = .46
       self.toleranceX      = 40/320.0
       self.toleranceHeight = .03

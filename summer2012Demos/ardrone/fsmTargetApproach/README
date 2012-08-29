@@ -1,0 +1,1 @@
+This package contains demos for keyboard controlling the drone and directing it into a variety of finite state machines. It relies on the ardrone2_mudd package and the image_processing package. 
