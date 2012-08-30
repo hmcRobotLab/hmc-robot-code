@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from roslib.packages import get_pkg_dir
 import sys
 

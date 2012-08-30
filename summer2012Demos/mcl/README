@@ -1,0 +1,4 @@
+This demo shows a home-built Monte-Carlo Localization system. To run, simply
+run the command 'python mcl.py'. Note that the green dot is the simulated robot
+pose, the red are particles, and the blue is the position if completely trusted
+odometry.
