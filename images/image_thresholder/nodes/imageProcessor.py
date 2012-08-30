@@ -14,7 +14,18 @@ import threading
 #  Kinect (color): "openni_camera/rgb/image_color"
 #  Kinect (depth): "openni_camera/depth/image"
 
+#TODO: Make this read a rosparam so it can be set from the command line,
+#TODO: in a launch file, or maybe even dynamically. 
 IMAGE_SOURCE = "ardrone2/camera/image"
+
+#Thresholds that can never be met
+DEFAULT_THRESHOLDS = {'low_red': 5, 'high_red': 0,\
+                     'low_green': 5, 'high_green': 0, \
+                     'low_blue': 5, 'high_blue':0, \
+                     'low_hue': 5, 'high_hue': 0,\
+                     'low_sat': 5, 'high_sat': 0, \
+                     'low_val': 5, 'high_val': 0}
+ 
 
 #TODO: Add in additional functionality from Lab4.5 Solution in this folder.
 
@@ -24,12 +35,6 @@ class ImageProcessor:
     # Setting up the publisher to broadcast the data.
     self.publisher  = rospy.Publisher('imageData', String)
 
-    self.thresholds = {'low_red': 0, 'high_red': 0,\
-                       'low_green': 0, 'high_green': 0, \
-                       'low_blue': 0, 'high_blue':0, \
-                       'low_hue': 0, 'high_hue': 0,\
-                       'low_sat': 0, 'high_sat': 0, \
-                       'low_val': 0, 'high_val': 0}
     self.load_thresholds()
 
     cv.NamedWindow('image', cv.CV_WINDOW_NORMAL)
@@ -53,11 +58,13 @@ class ImageProcessor:
     # self.font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN, 1, 1, 0, 1)
     
     # Drag And Drop data members.
-    self.mouse_down = False
-    self.down_coord = (-1, -1)
-    self.up_coord   = (-1, -1)
-    self.sections   = []
-    self.mode       = "add"
+    self.mouse_down  = False
+    self.down_coord  = (-1, -1)
+    self.up_coord    = (-1, -1)
+    self.sections    = []
+    self.mode        = "add"
+
+    self.bufferRange = 10
 
   def load_thresholds(self):
     """ loads the thresholds from data.txt into self.thresholds """
@@ -72,6 +79,8 @@ class ImageProcessor:
       print "An error occurred in loading data.txt"
       print "Check if it's there and if it contains"
       print " a dictionary of thresholds..."
+      print "\n Setting default thresholds"
+      self.thresholds = DEFAULT_THRESHOLDS
 
   def make_control_window(self):
     """ a method to make a window full of sliders """
@@ -211,7 +220,7 @@ class ImageProcessor:
 
     for i in xrange(len(names)):
       for j in xrange(2):
-        self.thresholds[names[i][j]] = minmax[i][j]
+        self.thresholds[names[i][j]] = minmax[i][j] + self.bufferRange * ((-1)**j)
         cv.SetTrackbarPos(names[i][j], 'sliders', minmax[i][j])
             
   def onMouse2(self, event, x, y, flags, param):
@@ -381,7 +390,7 @@ class ImageProcessor:
   def keyboardLoop(self):
     """ the main keypress-handling thread to control the drone """
 
-    while True:
+    while not rospy.is_shutdown():
       # handle the image processing if we have a new Kinect image
       if (self.new_image):
         self.new_image = False # until we get a new one...
@@ -412,17 +421,17 @@ class ImageProcessor:
         self.load_thresholds()
 
       if c == ord('c'): #Clears the thresholds
-        self.change_low_blue(0)
+        self.change_low_blue(5)
         self.change_high_blue(0)
-        self.change_low_green(0)
+        self.change_low_green(5)
         self.change_high_green(0)
-        self.change_low_red(0)
+        self.change_low_red(5)
         self.change_high_red(0)
-        self.change_low_hue(0)
+        self.change_low_hue(5)
         self.change_high_hue(0)
-        self.change_low_sat(0)
+        self.change_low_sat(5)
         self.change_high_sat(0)
-        self.change_low_val(0)
+        self.change_low_val(5)
         self.change_high_val(0)
         self.make_control_window()
         self.sections = []

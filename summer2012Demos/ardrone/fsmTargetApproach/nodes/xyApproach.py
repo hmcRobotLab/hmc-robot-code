@@ -22,11 +22,12 @@ class myArdrone(ardrone2.Ardrone):
       self.toleranceArea   = .001
       self.noBox           = True
       self.spinPower       = .4
-      self.forwardPower    = .4
+      self.forwardPower    = .3
 
     def loop(self):
-      while True:
-        char = self.getKeyPress()
+      while not rospy.is_shutdown():
+        char = self.getKeyPress(1000)
+        print "hello"
         if char == 'n':
           self.state = "start"
           self.fsm()
@@ -95,3 +96,4 @@ if __name__== "__main__":
   rospy.Subscriber("imageData",String,drone.bBoxUpdate,queue_size=1)
   print "Ready"
   drone.loop()
+  print "Closing..."
