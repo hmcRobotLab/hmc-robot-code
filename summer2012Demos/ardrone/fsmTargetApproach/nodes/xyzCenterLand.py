@@ -119,8 +119,8 @@ class myArdrone(ardrone2.Ardrone):
           if self.cameraNumber == 0:
             self.boxX    = c
           elif self.cameraNumber == 1:
-            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - radians(32)))/(2*tan(radians(32)))
-          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - radians(32)))/(2*tan(radians(32)))
+            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - self.downCamLensAng/2.0))/(2*self.downCamLensAng/2.0)
+          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - self.downCamLensAng/2.0))/(2*self.downCamLensAng/2.0)
           self.boxHeight = height
           self.area      = area
 

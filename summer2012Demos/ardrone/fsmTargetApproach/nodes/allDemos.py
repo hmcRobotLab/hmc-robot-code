@@ -104,7 +104,7 @@ class myArdrone(ardrone2.Ardrone):
       if self.state == "keyboard":
         return
       elif self.state == "start":
-        self.takeoff()
+        #self.takeoff()
         self.state = "searching"
       elif self.state == "searching":
         if self.noBox:
@@ -114,7 +114,7 @@ class myArdrone(ardrone2.Ardrone):
       elif self.state == "closing_in":
         if abs(self.boxX - data["tarX"]) < data["tolX"]:
           self.state = "approaching"
-        elif self.boxX > data["tarX"]:
+        elif self.boxX < data["tarX"]:
           print "right"
           self.spinRight(data["spinPower"]/2)
         else:
