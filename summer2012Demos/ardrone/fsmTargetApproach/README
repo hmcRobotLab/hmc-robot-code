@@ -1,1 +1,20 @@
-This package contains demos for keyboard controlling the drone and directing it into a variety of finite state machines. It relies on the ardrone2_mudd package and the image_processing package. 
+This package contains demos for keyboard controlling the drone and directing it
+into a variety of finite state machines. It relies on the ardrone2_mudd package
+and the image_processing package. In order to run this demo, you can either 
+launch everything manually, with the sequence of commands marked 'manual' below
+or launch everything via the launch file in 'launch', which can be launched
+with the sequence of commands marked 'launch' below. 
+
+Manual Launch (in any directory):
+1. Connect to the drone
+2. Run 'rosrun ardrone2_mudd driver'
+3. Run 'rosrun image_thresholder imageProcessor.py'
+4. Run 'rosrun fsmTargetApproach xyApproach.py'
+
+Launchfile:
+1. Connect to the drone
+2. Run 'rosrun ardrone2_mudd driver'
+3. Run 'roslaunch fsmTargetApproach xyApproach.launch'
+
+All the launch file does is run the image_thresholder and the finite state
+machine

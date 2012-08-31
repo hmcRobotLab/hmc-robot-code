@@ -16,7 +16,7 @@ import threading
 
 #TODO: Make this read a rosparam so it can be set from the command line,
 #TODO: in a launch file, or maybe even dynamically. 
-IMAGE_SOURCE = "ardrone2/camera/image"
+DEFAULT_IMAGE_SOURCE = "ardrone2/camera/image"
 
 #Thresholds that can never be met
 DEFAULT_THRESHOLDS = {'low_red': 5, 'high_red': 0,\
@@ -65,6 +65,17 @@ class ImageProcessor:
     self.mode        = "add"
 
     self.bufferRange = 10
+
+    # Subscribing to the video source
+    if rospy.has_param('image_source'):
+      self.image_source = rospy.get_param('image_source')
+    else:
+      self.image_source = DEFAULT_IMAGE_SOURCE
+    print "Connecting to video service"
+    rospy.Subscriber(self.image_source, Image, self.videoUpdate, queue_size = 1)
+    print "Connected"
+    
+    rospy.sleep(1)
 
   def load_thresholds(self):
     """ loads the thresholds from data.txt into self.thresholds """
@@ -443,13 +454,6 @@ def main():
   
   # Creating the image processor
   iP = ImageProcessor()
-
-  # Subscribing to the video source
-  print "Connecting to video service"
-  rospy.Subscriber(IMAGE_SOURCE, Image, iP.videoUpdate, queue_size = 1)
-  print "Connected"
-  
-  rospy.sleep(1)
 
   # The main loop
   iP.keyboardLoop()

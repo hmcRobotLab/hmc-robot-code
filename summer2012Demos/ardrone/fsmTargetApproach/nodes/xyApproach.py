@@ -22,15 +22,16 @@ class myArdrone(ardrone2.Ardrone):
       self.toleranceArea   = .001
       self.noBox           = True
       self.spinPower       = .4
-      self.forwardPower    = .3
+      self.forwardPower    = .25
 
     def loop(self):
       while not rospy.is_shutdown():
         char = self.getKeyPress(1000)
-        print "hello"
         if char == 'n':
           self.state = "start"
           self.fsm()
+        elif char == ' ':
+          self.state = "keyboard"
 
     def fsm(self,timer_event=None):
       print self.state + " " + str(self.boxX) + " " + str(self.boxHeight)
