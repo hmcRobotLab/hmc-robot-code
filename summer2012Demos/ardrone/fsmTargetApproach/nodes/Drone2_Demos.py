@@ -527,7 +527,7 @@ class DroneController:
             #rospy.sleep(.02)
             self.state = "looking"
           else:
-	    print 'STRAIT AND UP'
+	          print 'STRAIGHT AND UP'
             self.send(1,0,-.2,.1,0)
             #rospy.sleep(.02)
             self.state = "looking"

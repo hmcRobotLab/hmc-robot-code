@@ -14,15 +14,16 @@ class myArdrone(ardrone2.Ardrone):
     def __init__(self):
       ardrone2.Ardrone.__init__(self)
       self.state           = "keyboard"
-      self.xyApprData      = {"tarX": 0, "tolX": 40/320.0, \
-                              "tarHeight": 0.23, "tolHeight": 0.03, \
-                              "spinPower": 0.4, "forwardPower": 0.25 \
+      self.xyApprData      = {"tarX":      0,     "tolX": 40/320.0, \
+                              "tarY":      0,     "tolY": 0.125, \
+                              "tarHeight": 0.23,  "tolHeight": 0.03, \
+                              "spinPower": 0.4,   "forwardPower": 0.25, \
+                              "zPower":    0.5
                              }
-      self.xyzCenLandData  = {"tarX": 0, "tolX": 50/320.0, \
-                              "tarY": 0, "tolY": 50/320.0, \
-                              "landingArea": 0.6, \
-                              "zPower": 0.4, "yPower": 0.09, \
-                              "xPower": 0.09\
+      self.xyzCenLandData  = {"tarX":        0,   "tolX":   50/320.0, \
+                              "tarY":        0,   "tolY":   50/320.0, \
+                              "landingArea": 0.6, "zPower": 0.4,
+                              "yPower": 0.09,     "xPower": 0.09\
                              }
       self.boxX            = float("inf")
       self.boxY            = float("inf")
@@ -125,10 +126,15 @@ class myArdrone(ardrone2.Ardrone):
           self.state = "searching"
         elif abs(self.boxX - data["tarX"]) > data["tolX"]:
           self.state = "closing_in"
-        elif data["tarHeight"] - self.boxHeight > data["tolHeight"]:
-          self.forward(data["forwardPower"])
         else:
-          self.state = "landing"
+          if data["tarY"] - self.boxY > data["tolY"]:
+            self.up(data["zPower"])
+          elif self.boxY - data["tarY"] > data["tolY"]:
+            self.down(data["zPower"])
+          elif data["tarHeight"] - self.boxHeight > data["tolHeight"]:
+            self.forward(data["forwardPower"])
+          else:
+            self.state = "landing"
       elif self.state == "landing":
         self.hover()
         rospy.sleep(.25)
@@ -163,8 +169,8 @@ class myArdrone(ardrone2.Ardrone):
           if self.cameraNumber == 0:
             self.boxX    = c
           elif self.cameraNumber == 1:
-            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - self.downCamLensAng/2.0))/(2*self.downCamLensAng/2.0)
-          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - self.downCamLensAng/2.0))/(2*self.downCamLensAng/2.0)
+            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - self.camAng()/2.0))/(2*self.camAng()/2.0)
+          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - self.camAng()/2.0))/(2*self.camAng()/2.0)
           self.boxHeight = height
           self.area      = area
 
