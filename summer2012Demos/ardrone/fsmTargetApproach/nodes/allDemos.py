@@ -36,7 +36,7 @@ class myArdrone(ardrone2.Ardrone):
         if char == 'n':
           self.state = "start"
           self.xyAppr()
-        if char == 'm':
+        elif char == 'm':
           self.state = "start"
           self.setCam(1)
           self.xyzCenLand()
@@ -52,7 +52,7 @@ class myArdrone(ardrone2.Ardrone):
         self.land()
         return
       elif self.state == "start":
-        #self.takeoff()
+        self.takeoff()
         self.state = "scanning"
       elif self.state == "scanning":
         if self.noBox:
@@ -160,11 +160,11 @@ class myArdrone(ardrone2.Ardrone):
           d              =  0.5 - centerY 
           # The formulas below are designed to account for the fact that as the drone tilts, the image it 
           # recieves are not actually where the drone thinks they are. 
-          self.boxX      = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - radians(32)))/(2*tan(radians(32)))
           if self.cameraNumber == 0:
-            self.boxY    = d
+            self.boxX    = c
           elif self.cameraNumber == 1:
-            self.boxY    = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - radians(32)))/(2*tan(radians(32)))
+            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - radians(32)))/(2*tan(radians(32)))
+          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - radians(32)))/(2*tan(radians(32)))
           self.boxHeight = height
           self.area      = area
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from roslib.packages import get_pkg_dir
-import sys, math
+import sys
+from math import tan, radians
 
 sys.path = [get_pkg_dir('ardrone2_mudd')+"/nodes"]+sys.path
 
@@ -13,13 +14,13 @@ class myArdrone(ardrone2.Ardrone):
     def __init__(self):
       ardrone2.Ardrone.__init__(self)
       self.state           = "keyboard"
-      self.xyApprData      = {"tarX": 0.5, "tolX": 40/320.0, \
+      self.xyApprData      = {"tarX": 0, "tolX": 40/320.0, \
                               "tarHeight": 0.23, "tolHeight": 0.03, \
                               "spinPower": 0.4, "forwardPower": 0.25 \
                              }
-      self.xyzCenLandData  = {"tarX": 0.5, "tolX": 50/320.0, \
-                              "tarY": 0.5, "tolY": 50/320.0, \
-                              "landingArea": 0.5, \
+      self.xyzCenLandData  = {"tarX": 0, "tolX": 50/320.0, \
+                              "tarY": 0, "tolY": 50/320.0, \
+                              "landingArea": 0.6, \
                               "zPower": 0.4, "yPower": 0.09, \
                               "xPower": 0.09\
                              }
@@ -32,9 +33,6 @@ class myArdrone(ardrone2.Ardrone):
     def loop(self):
       while not rospy.is_shutdown():
         char = self.getKeyPress(1000)
-        if char == 'n':
-          self.state = "start"
-          self.xyAppr()
         if char == 'm':
           self.state = "start"
           self.setCam(1)
@@ -95,47 +93,6 @@ class myArdrone(ardrone2.Ardrone):
           self.state = "scanning"
       rospy.Timer( rospy.Duration(0.01), self.xyzCenLand, oneshot=True )
 
-    def xyAppr(self,timer_event=None):
-      """ the finite state machine that finds the landmark in the xy-plane
-          and approaches it, then lands """
-      data = self.xyApprData
-      print self.state + " " + str(self.boxX) + " " + str(self.boxHeight)
-      if self.state == "keyboard":
-        return
-      elif self.state == "start":
-        self.takeoff()
-        self.state = "searching"
-      elif self.state == "searching":
-        if self.noBox:
-          self.spinLeft(data["spinPower"])
-        else:
-          self.state = "closing_in"
-      elif self.state == "closing_in":
-        if abs(self.boxX - data["tarX"]) < data["tolX"]:
-          self.state = "approaching"
-        elif self.boxX > data["tarX"]:
-          print "right"
-          self.spinRight(data["spinPower"]/2)
-        else:
-          print "left"
-          self.spinLeft(data["spinPower"]/2)
-      elif self.state == "approaching":
-        if self.noBox:
-          self.state = "searching"
-        elif abs(self.boxX - data["tarX"]) > data["tolX"]:
-          self.state = "closing_in"
-        elif data["tarHeight"] - self.boxHeight > data["tolHeight"]:
-          self.forward(data["forwardPower"])
-        else:
-          self.state = "landing"
-      elif self.state == "landing":
-        self.hover()
-        rospy.sleep(.25)
-        self.land()
-        self.state = "keyboard"
-
-      rospy.Timer( rospy.Duration(0.01), self.xyAppr, oneshot=True )
-
     def bBoxUpdate(self, data):
         #Format is: "CenterX (in percent of box width) CenterY (in percent of box height)
         #            Area (in percent of box area) LeftEdge (in percent of box width)
@@ -155,13 +112,20 @@ class myArdrone(ardrone2.Ardrone):
           self.area      = 0
         else:
           self.noBox     = False
-          self.boxX      = centerX
-          self.boxY      = centerY
+          c              =  0.5 - centerX 
+          d              =  0.5 - centerY 
+          # The formulas below are designed to account for the fact that as the drone tilts, the image it 
+          # recieves are not actually where the drone thinks they are. 
+          if self.cameraNumber == 0:
+            self.boxX    = c
+          elif self.cameraNumber == 1:
+            self.boxX    = (tan(-self.phi)*(1-2*c) + 2*c*tan(-self.phi - radians(32)))/(2*tan(radians(32)))
+          self.boxY      = (tan(-self.theta)*(1-2*d) + 2*d*tan(-self.theta - radians(32)))/(2*tan(radians(32)))
           self.boxHeight = height
           self.area      = area
 
 if __name__== "__main__":
-  drone = myArdrone()
+  drone = myArdrone)
   print "\r Connecting to bounding box data"
   rospy.Subscriber("imageData",String,drone.bBoxUpdate,queue_size=1)
   print "Ready"
