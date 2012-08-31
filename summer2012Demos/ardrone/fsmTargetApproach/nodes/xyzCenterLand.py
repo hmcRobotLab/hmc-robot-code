@@ -125,7 +125,7 @@ class myArdrone(ardrone2.Ardrone):
           self.area      = area
 
 if __name__== "__main__":
-  drone = myArdrone)
+  drone = myArdrone()
   print "\r Connecting to bounding box data"
   rospy.Subscriber("imageData",String,drone.bBoxUpdate,queue_size=1)
   print "Ready"
