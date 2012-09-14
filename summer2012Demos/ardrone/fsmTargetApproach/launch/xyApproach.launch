@@ -1,0 +1,6 @@
+<launch>
+  <node name="imageProccessing" pkg="image_thresholder" type="imageProcessor.py" respawn="true" output="screen">
+    <param name="image_source" value="/ardrone2/camera/image"/> <!-- This is just to ensure it loads the drone image, not some previously set value -->
+  </node>
+  <node name="fsm" pkg="fsmTargetApproach" type="xyApproach.py" required="true" output="screen"/>
+</launch>
